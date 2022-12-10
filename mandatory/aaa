@@ -1,0 +1,6 @@
+parser
+lexer
+expand echo $PWD
+envp
+builtin or not
+おやかこ

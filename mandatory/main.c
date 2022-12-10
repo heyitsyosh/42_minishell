@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/07 00:06:16 by myoshika         ###   ########.fr       */
+/*   Created: 2022/12/01 23:27:12 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/09 18:09:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "./get_next_line.h"
-# include "./ft_printf.h"
+int	main(int argc, char **argv, char **envp)
+{
+	char		*line;
+	t_minishell	m;
 
-typedef struct s_minishell{
-	char	*line;
-}	t_minishell;
-
-#endif
+	while (argc && argv)
+	{
+		signal_handling();
+		line = readline("minishell>");
+		if (!line)
+			return (exit_minishell(m));
+		if (*line != '\0')
+			add_history(line);
+		lexer(line, &m);
+		parser(&m);
+		free(line);
+	}
+	exit();
+}

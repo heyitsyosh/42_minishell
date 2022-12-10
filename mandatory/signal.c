@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/07 00:06:16 by myoshika         ###   ########.fr       */
+/*   Created: 2022/12/09 18:09:27 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/09 18:13:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "./get_next_line.h"
-# include "./ft_printf.h"
-
-typedef struct s_minishell{
-	char	*line;
-}	t_minishell;
-
-#endif
+void	signal_handling()
+{
+	if (signal())
+		exit();
+	if (signal()==)
+		exit();
+}

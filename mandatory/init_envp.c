@@ -6,28 +6,28 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 00:51:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/12 01:26:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
 
-static void	set_shlvl(t_env *envp)
-{
-	int	old_lvl;
+// static void	set_shlvl(t_env *envp)
+// {
+// 	int	old_lvl;
 
-	while (envp)
-	{
-		if (!strcmp(envp->var, "SHLVL"))
-		{
-			ft_strtol();
+// 	while (envp)
+// 	{
+// 		if (!strcmp(envp->var, "SHLVL"))
+// 		{
+// 			ft_strtol();
 			
-			break ;
-		}
-		envp = envp->next
-	}
-}
+// 			break ;
+// 		}
+// 		envp = envp->next
+// 	}
+// }
 
 static t_env	*make_node(char	*envp)
 {
@@ -86,5 +86,5 @@ void	init_shell(t_minishell *m, char **envp)
 		printf("%s=%s\n", m->envp_head->var, m->envp_head->string);
 		m->envp_head = m->envp_head->next;
 	}
-	set_shlvl(m->envp_head);
+	// set_shlvl(m->envp_head);
 }

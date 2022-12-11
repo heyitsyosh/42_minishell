@@ -6,15 +6,20 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:27:12 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 00:28:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/12 01:25:37 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// execute_line(char *line, )
+// void	unset(char *id, m)
 // {
 	
+// }
+
+// execute_line(char *line, t_minishell *m)
+// {
+// 	unset(id, m->envp_head);
 // }
 
 int	main(int argc, char **argv, char **envp)
@@ -37,15 +42,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	//exit();
 }
-
-/*
-SHLVL 設定
-PWD/OLDPWDを設定するいみを調べる
-
-env
-unset/export機能
-
-lexer：lineを分ける
-
-list vs char **
-*/

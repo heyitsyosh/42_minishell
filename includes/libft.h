@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:29:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 00:43:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/12 01:27:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <errno.h>
 
 typedef struct s_list
 {
@@ -77,6 +78,6 @@ int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 void	ft_safe_free(char **pointer);
 int		ft_strcmp(const char *s1, const char *s2);
-long	strtol(const char *nptr, char **endptr, int base)
+long	strtol(const char *nptr, char **endptr, int base);
 
 #endif

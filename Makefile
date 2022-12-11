@@ -9,8 +9,9 @@ DIR = ./mandatory
 
 FT_PRINTF = ./lib/printf/libftprintf.a -L$(PRINTFDIR) -lftprintf
 GNL = ./lib/gnl/get_next_line.a
+READLINE = -lreadline
 
-FILES = main\
+FILES = main_m
 # BONUS_FILES = 
 
 SRCS = $(foreach src,$(FILES),./mandatory/$(src).c)
@@ -28,7 +29,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	make -C $(PRINTFDIR)
 	make -C $(GNLDIR)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(FT_PRINTF) $(GNL)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(FT_PRINTF) $(GNL) $(READLINE)
 
 # bonus: $(BONUS_NAME)
 

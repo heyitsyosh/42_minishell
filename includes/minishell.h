@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/07 00:06:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/12 00:29:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,18 @@
 # include "./get_next_line.h"
 # include "./ft_printf.h"
 
+typedef struct s_env{
+	char			*var;
+	char			*string;
+	struct s_env	*next;
+	struct s_env	*prev;
+}	t_env;
+
 typedef struct s_minishell{
 	char	*line;
+	t_env	*envp_head;
 }	t_minishell;
+
+void	init_shell(t_minishell *m, char **envp);
 
 #endif

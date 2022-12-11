@@ -11,7 +11,8 @@ FT_PRINTF = ./lib/printf/libftprintf.a -L$(PRINTFDIR) -lftprintf
 GNL = ./lib/gnl/get_next_line.a
 READLINE = -lreadline
 
-FILES = main_m
+FILES = main_m\
+		init_envp
 # BONUS_FILES = 
 
 SRCS = $(foreach src,$(FILES),./mandatory/$(src).c)

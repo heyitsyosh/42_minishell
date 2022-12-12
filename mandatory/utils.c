@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_m.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 23:27:12 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 19:06:26 by myoshika         ###   ########.fr       */
+/*   Created: 2022/12/12 03:42:20 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/12 18:33:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_line(char *line, t_minishell *m)
+bool	str_is_num(char *str)
 {
-	tokenize(line, m);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	char		*line;
-	t_minishell	m;
-
-	init_envp(&m, envp);
-	while (argc && argv)
+	if (!str)
+		return (false);
+	if (*str == '+' || *str == '-')
+		str++;
+	while (*str)
 	{
-		set_signal_handlers();
-		line = readline("minishell>");
-		if (!line)
-			break ;
-			// return (exit_minishell(m));
-		if (*line != '\0')
-			add_history(line);
-		execute_line(line, &m);
-		free(line);
+		if ('0' > *str || *str > '9')
+			return (false);
+		str++;
 	}
+	return (true);
 }

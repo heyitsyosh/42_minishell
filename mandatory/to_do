@@ -1,0 +1,34 @@
+lexer
+expand
+parser
+envp
+builtin or not
+親か子
+
+[✓]SHLVL設定
+PWD/OLDPWDを設定する意味を調べる
+
+env/unset/export機能
+{
+	get_env
+	見つけたらノードを返すor NULL
+	(expandでも使う予定)
+
+	env
+	ft_printfを使い、envリストの出力をする
+
+	export
+	見つかったらstringを書き換える
+	見つからなかったらnodeを後ろに足す
+
+	unset
+	見つかったらノードを消す
+	この時、消すノードがヘッドであればそれにあった対応をする
+}
+
+execveの時のために、envリストをダブルポインタに変換する関数を作る
+
+lexer: lineを分ける
+
+ちょっとしたアイデア
+malloc を　別の関数にし、エラーがあればそれにあうexitなどをする

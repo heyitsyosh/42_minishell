@@ -3,15 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 04:35:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:13:41 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
+
+static bool	str_is_num(char *str)
+{
+	if (!str)
+		return (false);
+	if (*str == '+' || *str == '-')
+		str++;
+	while (*str)
+	{
+		if ('0' > *str || *str > '9')
+			return (false);
+		str++;
+	}
+	return (true);
+}
 
 //kuriagari is Japanese for carrying a digit over during addition
 static void	set_shlvl(t_env *shlvl)
@@ -19,11 +34,11 @@ static void	set_shlvl(t_env *shlvl)
 	size_t	shlvl_len;
 	bool	kuriagari;
 
-	if (!shlvl)
+	if (!shlvl || !str_is_num(shlvl->str))
 		return ;
 	shlvl_len = ft_strlen(shlvl->str);
 	kuriagari = true;
-	while (shlvl_len-- && ft_isdigit(shlvl->str[shlvl_len]) && kuriagari)
+	while (shlvl_len-- && kuriagari)
 	{
 		shlvl->str[shlvl_len] += 1;
 		if (shlvl->str[shlvl_len] == '9' + 1)
@@ -31,7 +46,7 @@ static void	set_shlvl(t_env *shlvl)
 		else
 			kuriagari = false;
 	}
-	if (ft_isdigit(shlvl->str[shlvl_len]) && kuriagari)
+	if (kuriagari)
 		shlvl->str = ft_strjoin_with_free("1", shlvl->str, FREE_SECOND_PARAM);
 	//error handle <shlvl->str> malloc error
 }
@@ -92,4 +107,6 @@ void	init_shell(t_minishell *m, char **envp)
 {
 	m->envp_head = make_envp_list(envp);
 	set_shlvl(get_env("SHLVL", m->envp_head));
+	//set oldpwd if nonexistent?
+	//set pwd if nonexistent?
 }

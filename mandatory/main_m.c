@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_m.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:27:12 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 15:45:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:22:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 	
 // }
 
-// execute_line(char *line, t_minishell *m)
-// {
+execute_line(char *line, t_minishell *m)
+{
 	
-// }
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 			// return (exit_minishell(m));
 		if (*line != '\0')
 			add_history(line);
-		// execute_line(line, &m);
+		execute_line(line, &m);
 		free(line);
 	}
 }

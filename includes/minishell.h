@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 00:29:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/12 03:26:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include "./get_next_line.h"
 # include "./ft_printf.h"
 
+//envp interpreted as: <var>=<str>
 typedef struct s_env{
 	char			*var;
-	char			*string;
+	char			*str;
 	struct s_env	*next;
 	struct s_env	*prev;
 }	t_env;

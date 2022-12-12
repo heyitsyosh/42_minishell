@@ -1,43 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_m.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 23:27:12 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 15:45:49 by myoshika         ###   ########.fr       */
+/*   Created: 2022/12/12 03:42:20 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/12 03:51:26 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <signal.h>
 
-// void	unset(char *id, m)
-// {
-	
-// }
-
-// execute_line(char *line, t_minishell *m)
-// {
-	
-// }
-
-int	main(int argc, char **argv, char **envp)
+static void	handler(int signal)
 {
-	char		*line;
-	t_minishell	m;
+	//interrupt! go back to previous state (don't apply any changes unless command already fulfilled)
+	//delete line, show prompt, handle so no leaks
+}
 
-	init_shell(&m, envp);
-	while (argc && argv)
-	{
-		set_signal_handlers();
-		line = readline("minishell>");
-		if (!line)
-			break ;
-			// return (exit_minishell(m));
-		if (*line != '\0')
-			add_history(line);
-		// execute_line(line, &m);
-		free(line);
-	}
+void	set_signal_handlers(void)
+{
+	if (signal(SIGINT, &handler) == SIG_ERR)
+		exit (1);
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		exit (1);
 }

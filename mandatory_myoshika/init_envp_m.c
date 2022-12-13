@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_envp_m.c                                      :+:      :+:    :+:   */
+/*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/13 17:58:51 by cshono           ###   ########.fr       */
+/*   Updated: 2022/12/12 19:08:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	set_shlvl(t_env *shlvl)
 	{
 		shlvl->str[shlvl_len] += 1;
 		if (shlvl->str[shlvl_len] == '9' + 1)
-			shlvl->str[shlvl_len] = '0'; 
+			shlvl->str[shlvl_len] = '0';
 		else
 			kuriagari = false;
 	}
@@ -41,13 +41,13 @@ t_env	*make_node(char	*envp)
 	t_env	*new_node;
 	char	*ptr_to_equal_sign;
 
-	ptr_to_equal_sign = ft_strchr(envp, '=');//envの=以降の文字列が返る。
-	if (!ptr_to_equal_sign)//↑のエラー処理。
+	ptr_to_equal_sign = ft_strchr(envp, '=');
+	if (!ptr_to_equal_sign)
 		return (NULL);
-	new_node = malloc(sizeof(t_env));//new_nodeのメモリを確保。
+	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->var = ft_substr(envp, 0, ptr_to_equal_sign - envp);//ptr_=/users...
+	new_node->var = ft_substr(envp, 0, ptr_to_equal_sign - envp);
 	new_node->str = ft_strdup(ptr_to_equal_sign + 1);
 	new_node->next = NULL;
 	new_node->prev = NULL;

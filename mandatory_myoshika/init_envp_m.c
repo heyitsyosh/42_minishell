@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_envp.c                                        :+:      :+:    :+:   */
+/*   init_envp_m.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 19:08:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/14 01:28:18 by cshono           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static t_env	*make_envp_list(char	**envp)
 			envp_head = new_node;
 			envp_tail = new_node;
 		}
-		node_add_back(envp_tail, new_node);
+		node_add_back(envp_tail, new_node);//
 		envp_tail = new_node;
 		i++;
 	}

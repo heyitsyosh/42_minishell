@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/17 03:58:51 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 23:41:40 by cshono           ###   ########.fr       */
+/*   Created: 2022/12/12 01:33:26 by cshono            #+#    #+#             */
+/*   Updated: 2022/12/12 19:06:57 by cshono           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../includes/minishell.h"
 
-char	*ft_strdup(const char *s1)
+static t_env *ft_unset(char *str, t_env *env)
 {
-	char	*dup;
+	int	i;
 
-	dup = (char *)malloc(ft_strlen(s1) + 1);
-	if (dup != NULL)
-		ft_strlcpy(dup, s1, ft_strlen(s1) + 1);
-	return (dup);
+	i = 0;
+	while (env->next != '\0')
+	{
+		if (env->string == str)
+	}
+	while (str != env->string)
+	{
+		env = env->next
+
+	}
+	env = env->prev;
+
 }

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   main_c.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/17 03:58:51 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 23:41:40 by cshono           ###   ########.fr       */
+/*   Created: 2022/12/11 21:05:41 by cshono            #+#    #+#             */
+/*   Updated: 2022/12/13 17:30:52 by cshono           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+int	main(int argc, char *argv[], char **envp)
 {
-	char	*dup;
-
-	dup = (char *)malloc(ft_strlen(s1) + 1);
-	if (dup != NULL)
-		ft_strlcpy(dup, s1, ft_strlen(s1) + 1);
-	return (dup);
+	char 		*str;
+	t_prompt	prompt;
+	while (argv && argc)
+	{
+		str = readline("minishell $ ");
+		if (!check_args(str, &prompt))
+			break;
+	}
+	exit()
 }

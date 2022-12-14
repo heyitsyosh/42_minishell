@@ -6,7 +6,7 @@
 /*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:04 by cshono            #+#    #+#             */
-/*   Updated: 2022/12/14 01:22:23 by cshono           ###   ########.fr       */
+/*   Updated: 2022/12/14 15:54:21 by cshono           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,14 @@ void	export(char *line, t_env *env)//pwd=chihiro, t_env
 	//tmp = get_env(line, get_env)
 	str = (char *)malloc(sizeof(char)*ft_strlen(line));
 	while (line[i] != '=')
-		str[i] = line[i++];//mallocでメモリを確保する必要あり。
+	{
+		str[i] = line[i];
+		i++;
+	}//mallocでメモリを確保する必要あり。
 	str[i] = '\0';
-	tmp = get_env(str, env);//同じenvがあればその場所のポインタを返してくれる。
-	if(!tmp)//同じenvがなかった場合
-		node_add_back(env, tmp);
+	str = check_export(str);
+	// tmp = get_env(str, env);//同じenvがあればその場所のポインタを返してくれる。
+	// if(!tmp)//同じenvがなかった場合
+	// 	node_add_back(env, tmp);
 	//free(tmp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/14 01:28:03 by cshono           ###   ########.fr       */
+/*   Updated: 2022/12/16 00:44:50 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,45 @@ typedef struct s_env{
 	struct s_env	*prev;
 }	t_env;
 
+typedef struct s_command{
+	char	*command;
+	char	*exec_path;
+	int		priority;
+	int		infile;
+	int		outfile;
+}	t_command;
+
+
+typedef enum	e_type{
+	GENERAL,
+	PIPE,
+	GREATER,
+	LESSER,
+	HEREDOC,
+	APPEND,
+	AND,
+	OR,
+	LEFT_PARENTHESIS,
+	RIGHT_PARENTHESIS,
+	INFILE,
+	OUTFILE,
+}	t_type;
+
+typedef struct s_token{
+	char			*token;
+	int				type;
+	int				priority;
+	t_command		*cmd;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
+
 typedef struct s_minishell{
 	char	*line;
+	char	*old_pwd;
+	char	*pwd;
 	t_env	*envp_head;
+	t_token	*token_head;
 }	t_minishell;
 
 void	init_shell(t_minishell *m, char **envp);

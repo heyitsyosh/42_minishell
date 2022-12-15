@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:20:06 by myoshika          #+#    #+#             */
-/*   Updated: 2022/09/22 22:41:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/15 22:40:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
-
-static int	is_whitespace(char c)
-{
-	return (c == 32 || (9 <= c && c <= 13));
-}
 
 static long	make_l(const char *str, size_t i, int sign, long num)
 {
@@ -44,7 +39,7 @@ int	ft_atoi(const char *str)
 
 	sign = 1;
 	i = 0;
-	while (is_whitespace(*(str + i)))
+	while (ft_isspace(*(str + i)))
 		i++;
 	if ((*(str + i) == '+' || *(str + i) == '-') && *(str + i))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/16 00:44:50 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/17 08:43:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 //envp interpreted as: <var>=<str>
 typedef struct s_env{
-	char			*var;
+	char			*id;
 	char			*str;
 	struct s_env	*next;
 	struct s_env	*prev;
@@ -35,8 +35,7 @@ typedef struct s_command{
 	int		outfile;
 }	t_command;
 
-
-typedef enum	e_type{
+typedef enum e_type{
 	GENERAL,
 	PIPE,
 	GREATER,
@@ -48,7 +47,7 @@ typedef enum	e_type{
 	LEFT_PARENTHESIS,
 	RIGHT_PARENTHESIS,
 	INFILE,
-	OUTFILE,
+	OUTFILE
 }	t_type;
 
 typedef struct s_token{
@@ -68,8 +67,13 @@ typedef struct s_minishell{
 	t_token	*token_head;
 }	t_minishell;
 
-void	init_shell(t_minishell *m, char **envp);
+void	init_envp(char **envp, t_minishell *m);
+void	free_all_and_exit(t_minishell *m);
 
-bool	str_is_num(char *str);
+t_env	*get_env(char *var, t_env *env);
+void	free_envs(t_env *env);
+void	free_tokens(t_token *token);
+void	node_add_back(t_env *envp, t_env *new_node);
+t_env	*make_node(char	*envp);
 
 #endif

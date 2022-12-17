@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 03:42:20 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 18:33:20 by myoshika         ###   ########.fr       */
+/*   Created: 2022/12/16 21:13:21 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/16 22:01:48 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-bool	str_is_num(char *str)
+void	free_tokens(t_token *token)
 {
-	if (!str)
-		return (false);
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str)
+	while (token)
 	{
-		if ('0' > *str || *str > '9')
-			return (false);
-		str++;
+		free(token->token);
+		if (token->cmd)
+		{
+			free((token->cmd)->command);
+			free((token->cmd)->exec_path);
+			free(token->cmd);
+		}
+		token = token->next;
 	}
-	return (true);
 }

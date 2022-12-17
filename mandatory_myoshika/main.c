@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_m.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:27:12 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/16 00:17:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/18 02:01:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	free_all_and_exit(t_minishell *m)
 		free(m->old_pwd);
 	if (m->pwd)
 		free(m->pwd);
-	// if (m->envp_head)
-	// 	free
-	// if (exit)
+	if (m->envp_head)
+		free_envs(m->envp_head);
+	if (m->token_head)
+		free_tokens(m->token_head);
+	//exitの挙動をそろえる
 }
 
 void	execute_line(t_minishell *m)
@@ -35,18 +37,18 @@ int	main(int argc, char **argv, char **envp)
 	t_minishell	m;
 
 	ft_bzero(&m, sizeof(t_minishell));
-	init_envp(&m, envp);
+	init_envp(envp, &m);
 	while (argc && argv)
 	{
 		set_signal_handlers();
 		m.line = readline("minishell>");
 		if (!m.line)
-			break ;
-			// return (exit_minishell(m));
+			free_all_and_exit(&m);
 		if (*m.line != '\0')
 			add_history(m.line);
 		execute_line(&m);
 		ft_safe_free(m.line);
+		free_tokens(m.token_head);
 	}
 	free_all_and_exit(&m);
 }

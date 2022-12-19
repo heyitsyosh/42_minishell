@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 21:13:21 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/16 22:01:48 by myoshika         ###   ########.fr       */
+/*   Created: 2022/05/28 07:44:25 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/15 22:40:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/libft.h"
 
-void	free_tokens(t_token *token)
+int	isspace(int c)
 {
-	while (token)
-	{
-		free(token->token);
-		if (token->cmd)
-		{
-			free((token->cmd)->command);
-			free((token->cmd)->exec_path);
-			free(token->cmd);
-		}
-		token = token->next;
-	}
+	return (c == 32 || (9 <= c && c <= 13));
 }

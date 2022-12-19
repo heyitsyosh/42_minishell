@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 04:35:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/18 02:01:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:47:19 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,72 +27,6 @@ static int	get_type(char *cursor)
 	else if (*cursor == '&')
 		return (AND);
 	return (GENERAL);
-}
-
-// static char	*extract_quoted_str()
-// {
-	
-// }
-
-// static char	*extract_non_operator_token(char *cursor, t_token *t)
-// {
-// 	size_t		i;
-// 	char		*token;
-
-// 	i = 0;
-// 	while (cursor[i] && !ft_strchr("|<>()", cursor[i]))
-// 	{
-// 		if (cursor[i] == '\'' && ft_strchr(&cursor[i + 1], '\''))
-			
-// 		if (cursor[i] == '\"' && ft_strchr(&cursor[i + 1], '\"'))
-			
-// 		i++;
-// 	}
-// 	return (token);
-// }
-
-static char	*extract_operator_token_ii(char *cursor, t_token *t)
-{
-	if (t->type == GREATER && cursor[1] == '>')
-	{
-		t->type = APPEND;
-		return (ft_strdup(">>"));
-	}
-	else if (t->type == GREATER)
-		return (ft_strdup(">"));
-	else if (t->type == LESSER && cursor[1] == '<')
-	{
-		t->type = HEREDOC;
-		return (ft_strdup("<<"));
-	}
-	else if (t->type == LESSER)
-		return (ft_strdup("<"));
-	else
-		return (extract_non_operator_token(cursor, t));
-}
-
-static char	*extract_operator_token(char *cursor, t_token *t)
-{
-	if (t->type == AND && cursor[1] == '&')
-	{
-		t->type = AND;
-		return (ft_strdup("&&"));
-	}
-	else if (t->type == AND)
-		t->type = GENERAL;
-	else if (t->type == PIPE && cursor[1] == '|')
-	{
-		t->type = OR;
-		return (ft_strdup("||"));
-	}
-	else if (t->type == PIPE)
-		return (ft_strdup("|"));
-	else if (t->type == LEFT_PARENTHESIS)
-		return (ft_strdup("("));
-	else if (t->type == RIGHT_PARENTHESIS)
-		return (ft_strdup(")"));
-	else
-		return (extract_operator_token_ii(cursor, t));
 }
 
 static size_t	fill_token_info(t_token *t, char *cursor)
@@ -139,7 +73,6 @@ void	tokenize(char *line, t_minishell *m)
 	// ()
 	// ""
 	// ''
-	
 	/*
 	${PWD} $(PWD) $[PWD]
 	< (echo "a" || cat "b")

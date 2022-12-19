@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:29:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/16 22:01:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:51:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ void	ft_safe_free(char **pointer);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_ltoa(long n);
 long	ft_strtol(const char *nptr, char **endptr, int base);
-int		isspace(int c);
+int		ft_isspace(int c);
 
 #endif

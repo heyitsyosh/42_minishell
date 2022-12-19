@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/19 16:46:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:37:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_token{
 	char			*token;
 	int				type;
 	int				priority;
+	size_t			total_quotes;
 	t_command		*cmd;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -68,7 +69,6 @@ typedef struct s_minishell{
 }	t_minishell;
 
 void	init_envp(char **envp, t_minishell *m);
-void	free_all_and_exit(t_minishell *m);
 
 void	tokenize(char *line, t_minishell *m);
 char	*extract_operator_token(char *cursor, t_token *t);
@@ -76,7 +76,7 @@ char	*extract_operator_token(char *cursor, t_token *t);
 t_env	*get_env(char *var, t_env *env);
 void	free_envs(t_env *env);
 void	free_tokens(t_token *token);
-void	node_add_back(t_env *envp, t_env *new_node);
-t_env	*make_node(char	*envp);
+void	env_add_back(t_env *envp, t_env *new_node);
+t_env	*make_env_node(char	*envp);
 
 #endif

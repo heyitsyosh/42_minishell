@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/16 21:13:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:37:26 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ void	free_envs(t_env *env)
 	}
 }
 
-void	node_add_back(t_env *envp, t_env *new_node)
+void	env_add_back(t_env *envp, t_env *env_to_add)
 {
-	if (envp == new_node)
+	if (envp == env_to_add || !envp || !env_to_add)
 		return ;
 	while (envp->next)
 		envp = envp->next;
-	envp->next = new_node;
-	new_node->prev = envp;
+	envp->next = env_to_add;
+	env_to_add->prev = envp;
 }
 
-t_env	*make_node(char	*envp)
+t_env	*make_env_node(char	*envp)
 {
 	t_env	*new_node;
 	char	*ptr_to_equal_sign;
@@ -57,7 +57,7 @@ t_env	*make_node(char	*envp)
 		return (NULL);
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	new_node->id = ft_substr(envp, 0, ptr_to_equal_sign - envp);
 	new_node->str = ft_strdup(ptr_to_equal_sign + 1);
 	new_node->next = NULL;

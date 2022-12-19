@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 04:35:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/19 16:47:19 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:23:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,18 @@ static size_t	fill_token_info(t_token *t, char *cursor)
 	t->type = get_type(t->token);
 	t->token = extract_token(cursor, t);
 	if (t->token)
-		token_len = ft_strlen(t->token);
+		token_len = ft_strlen(t->token) + t->total_quotes * 2;
 	return (token_len);
+} //returning token_len doesn't account for quoted strings
+
+static	void token_add_back
+{
+	if (envp == new_node)
+		return ;
+	while (envp->next)
+		envp = envp->next;
+	envp->next = new_node;
+	new_node->prev = envp;
 }
 
 void	tokenize(char *line, t_minishell *m)
@@ -48,6 +58,7 @@ void	tokenize(char *line, t_minishell *m)
 	t_token	*new_token;
 
 	i = 0;
+	m->token_head = NULL;
 	while (line[i])
 	{
 		while (ft_isspace(line[i]))
@@ -56,10 +67,13 @@ void	tokenize(char *line, t_minishell *m)
 			break ;
 		new_token = malloc(sizeof(t_token));
 		if (!new_token)
-			free_all_and_exit(m);
+			exit(EXIT_SUCCESS);
 		i += fill_token_info(new_token, line[i]);
 		if (!new_token->token)
-			free_all_and_exit(m);
+			exit(EXIT_SUCCESS);
+		if (!m->token_head)
+			m->token_head = new_token;
+		token_add_back(m->token_head, new_node)
 	}
 }
 

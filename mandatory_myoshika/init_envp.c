@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/18 01:59:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:28:51 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//need to error handle <ltoa> malloc error
 static void	set_shlvl(t_env *shlvl, t_minishell *m)
 {
 	int64_t	original_shlvl;
@@ -27,29 +26,29 @@ static void	set_shlvl(t_env *shlvl, t_minishell *m)
 	free(shlvl->str);
 	shlvl->str = ft_ltoa(original_shlvl);
 	if (!shlvl->str)
-		free_all_and_exit(m);
+		exit(EXIT_SUCCESS);
 }
 
 static t_env	*make_envp_list(char **envp, t_minishell *m)
 {
 	size_t	i;
-	t_env	*new_node;
+	t_env	*new_env;
 	t_env	*envp_head;
 	t_env	*envp_tail;
 
 	i = 0;
 	while (envp[i])
 	{
-		new_node = make_node(envp[i]);
-		if (!new_node || !new_node->id || !new_node->str)
-			free_all_and_exit(m);
+		new_env = make_env_node(envp[i]);
+		if (!new_env || !new_env->id || !new_env->str)
+			exit(EXIT_FAILURE);
 		if (i == 0)
 		{
-			envp_head = new_node;
-			envp_tail = new_node;
+			envp_head = new_env;
+			envp_tail = new_env;
 		}
-		node_add_back(envp_tail, new_node);
-		envp_tail = new_node;
+		env_add_back(envp_tail, new_env);
+		envp_tail = new_env;
 		i++;
 	}
 	return (envp_head);

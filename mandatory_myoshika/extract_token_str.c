@@ -6,32 +6,57 @@
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/19 17:10:41 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:31:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*extract_quoted_str(char *cursor, char quote_type)
+static size_t	attatch_unquoted_str(char **token, char *cursor)
 {
-	return (ft_substr(cursor[i], 0, cursor + i - ));
+	size_t	len;
+	char	*str;
+
+	len = 0;
+	while (!ft_strchr("|<>()'\"", cursor[len]) && )
+		len++;
+	str = ft_substr(cursor, 0, len);
+	if (token)
+		*token = ft_strjoin_with_free(*token, str, FREE_FIRST_PARAM);
+	free(str);
+	return (len);
 }
 
+static size_t	attatch_quoted_str(char **token, char *cursor, char quote_type, t_token *t)
+{
+	size_t	len;
+	char	*quoted_str;
+
+	len = cursor - ft_strchr(cursor, quote_type);
+	// if (*(cursor + len - 1) == ft_strchr(cursor, quote_type)
+	quoted_str = ft_substr(cursor, 0, len);
+	if (token)
+		*token = ft_strjoin_with_free(*token, quoted_str, FREE_FIRST_PARAM);
+	free(quoted_str);
+	t->total_quotes++;
+	return (len + 2);
+}
+
+//strchr to find the closing quote/dquote doesn't make sense with backslash
 static char	*extract_non_operator_token(char *cursor, t_token *t)
 {
-	size_t		i;
 	char		*token;
 
-	i = 0;
-	while (!ft_strchr("|<>()", cursor[i]) && !ft_isspace(cursor[i]))
+	token = ft_strdup("");
+	while (!ft_strchr("|<>()", *cursor) && !ft_isspace(*cursor))
 	{
-		if (cursor[i] == '\'' && ft_strchr(&cursor[i + 1], '\''))
-			extract_quoted_str(cursor[i + 1], '\'');
-		else if (cursor[i] == '\"' && ft_strchr(&cursor[i + 1], '\"'))
-			extract_quoted_str(cursor[i + 1], '\"');
+		if (*cursor == '\'' && ft_strchr(cursor + 1, '\''))
+			cursor += attatch_quoted_str(&token, cursor + 1, '\'', t);
+		else if (*cursor == '\"' && ft_strchr(cursor + 1, '\"'))
+			cursor += attatch_quoted_str(&token, cursor + 1, '\"', t);
 		else
-			
-		i++;
+			cursor += attatch_unquoted_str(&token, cursor);
+		cursor++;
 	}
 	return (token);
 }

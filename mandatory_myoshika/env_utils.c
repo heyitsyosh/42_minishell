@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/19 19:37:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/20 22:48:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,32 @@ t_env	*make_env_node(char	*envp)
 		exit(EXIT_FAILURE);
 	new_node->id = ft_substr(envp, 0, ptr_to_equal_sign - envp);
 	new_node->str = ft_strdup(ptr_to_equal_sign + 1);
+	if (!new_node->id || !new_node->str)
+		exit(EXIT_FAILURE);
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
+}
+
+char	**env_list_to_dbl_ptr(t_minishell *m)
+{
+	t_env	*envp;
+	char	*joined;
+	char	**ret;
+
+	joined = ft_strdup("");
+	envp = m->envp_head;
+	while (envp)
+	{
+		joined = ft_strjoin_with_free(joined, envp->id, FREE_FIRST_PARAM);
+		joined = ft_strjoin_with_free(joined, "=", FREE_FIRST_PARAM);
+		joined = ft_strjoin_with_free(joined, envp->str, FREE_FIRST_PARAM);
+		joined = ft_strjoin_with_free(joined, "\n", FREE_FIRST_PARAM);
+		envp = envp->next;
+	}
+	ret = ft_split(joined, '\n');
+	if (!ret)
+		exit(EXIT_FAILURE);
+	free(joined);
+	return (ret);
 }

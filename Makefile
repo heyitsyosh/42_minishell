@@ -12,7 +12,11 @@ GNL = ./lib/gnl/get_next_line.a
 READLINE = -lreadline
 
 FILES = main\
-		init_envp
+		init_envp\
+		env_utils\
+		tokenize\
+		tokenize_ii\
+		utils
 # BONUS_FILES = 
 
 SRCS = $(foreach src,$(FILES),./mandatory/$(src).c)

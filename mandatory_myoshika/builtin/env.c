@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/20 23:03:43 by myoshika         ###   ########.fr       */
+/*   Created: 2022/12/20 22:53:52 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/21 21:34:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	builtin_exit(char *line, t_minishell *m)
+void	builtin_env(t_minishell *m)
 {
-	if (line)
-		
-	//exitの挙動をそろえる
 }
+

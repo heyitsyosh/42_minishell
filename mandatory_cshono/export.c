@@ -6,7 +6,7 @@
 /*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:11:04 by cshono            #+#    #+#             */
-/*   Updated: 2022/12/19 17:11:06 by cshono           ###   ########.fr       */
+/*   Updated: 2022/12/19 17:22:11 by cshono           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char    *ft_strtok(char *str, char sepa)
     return (ptr);
 }
 
-void	export(char *line, t_env *env)//pwd=chihiro, t_env
+void	export(char *line, t_env *env)//pwd=chihiro, t_env 
 {
 	size_t i;
 	char *str;

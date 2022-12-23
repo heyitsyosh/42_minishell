@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/21 19:57:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/23 08:57:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef enum e_type{
 	OR,
 	LEFT_PARENTHESIS,
 	RIGHT_PARENTHESIS,
+	NIL,
 }	t_type;
 
 typedef struct s_token{
@@ -72,11 +73,11 @@ void	init_envp(char **envp, t_minishell *m);
 void	tokenize(char *line, t_minishell *m);
 char	*extract_operator_token(char *cursor, t_token *t);
 
-void	builtin_echo(char *line, t_minishell *m);
+void	builtin_echo(char *str, bool new_line, t_minishell *m));
 void	builtin_cd(char *line, t_minishell *m);
 void	builtin_pwd(char *line, t_minishell *m);
 void	builtin_export(char *line, t_minishell *m);
-void	builtin_unset(char *line, t_minishell *m);
+void	builtin_unset(char *id, t_minishell *m);
 void	builtin_env(t_minishell *m);
 void	builtin_exit(char *line, t_minishell *m);
 

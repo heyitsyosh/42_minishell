@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:52 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/21 21:34:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/22 23:27:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,12 @@
 
 void	builtin_env(t_minishell *m)
 {
-}
+	t_env	*envp;
 
+	envp = m->envp_head;
+	while (envp)
+	{
+		ft_printf("%s=%s\n", envp->id, envp->str);
+		envp = envp->next;
+	}
+}

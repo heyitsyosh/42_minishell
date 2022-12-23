@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 04:35:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/21 21:12:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/23 09:24:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,29 @@ int	get_type(char *cursor)
 		return (QUOTE);
 	else if (*cursor == '"')
 		return (DQUOTE);
+	else if (*cursor == '\0')
+		return (NIL);
 	return (GENERAL);
 }
 
-static size_t	fill_token_info(t_token *t, char *cursor)
+static void	fill_token_info(t_token *t, char **line)
 {
-	size_t	ignored_len;
-
-	ignored_len = 0;
 	t->type = get_type(t->token);
 	if (t->type == GENERAL || t->type == QUOTE || t->type == DQUOTE)
-		t->token = extract_general_token(cursor, &ignored_len);
+	{
+		t->token = extract_general_token(line);
+		t->type = GENERAL;
+	}
 	else
-		t->token = extract_operator_token(cursor, t);
+	{
+		t->token = extract_operator_token(line, t);
+		if (t->token)
+			*line += ft_strlen(t->token);
+	}
 	if (!t->token)
 		exit(EXIT_FAILURE);
 	t->next = NULL;
 	t->prev = NULL;
-	return (ft_strlen(t->token) + ignored_len);
 }
 
 static	void	token_add_back(t_env *token, t_env *token_to_add)
@@ -62,20 +67,18 @@ static	void	token_add_back(t_env *token, t_env *token_to_add)
 
 void	tokenize(char *line, t_minishell *m)
 {
-	size_t	i;
 	t_token	*new_token;
 
-	i = 0;
-	while (line[i])
+	while (*line)
 	{
-		while (ft_isspace(line[i]))
-			i++;
-		if (!line[i])
+		while (ft_isspace(*line))
+			*line++;
+		if (!*line)
 			break ;
 		new_token = malloc(sizeof(t_token));
 		if (!new_token)
 			exit(EXIT_SUCCESS);
-		i += fill_token_info(new_token, line[i]);
+		fill_token_info(new_token, &line);
 		if (!new_token->token)
 			exit(EXIT_SUCCESS);
 		if (!m->token_head)

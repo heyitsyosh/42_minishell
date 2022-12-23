@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 18:49:12 by cshono            #+#    #+#             */
-/*   Updated: 2022/12/13 22:59:09 by cshono           ###   ########.fr       */
+/*   Updated: 2022/12/22 23:20:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 // 		return (0);
 // 	return (*(uc_s1 + i) - *(uc_s2 + i));
 // }
-	
 
 t_env	*get_env(char *var, t_env *env)
 {

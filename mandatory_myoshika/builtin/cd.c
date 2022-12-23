@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/20 23:03:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/23 00:08:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,7 @@
 
 void	builtin_cd(char *line, t_minishell *m)
 {
+	
 }
+
+//消したらゴミ

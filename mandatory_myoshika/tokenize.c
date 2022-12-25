@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 04:35:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/23 09:24:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/25 12:48:56 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,25 +79,8 @@ void	tokenize(char *line, t_minishell *m)
 		if (!new_token)
 			exit(EXIT_SUCCESS);
 		fill_token_info(new_token, &line);
-		if (!new_token->token)
-			exit(EXIT_SUCCESS);
 		if (!m->token_head)
 			m->token_head = new_token;
 		token_add_back(m->token_head, new_token);
 	}
 }
-
-	// <
-	// <<
-	// >>
-	// >
-	// |
-	// ||
-	// &&
-	// ()
-	// ""
-	// ''
-	/*
-	${PWD} $(PWD) $[PWD]
-	< (echo "a" || cat "b")
-	*/

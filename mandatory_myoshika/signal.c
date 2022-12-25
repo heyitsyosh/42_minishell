@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 03:42:20 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 03:51:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:29:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	handler(int signal)
 void	set_signal_handlers(void)
 {
 	if (signal(SIGINT, &handler) == SIG_ERR)
-		exit (1);
+		exit(EXIT_FAILURE);
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		exit (1);
+		exit(EXIT_FAILURE);
 }

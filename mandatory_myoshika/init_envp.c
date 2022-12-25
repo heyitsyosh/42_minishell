@@ -6,20 +6,60 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/18 01:59:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/20 22:03:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//need to error handle <ltoa> malloc error
+static t_env	*make_envp_list(char **envp, t_minishell *m)
+{
+	size_t	i;
+	t_env	*new_env;
+	t_env	*envp_head;
+	t_env	*envp_tail;
+
+	i = 0;
+	while (envp[i])
+	{
+		new_env = make_env_node(envp[i]);
+		if (i == 0)
+		{
+			envp_head = new_env;
+			envp_tail = new_env;
+		}
+		env_add_back(envp_tail, new_env);
+		envp_tail = new_env;
+		i++;
+	}
+	return (envp_head);
+}
+
+static void	set_pwd(t_env *pwd, t_minishell *m)
+{
+	char	*current_dir;
+
+	current_dir = getcwd(NULL, 0);
+	if (!current_dir)
+		exit(EXIT_FAILURE);
+	if (!pwd)
+	{
+		pwd = make_env_node("PWD=");
+		free(pwd->str);
+		pwd->str = current_dir;
+	}
+	m->pwd = ft_strdup(current_dir);
+	if (!m->pwd)
+		exit(EXIT_FAILURE);
+}
+
 static void	set_shlvl(t_env *shlvl, t_minishell *m)
 {
 	int64_t	original_shlvl;
 	char	*check;
 
-	if (!shlvl || !shlvl->str)
-		return ;
+	if (!shlvl)
+		shlvl = make_env_node("SHLVL=0");
 	original_shlvl = ft_strtol(shlvl->str, &check, 10);
 	if (*check || errno == ERANGE)
 		return ;
@@ -27,38 +67,12 @@ static void	set_shlvl(t_env *shlvl, t_minishell *m)
 	free(shlvl->str);
 	shlvl->str = ft_ltoa(original_shlvl);
 	if (!shlvl->str)
-		free_all_and_exit(m);
-}
-
-static t_env	*make_envp_list(char **envp, t_minishell *m)
-{
-	size_t	i;
-	t_env	*new_node;
-	t_env	*envp_head;
-	t_env	*envp_tail;
-
-	i = 0;
-	while (envp[i])
-	{
-		new_node = make_node(envp[i]);
-		if (!new_node || !new_node->id || !new_node->str)
-			free_all_and_exit(m);
-		if (i == 0)
-		{
-			envp_head = new_node;
-			envp_tail = new_node;
-		}
-		node_add_back(envp_tail, new_node);
-		envp_tail = new_node;
-		i++;
-	}
-	return (envp_head);
+		exit(EXIT_SUCCESS);
 }
 
 void	init_envp(char **envp, t_minishell *m)
 {
 	m->envp_head = make_envp_list(envp, m);
+	set_pwd(get_env("PWD", m->envp_head), m);
 	set_shlvl(get_env("SHLVL", m->envp_head), m);
-	//set oldpwd if nonexistent?
-	//set pwd if nonexistent?
 }

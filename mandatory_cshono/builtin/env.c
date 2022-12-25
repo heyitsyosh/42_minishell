@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_c.c                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/11 21:05:41 by cshono            #+#    #+#             */
-/*   Updated: 2022/12/13 17:30:52 by cshono           ###   ########.fr       */
+/*   Created: 2022/12/25 17:01:33 by cshono            #+#    #+#             */
+/*   Updated: 2022/12/25 17:08:54 by cshono           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-int	main(int argc, char *argv[], char **envp)
+void	builtin_env(t_minishell *m)
 {
-	char 		*str;
-	t_prompt	prompt;
-	while (argv && argc)
+	t_env	*env;
+
+	env = m->envp_head;
+	while (env != NULL)
 	{
-		str = readline("minishell $ ");
-		if (!check_args(str, &prompt))
-			break;
+		printf("%s=%s\n",env->id,env->str);
+		env = env->next;
 	}
-	exit()
 }

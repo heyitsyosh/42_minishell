@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 21:13:21 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/19 18:58:06 by myoshika         ###   ########.fr       */
+/*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/20 23:03:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	free_tokens(t_token *token)
+void	builtin_exit(char *line, t_minishell *m)
 {
-	while (token)
-	{
-		free(token->token);
-		if (token->cmd)
-		{
-			free((token->cmd)->command);
-			free((token->cmd)->exec_path);
-			free(token->cmd);
-		}
-		token = token->next;
-	}
+	if (line)
+		
+	//exitの挙動をそろえる
 }

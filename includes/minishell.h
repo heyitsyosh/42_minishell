@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/17 08:43:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/21 19:57:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_command{
 
 typedef enum e_type{
 	GENERAL,
+	QUOTE,
+	DQUOTE,
 	PIPE,
 	GREATER,
 	LESSER,
@@ -46,8 +48,6 @@ typedef enum e_type{
 	OR,
 	LEFT_PARENTHESIS,
 	RIGHT_PARENTHESIS,
-	INFILE,
-	OUTFILE
 }	t_type;
 
 typedef struct s_token{
@@ -68,12 +68,22 @@ typedef struct s_minishell{
 }	t_minishell;
 
 void	init_envp(char **envp, t_minishell *m);
-void	free_all_and_exit(t_minishell *m);
+
+void	tokenize(char *line, t_minishell *m);
+char	*extract_operator_token(char *cursor, t_token *t);
+
+void	builtin_echo(char *line, t_minishell *m);
+void	builtin_cd(char *line, t_minishell *m);
+void	builtin_pwd(char *line, t_minishell *m);
+void	builtin_export(char *line, t_minishell *m);
+void	builtin_unset(char *line, t_minishell *m);
+void	builtin_env(t_minishell *m);
+void	builtin_exit(char *line, t_minishell *m);
 
 t_env	*get_env(char *var, t_env *env);
 void	free_envs(t_env *env);
-void	free_tokens(t_token *token);
-void	node_add_back(t_env *envp, t_env *new_node);
-t_env	*make_node(char	*envp);
+void	env_add_back(t_env *envp, t_env *new_node);
+t_env	*make_env_node(char	*envp);
+char	**env_list_to_dbl_ptr(t_minishell *m);
 
 #endif

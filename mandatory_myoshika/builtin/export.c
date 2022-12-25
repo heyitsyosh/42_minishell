@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/23 09:35:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/25 18:33:03 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static void	add_new_env(t_env *tmp, t_minishell *m)
 	env_add_back(m->envp_head, tmp);
 }
 
-void	delete_escapes(char **str)
-{
-	while ((*str)[i])
-}
+// void	delete_escapes(char **str)
+// {
+// 	while ((*str)[i])
+// }
 
 void	builtin_export(char *line, t_minishell *m)
 {
@@ -57,7 +57,7 @@ void	builtin_export(char *line, t_minishell *m)
 	if (!ft_strchr(line, '='))
 		return ;
 	tmp = make_env_node(line);
-	delete_escapes(&tmp->str);
+	// delete_escapes(&tmp->str);
 	if (!is_valid_id(tmp->id))
 	{
 		ft_printf("export: '%s': not a valid identifier\n", line);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/25 14:04:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/25 18:34:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ size_t	quoted_str_len(char *cursor, char quote_type, bool *has_closing_quote)
 	len = 0;
 	while (*cursor && *cursor != quote_type)
 	{
-		if (quote_type = '\"' && *cursor == '\\' && ft_strchr("\"", *(cursor + 1)))
+		if (quote_type == '\"' && *cursor == '\\'
+			&& ft_strchr("$\\\"", *(cursor + 1)))
 		len++;
 		cursor++;
 	}
@@ -32,7 +33,8 @@ void	extract(char **cursor, char *quoted_str, char quote_type)
 {
 	while (**cursor && **cursor != quote_type)
 	{
-		if (cursor[0][0] == '\\' && quote_type == '\"' && ft_strchr("\"", cursor[0][1]))
+		if (cursor[0][0] == '\\' && quote_type == '\"'
+			&& ft_strchr("\"", cursor[0][1]))
 			(*cursor)++;
 		*quoted_str++ = **cursor;
 		(*cursor)++;
@@ -40,7 +42,7 @@ void	extract(char **cursor, char *quoted_str, char quote_type)
 	(*cursor)++;
 }
 
-static char	*extract_quoted_str(char **cursor, char *quote_type)
+static char	*extract_quoted_str(char **cursor, char quote_type)
 {
 	size_t	len;
 	char	*quoted_str;
@@ -87,9 +89,9 @@ char	*extract_general_token(char **cursor, t_type type)
 	while (**cursor && !ft_isspace(**cursor) && type <= DQUOTE)
 	{
 		if (type == QUOTE)
-			sub_token = extract_quoted_str(cursor);
+			sub_token = extract_quoted_str(cursor, '\'');
 		else if (type == DQUOTE)
-			sub_token = extract_quoted_str(cursor);
+			sub_token = extract_quoted_str(cursor, '\"');
 		else
 			sub_token = extract_general_str(cursor);
 		joined = ft_strjoin_with_free(joined, sub_token, FREE_FIRST_PARAM);

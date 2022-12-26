@@ -6,17 +6,17 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/20 22:48:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/22 23:21:54 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_env	*get_env(char *var, t_env *env)
+t_env	*get_env(char *id, t_env *env)
 {
 	while (env)
 	{
-		if (!ft_strcmp(var, env->id))
+		if (!ft_strcmp(id, env->id))
 			return (env);
 		env = env->next;
 	}

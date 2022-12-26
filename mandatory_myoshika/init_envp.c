@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/20 22:03:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/26 17:04:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_env	*make_envp_list(char **envp, t_minishell *m)
+static t_env	*make_envp_list(char **envp)
 {
 	size_t	i;
 	t_env	*new_env;
@@ -53,7 +53,7 @@ static void	set_pwd(t_env *pwd, t_minishell *m)
 		exit(EXIT_FAILURE);
 }
 
-static void	set_shlvl(t_env *shlvl, t_minishell *m)
+static void	set_shlvl(t_env *shlvl)
 {
 	int64_t	original_shlvl;
 	char	*check;
@@ -72,7 +72,7 @@ static void	set_shlvl(t_env *shlvl, t_minishell *m)
 
 void	init_envp(char **envp, t_minishell *m)
 {
-	m->envp_head = make_envp_list(envp, m);
+	m->envp_head = make_envp_list(envp);
 	set_pwd(get_env("PWD", m->envp_head), m);
-	set_shlvl(get_env("SHLVL", m->envp_head), m);
+	set_shlvl(get_env("SHLVL", m->envp_head));
 }

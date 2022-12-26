@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:27:12 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/21 20:01:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/26 21:17:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	execute_line(t_minishell *m)
 {
+	builtin_env(m);
+	fflush(stdout);
 	tokenize(m->line, m);
 	// expand();
-	
+	print_tokens(m);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -34,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 		if (*m.line != '\0')
 			add_history(m.line);
 		execute_line(&m);
-		ft_safe_free(m.line);
+		ft_safe_free(&m.line);
 		free_tokens(m.token_head);
 	}
 }

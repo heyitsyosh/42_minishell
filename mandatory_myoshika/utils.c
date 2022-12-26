@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:21 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/19 18:58:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/26 17:02:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,17 @@ void	free_tokens(t_token *token)
 			free(token->cmd);
 		}
 		token = token->next;
+	}
+}
+
+void	print_tokens(t_minishell *m)
+{
+	t_token	*head;
+
+	head = m->token_head;
+	while (head)
+	{
+		printf("%s\n", head->token);
+		head = head->next;
 	}
 }

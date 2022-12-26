@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 04:35:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/25 12:48:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/26 21:20:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	get_type(char *cursor)
+int	get_token_type(char *cursor)
 {
 	if (*cursor == '|')
 		return (PIPE);
@@ -37,25 +37,29 @@ int	get_type(char *cursor)
 
 static void	fill_token_info(t_token *t, char **line)
 {
-	t->type = get_type(t->token);
+	t->type = get_token_type(*line);
 	if (t->type == GENERAL || t->type == QUOTE || t->type == DQUOTE)
 	{
-		t->token = extract_general_token(line);
+		t->token = extract_general_token(line, t->type);
 		t->type = GENERAL;
 	}
 	else
 	{
-		t->token = extract_operator_token(line, t);
+		t->token = extract_operator_token(*line, t);
 		if (t->token)
 			*line += ft_strlen(t->token);
 	}
+	printf("type:%d\n", t->type);
+	fflush(stdout);
+	printf("t->token:%s\n", t->token);
+	fflush(stdout);
 	if (!t->token)
 		exit(EXIT_FAILURE);
 	t->next = NULL;
 	t->prev = NULL;
 }
 
-static	void	token_add_back(t_env *token, t_env *token_to_add)
+static	void	token_add_back(t_token *token, t_token *token_to_add)
 {
 	if (token == token_to_add)
 		return ;
@@ -72,7 +76,7 @@ void	tokenize(char *line, t_minishell *m)
 	while (*line)
 	{
 		while (ft_isspace(*line))
-			*line++;
+			line++;
 		if (!*line)
 			break ;
 		new_token = malloc(sizeof(t_token));

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:55:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/18 01:56:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/26 18:14:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct s_strtol
 	int				sign;
 	bool			found_num;
 	bool			found_num_ii;
-	unsigned long	num;
+	long			num;
 }	t_strtol;
 
 static int	char_to_numeric(char c)
@@ -32,7 +32,7 @@ static int	char_to_numeric(char c)
 	return (-1);
 }
 
-static bool	make_num(const char **nptr, int base, t_strtol *s)
+static void	make_num(const char **nptr, int base, t_strtol *s)
 {
 	int	c;
 
@@ -54,8 +54,8 @@ static bool	make_num(const char **nptr, int base, t_strtol *s)
 			errno = ERANGE;
 			s->num = LONG_MIN;
 		}
-		if (s->num < LONG_MAX)
-			s->num = (s->num * base) + c;
+		if (s->num != LONG_MAX && s->num != LONG_MIN)
+			s->num = (s->num * base) + (s->sign * c);
 		(*nptr)++;
 	}
 }
@@ -118,5 +118,5 @@ long	ft_strtol(const char *nptr, char **endptr, int base)
 		*endptr = (char *)nptr;
 	if (endptr && !s.found_num && !s.found_num_ii)
 		*endptr = (char *)original_nptr;
-	return (s.num * s.sign);
+	return (s.num);
 }

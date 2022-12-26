@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/26 14:53:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/26 16:57:08 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ typedef struct s_minishell{
 void	init_envp(char **envp, t_minishell *m);
 
 void	tokenize(char *line, t_minishell *m);
+int		get_token_type(char *cursor);
 char	*extract_operator_token(char *cursor, t_token *t);
+char	*extract_general_token(char **cursor, t_type type);
 
 void	builtin_echo(char *str, bool new_line, t_minishell *m);
 void	builtin_cd(char *line, t_minishell *m);
@@ -86,5 +88,8 @@ void	free_envs(t_env *env);
 void	env_add_back(t_env *envp, t_env *new_node);
 t_env	*make_env_node(char	*envp);
 char	**env_list_to_dbl_ptr(t_minishell *m);
+
+void	free_tokens(t_token *token);
+void	print_tokens(t_minishell *m);
 
 #endif

@@ -4,7 +4,7 @@ NAME = minishell
 LIBFTDIR = ./lib/libft
 PRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl
-DIR = ./mandatory
+DIR = ./mandatory_myoshika
 # BONUS_DIR = ./bonus
 
 FT_PRINTF = ./lib/printf/libftprintf.a -L$(PRINTFDIR) -lftprintf
@@ -16,10 +16,12 @@ FILES = main\
 		env_utils\
 		tokenize\
 		tokenize_ii\
-		utils
+		tokenize_iii\
+		utils\
+		builtin/env
 # BONUS_FILES = 
 
-SRCS = $(foreach src,$(FILES),./mandatory/$(src).c)
+SRCS = $(foreach src,$(FILES),./mandatory_myoshika/$(src).c)
 OBJS = $(SRCS:.c=.o)
 BONUS_SRCS = $(foreach bonus_src,$(BONUS_FILES),./bonus/$(bonus_src)_bonus.c)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)

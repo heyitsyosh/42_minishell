@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_iii.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/25 18:34:07 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:57:01 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ size_t	quoted_str_len(char *cursor, char quote_type, bool *has_closing_quote)
 	size_t	len;
 
 	len = 0;
+	if (*cursor == quote_type)
+	{
+		cursor++;
+		len++;
+	}
 	while (*cursor && *cursor != quote_type)
 	{
 		if (quote_type == '\"' && *cursor == '\\'
@@ -25,13 +30,19 @@ size_t	quoted_str_len(char *cursor, char quote_type, bool *has_closing_quote)
 		cursor++;
 	}
 	if (*cursor == quote_type)
-		*has_closing_quote = true;
+	{
+		if (has_closing_quote)
+			*has_closing_quote = true;
+		len++;
+	}
 	return (len);
 }
 
 void	extract(char **cursor, char *quoted_str, char quote_type)
 {
-	while (**cursor && **cursor != quote_type)
+	
+
+	while (**cursor)
 	{
 		if (cursor[0][0] == '\\' && quote_type == '\"'
 			&& ft_strchr("\"", cursor[0][1]))
@@ -39,7 +50,6 @@ void	extract(char **cursor, char *quoted_str, char quote_type)
 		*quoted_str++ = **cursor;
 		(*cursor)++;
 	}
-	(*cursor)++;
 }
 
 static char	*extract_quoted_str(char **cursor, char quote_type)
@@ -49,17 +59,17 @@ static char	*extract_quoted_str(char **cursor, char quote_type)
 	bool	has_closing_quote;
 
 	has_closing_quote = false;
-	(*cursor)++;
 	len = quoted_str_len(*cursor, quote_type, &has_closing_quote);
 	if (has_closing_quote)
 	{
 		quoted_str = malloc(len + 1);
 		if (!quoted_str)
 			exit(EXIT_FAILURE);
-		extract(cursor, quoted_str, quote_type);
+		extract(cursor, quoted_str, len);
 	}
 	else
 	{
+		(*cursor)++;
 		if (quote_type == '\'')
 			return (ft_strdup("\'"));
 		return (ft_strdup("\""));

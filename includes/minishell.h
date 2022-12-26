@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/23 08:57:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:53:33 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	init_envp(char **envp, t_minishell *m);
 void	tokenize(char *line, t_minishell *m);
 char	*extract_operator_token(char *cursor, t_token *t);
 
-void	builtin_echo(char *str, bool new_line, t_minishell *m));
+void	builtin_echo(char *str, bool new_line, t_minishell *m);
 void	builtin_cd(char *line, t_minishell *m);
 void	builtin_pwd(char *line, t_minishell *m);
 void	builtin_export(char *line, t_minishell *m);

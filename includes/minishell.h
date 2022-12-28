@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/28 14:33:18 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/28 17:18:26 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_token{
 }	t_token;
 
 typedef struct s_minishell{
-	char	*line;
 	char	*old_pwd;
 	char	*pwd;
 	t_env	*envp_head;

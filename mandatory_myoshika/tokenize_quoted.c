@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize_iv.c                                      :+:      :+:    :+:   */
+/*   tokenize_quoted.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:01:24 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/28 15:01:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/28 17:10:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-size_t	quoted_str_len(char *cursor, char quote_type, bool *has_closing_quote)
+size_t	quoted_str_len(char *cursor, char quote_type)
 {
 	size_t	len;
 
@@ -24,8 +24,6 @@ size_t	quoted_str_len(char *cursor, char quote_type, bool *has_closing_quote)
 		len++;
 		cursor++;
 	}
-	if (*cursor == quote_type && has_closing_quote)
-		*has_closing_quote = true;
 	return (len);
 }
 
@@ -45,6 +43,7 @@ char	*extract(char **cursor, char quote_type, size_t len)
 		(*cursor)++;
 	}
 	*quoted_str = '\0';
+	return (quoted_str);
 }
 
 static char	*extract_quoted_str(char **cursor, char quote_type)
@@ -58,5 +57,6 @@ static char	*extract_quoted_str(char **cursor, char quote_type)
 	if (has_closing_quote)
 		quoted_str = extract(cursor, quote_type, (len + 2));
 	else
+		
 	return (quoted_str);
 }

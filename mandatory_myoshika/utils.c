@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:21 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/26 17:02:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/27 01:57:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_tokens(t_minishell *m)
 	head = m->token_head;
 	while (head)
 	{
-		printf("%s\n", head->token);
+		printf("[%s]\n", head->token);
 		head = head->next;
 	}
 }

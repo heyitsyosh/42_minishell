@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/26 16:57:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/28 14:33:18 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef enum e_type{
 	OR,
 	LEFT_PARENTHESIS,
 	RIGHT_PARENTHESIS,
+	SEPARATOR,
 	NIL,
 }	t_type;
 

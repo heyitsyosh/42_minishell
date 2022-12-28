@@ -15,8 +15,9 @@ FILES = main\
 		init_envp\
 		env_utils\
 		tokenize\
-		tokenize_ii\
-		tokenize_iii\
+		tokenize_general\
+		tokenize_operator\
+		tokenize_quoted\
 		utils\
 		builtin/env
 # BONUS_FILES = 

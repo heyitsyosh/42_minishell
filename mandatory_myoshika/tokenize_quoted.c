@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize_iii.c                                     :+:      :+:    :+:   */
+/*   tokenize_iv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/26 17:08:36 by myoshika         ###   ########.fr       */
+/*   Created: 2022/12/28 15:01:24 by myoshika          #+#    #+#             */
+/*   Updated: 2022/12/28 15:01:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@ size_t	quoted_str_len(char *cursor, char quote_type, bool *has_closing_quote)
 	return (len);
 }
 
-void	extract(char **cursor, char *quoted_str, char quote_type, size_t len)
+char	*extract(char **cursor, char quote_type, size_t len)
 {
+	char	*quoted_str;
+
+	quoted_str = malloc(len + 1);
+	if (!quoted_str)
+		exit(EXIT_FAILURE);
 	while (len--)
 	{
 		if (cursor[0][0] == '\\' && quote_type == '\"'
@@ -48,55 +53,10 @@ static char	*extract_quoted_str(char **cursor, char quote_type)
 	char	*quoted_str;
 	bool	has_closing_quote;
 
-	has_closing_quote = false;
+	has_closing_quote = ;
 	len = quoted_str_len(*cursor, quote_type, &has_closing_quote);
 	if (has_closing_quote)
-	{
-		quoted_str = malloc((len + 2) + 1);
-		if (!quoted_str)
-			exit(EXIT_FAILURE);
-		extract(cursor, quoted_str, quote_type, (len + 2));
-	}
+		quoted_str = extract(cursor, quote_type, (len + 2));
 	else
-	{
-		(*cursor)++;
-		if (quote_type == '\'')
-			return (ft_strdup("\'"));
-		return (ft_strdup("\""));
-	}
 	return (quoted_str);
-}
-
-static char	*extract_general_str(char **cursor)
-{
-	size_t	i;
-	char	*general_str;
-
-	i = 0;
-	while (!isspace((*cursor)[i]) && get_token_type(*cursor) == GENERAL)
-		i++;
-	general_str = ft_substr(*cursor, 0, i);
-	*cursor += i;
-	return (general_str);
-}
-
-char	*extract_general_token(char **cursor, t_type type)
-{
-	char	*sub_token;
-	char	*joined;
-
-	joined = ft_strdup("");
-	while (**cursor && !ft_isspace(**cursor) && type <= DQUOTE)
-	{
-		if (type == QUOTE)
-			sub_token = extract_quoted_str(cursor, '\'');
-		else if (type == DQUOTE)
-			sub_token = extract_quoted_str(cursor, '\"');
-		else
-			sub_token = extract_general_str(cursor);
-		joined = ft_strjoin_with_free(joined, sub_token, FREE_FIRST_PARAM);
-		free(sub_token);
-		type = get_token_type(*cursor);
-	}
-	return (joined);
 }

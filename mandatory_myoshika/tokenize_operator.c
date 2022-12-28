@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokeninze_ii.c                                     :+:      :+:    :+:   */
+/*   tokenize_ii.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/21 20:12:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/28 14:37:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static char	*extract_operator_token_ii(char *cursor, t_token *t)
 	}
 	else if (t->type == LESSER)
 		return (ft_strdup("<"));
+	else if (t->type == SEPARATOR)
+		return (ft_strdup(""));
 	return (NULL);
 }
 

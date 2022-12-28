@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:27:12 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/26 21:17:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/27 02:38:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	init_envp(envp, &m);
 	while (argc && argv)
 	{
-		// set_signal_handlers();
+		//  set_signal_handlers();
 		m.line = readline("minishell>");
 		if (!m.line)
 			exit(EXIT_FAILURE);
@@ -38,5 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		execute_line(&m);
 		ft_safe_free(&m.line);
 		free_tokens(m.token_head);
+		printf("wth");
+		fflush(stdout);
 	}
 }

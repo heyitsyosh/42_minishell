@@ -6,11 +6,16 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 04:35:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/26 21:20:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:00:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	ft_isifs(int c)
+{
+	return (c == ' ' || c == '\t' || c == '\n');
+}
 
 int	get_token_type(char *cursor)
 {
@@ -32,6 +37,8 @@ int	get_token_type(char *cursor)
 		return (DQUOTE);
 	else if (*cursor == '\0')
 		return (NIL);
+	else if (ft_isifs(*cursor))
+		return (SEPARATOR);
 	return (GENERAL);
 }
 
@@ -39,20 +46,16 @@ static void	fill_token_info(t_token *t, char **line)
 {
 	t->type = get_token_type(*line);
 	if (t->type == GENERAL || t->type == QUOTE || t->type == DQUOTE)
-	{
 		t->token = extract_general_token(line, t->type);
-		t->type = GENERAL;
-	}
 	else
 	{
 		t->token = extract_operator_token(*line, t);
 		if (t->token)
 			*line += ft_strlen(t->token);
+		if (t->type == SEPARATOR)
+			while (ft_isifs(**line))
+				(*line++);
 	}
-	printf("type:%d\n", t->type);
-	fflush(stdout);
-	printf("t->token:%s\n", t->token);
-	fflush(stdout);
 	if (!t->token)
 		exit(EXIT_FAILURE);
 	t->next = NULL;
@@ -73,12 +76,9 @@ void	tokenize(char *line, t_minishell *m)
 {
 	t_token	*new_token;
 
+	m->token_head = NULL;
 	while (*line)
 	{
-		while (ft_isspace(*line))
-			line++;
-		if (!*line)
-			break ;
 		new_token = malloc(sizeof(t_token));
 		if (!new_token)
 			exit(EXIT_SUCCESS);

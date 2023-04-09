@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/03/15 17:08:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/04/09 19:17:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,13 @@ typedef struct s_ast_node
 {
 	t_type			type;
 	t_token			*args;
-	t_redir			*redir;
+	struct ast_node	*root;
 	struct ast_node	*parent;
-	struct ast_node	*parent;
-}	ast_node;
+	struct ast_node	*left_leaf;
+	struct ast_node	*right_leaf;
+	struct ast_node	**children;
+	//t_redir			*redir;
+}	t_ast_node;
 
 // typedef struct s_node
 // {

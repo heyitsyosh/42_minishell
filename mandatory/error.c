@@ -14,4 +14,3 @@ void    print_syntax_error(char *unexpected_token)
     ft_putstr_fd(unexpected_token, STDERR_FILENO);
     ft_putstr_fd("'\n", STDERR_FILENO);
 }
- 

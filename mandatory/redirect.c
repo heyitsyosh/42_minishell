@@ -6,12 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/03/15 17:18:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:59:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/libft.h"
+#include <fcntl.h> //O_*
 
 	// open_redir_file(); // 必要なfileをopenしたり、heredocの場合はpipeを作成したり
 	// do_redirect();     // dupを用いて、fdのredirectを行う

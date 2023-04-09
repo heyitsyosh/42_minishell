@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/03/14 20:46:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/04/09 19:29:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	print_parser_error(char *location)
 	ft_putendl_fd("'", STDERR_FILENO);
 }
 
-t_node	*make_node(t_type type)
+t_ast_node	*make_node(t_type type)
 {
-	t_node	*node;
+	t_ast_node	*node;
 
-	node = ft_calloc(1, sizeof(t_node *));
+	node = ft_calloc(1, sizeof(t_ast_node *));
 	if (!node)
 		print_error_and_exit("calloc failure");
 	node->type = type;
@@ -142,13 +142,23 @@ void	append_node(t_node *node, t_token *tok)
 	last_node->next = new_node;
 }
 
+void	add_parent()
+{
+	
+}
+
+void	add_right_leaf()
+{
+	
+}
+
 //"<<", ">>", "<", ">", "|", 		"(", ")", "&&", "||"
 t_node	*parser(t_token *tok)
 {
-	t_node	*new_node;
+	t_ast_node	*new_node;
+	t_ast_node	*most_bottom_left_node;
 
-	new_node = make_node(SIMPLE_COMMAND);
-	node_head = node;
+	most_bottom_left_node 
 	while (tok && tok->type != NIL)
 	{
 		if (tok->type == WORD)
@@ -161,5 +171,5 @@ t_node	*parser(t_token *tok)
 		// if (tok)
 			tok = tok->next;
 	}
-	return ();
+	return (most_bottom_left_node);
 }

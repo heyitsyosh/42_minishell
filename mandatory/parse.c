@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/04/09 19:29:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:18:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,130 +46,46 @@ void	append_token(t_token **args, t_token *tok_to_add)
 	}
 }
 
-void	print_parser_error(char *location)
-{
-	ft_putstr_fd("minishell: syntax error near unexpected token `",
-		STDERR_FILENO);
-	ft_putstr_fd(location, STDERR_FILENO);
-	ft_putendl_fd("'", STDERR_FILENO);
-}
-
-t_ast_node	*make_node(t_type type)
-{
-	t_ast_node	*node;
-
-	node = ft_calloc(1, sizeof(t_ast_node *));
-	if (!node)
-		print_error_and_exit("calloc failure");
-	node->type = type;
-	node->args = NULL;
-	node->redir = NULL;
-	node->next = NULL;
-}
-
-t_redir	*make_redir(t_type)
-{
-	t_redir	*redir;
-
-	redir = ft_calloc(1, sizeof(t_redir *));
-	if (!redir)
-		print_error_and_exit("calloc failure");
-	redir->type = type;
-	redir->next = NULL;
-}
-
-t_redir	*make_redir_struct(void)
-{
-	t_redir	*redir;
-
-	redir = ft_calloc(1, sizeof(t_redir *));
-	if (!redir)
-		print_error_and_exit("calloc failure");
-	redir->infile_fd = STDIN_FILENO;
-	redir->outfile = STDOUT_FILENO;
-	return (redir);
-}
-
-t_node	*redir_in_node(t_token *tok)
-{
-	t_node	*redir_in;
-
-	redir_in = make_node(REDIR_IN);
-	redir_in->redir = make_redir_struct();
-	return (redir_in);
-}
-
-t_node	*redir_out_node(t_token *tok)
-{
-	t_node	*redir_out;
-
-	redir_out = make_node(REDIR_OUT);
-	redir_out->redir = make_redir_struct();
-	return (redir_out);
-}
-
-t_node	*redir_append_node(t_token *tok)
-{
-	t_node	*redir_append;
-
-	redir_append = make_node(REDIR_APPEND);
-	redir_append->redir = make_redir_struct();
-	return (redir_append);
-}
-
-t_node	*last_node(t_node *node)
-{
-	if (!node)
-		return (NULL);
-	while (node->next)
-		node = node->next;
-	return (node);
-}
-
-void	append_node(t_node *node, t_token *tok)
-{
-	t_node	*new_node;
-	t_node	*last_node;
-
-	last_node = node_last(*node);
-	if (!ft_strcmp("<", tok->word))
-		new_node = redir_in_node(tok);
-	else if (!ft_strcmp(">", tok->word))
-		new_node = redir_out_node(tok);
-	else if (!ft_strcmp(">>", tok->word))
-		new_node = redir_append_node(tok);
-	// else if (!ft_strcmp("<<", tok->word))
-	last_node->next = new_node;
-}
-
-void	add_parent()
-{
-	
-}
-
-void	add_right_leaf()
-{
-	
-}
-
-//"<<", ">>", "<", ">", "|", 		"(", ")", "&&", "||"
-t_node	*parser(t_token *tok)
+t_ast_node	*make_ast_node(t_token *token)
 {
 	t_ast_node	*new_node;
-	t_ast_node	*most_bottom_left_node;
 
-	most_bottom_left_node 
-	while (tok && tok->type != NIL)
+	new_node = (t_ast_node *)malloc(sizeof(t_ast_node));
+	if (!new_node)
+		print_error_and_exit("malloc failure");
+	new_node->token = token;
+	new_node->left_child = NULL;
+	new_node->right_child = NULL;
+	return (new_node);
+}
+
+//"<<", ">>", "<", ">", "|", "(", ")", "&&", "||"
+t_ast_node	*parser(t_token **tok)
+{
+	t_ast_node		*syntax_tree;
+
+	syntax_tree = command();
+
+	return ();
+}
+
+
+
+t_ast_node	*command()
+{
+	t_ast_node	*node;
+	while (tok->type != NIL)
 	{
+		
 		if (tok->type == WORD)
-			append_token(&node->args, tokdup(tok));
+			;
+		else if (tok->type == REDIR_OUT || tok->type == REDIR_IN \
+			|| tok->type == HEREDOC || tok->type == REDIR_APPEND)
+			
+		else if (tok->type == IO_NUMBER)
+			
 		else
-		{
-			append_node(node, tok);
-			tok = tok->next;
-		}
-		// if (tok)
-			tok = tok->next;
+			break;
 	}
-	return (most_bottom_left_node);
+	return (node);
 }

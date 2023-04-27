@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   a.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/10 21:45:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/04/13 15:59:44 by myoshika         ###   ########.fr       */
+/*   Created: 2023/04/10 21:45:42 by myoshika          #+#    #+#             */
+/*   Updated: 2023/04/12 02:25:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
 #include "../includes/libft.h"
 
-void	print_error_and_exit(char *error_message)
+int main(int argc, char **argv)
 {
-	ft_putstr_fd(error_message, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	exit(1);
-}
+	char *endptr;
+	char *input;
 
-void	print_syntax_error(char *unexpected_token)
-{
-	ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
-	ft_putstr_fd(unexpected_token, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
+	input = "0x";
+	ft_strtol(input, &endptr, 10);
+	printf("[input: %s][endptr: %c]\n", input, *endptr);
+	input = "0x3a";
+	ft_strtol(input, &endptr, 10);
+	printf("[input: %s][endptr: %c]\n", input, *endptr);
 }

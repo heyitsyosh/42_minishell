@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/04/09 16:58:03 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:58:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*make_token(char *word, t_token_type type)
 {
 	t_token	*new;
 
-	new = malloc(sizeof(t_token *));
+	new = (t_token *)malloc(sizeof(t_token));
 	if (!new)
 		print_error_and_exit("malloc failure");
 	new->word = word;
@@ -35,6 +35,21 @@ bool	is_blank(char c)
 bool	is_operator(char c)
 {
 	return (c && ft_strchr("|&()<>", c));
+}
+
+bool	is_io_number(char *line)
+{
+	long	io_num;
+	char	*endptr;
+
+	if (!ft_isdigit(*line))
+		return (false);
+	io_num = ft_strtol(line, &endptr, 10);
+	if (io_num > INT_MAX)
+		return (false);
+	if (!endptr || (*endptr != '<' && *endptr != '>'))
+		return (false);
+	return (true);
 }
 
 t_token_type	get_operator_type(char *operator)
@@ -107,6 +122,20 @@ t_token	*word(char *line)
 	return (make_token(word, WORD));
 }
 
+t_token	*io_number(char *line)
+{
+	char	*io_number;
+	size_t	len;
+
+	len = 0;
+	while (ft_isdigit(line[len]))
+		len++;
+	io_number = ft_substr(line, 0, len);
+	if (!io_number)
+		print_error_and_exit("substr failure");
+	return (make_token(io_number, IO_NUMBER));
+}
+
 t_token	*tokenize(char *line)
 {
 	t_token	*tok;
@@ -119,6 +148,8 @@ t_token	*tokenize(char *line)
 			line++;
 		if (is_operator(*line))
 			tok->next = operator(line);
+		else if (is_io_number(*line))
+			tok->next = io_number(line);
 		else
 			tok->next = word(line);
 		tok = tok->next;

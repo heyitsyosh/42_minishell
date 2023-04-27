@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/04/09 19:17:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:11:56 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-// extern bool	g_syntax_error;
+extern volatile sig_atomic_t	g_status;
 
 typedef enum e_token_type
 {
 	WORD,
+	IO_NUMBER,
 	AND,
 	OR,
 	REDIR_APPEND,
@@ -54,8 +55,8 @@ typedef enum e_type
 
 // typedef struct s_redir
 // {
-// 	int		infile;
-// 	int		outfile;
+// 	int		left;
+// 	int		right;
 // 	char	*filename;
 // 	int		file_fd;
 // 	int		stashed_fd;
@@ -63,13 +64,11 @@ typedef enum e_type
 
 typedef struct s_ast_node
 {
-	t_type			type;
-	t_token			*args;
-	struct ast_node	*root;
-	struct ast_node	*parent;
-	struct ast_node	*left_leaf;
-	struct ast_node	*right_leaf;
-	struct ast_node	**children;
+	t_token			*token;
+	struct s_ast_node	*left_child;
+	struct s_ast_node	*right_child;
+	// struct s_ast_node	*parent;
+	// struct s_ast_node	*root;
 	//t_redir			*redir;
 }	t_ast_node;
 

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 06:19:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/18 07:03:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:59:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**argv_from_tok_list(t_token *tok)
 	i = 0;
 	argv = ft_calloc(sizeof(char *), token_count(tok));
 	if (!argv)
-		print_error_and_exit("malloc failure");
+		print_error_and_exit("calloc failure");
 	while (tok)
 	{
 		argv[i] = tok->word;

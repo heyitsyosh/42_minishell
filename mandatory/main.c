@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/04/15 13:19:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:08:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 
 volatile sig_atomic_t	g_status;
 
-void	run_command(char *line)
+void	run_commands(char *line, t_minishell *m)
 {
 	t_token		*tok;
-	t_ast_node	*tree;
 
 	tok = tokenize(line);
-	tree = parser(&tok);
+	parser(&tok);
 	/*
 	if (!error)
 	{
@@ -37,10 +36,9 @@ void	run_command(char *line)
 		set_exit_status
 	*/
 	free_tokens(tok);
-	free_ast(tree);
 }
 
-void	minishell_loop(void)
+void	minishell_loop(t_minishell	*m)
 {
 	char	*line;
 
@@ -52,13 +50,13 @@ void	minishell_loop(void)
 		if (*line)
 		{
 			add_history(line);
-			run_command(line);
+			run_commands(line, m);
 			free(line);
 		}
 	}
 }
 
-void	run_one_line(int argc, char **argv)
+void	run_one_line(int argc, char **argv, t_minishell	*m)
 {
 	if (argc == 2)
 	{
@@ -66,15 +64,17 @@ void	run_one_line(int argc, char **argv)
 		exit(2);
 	}
 	if (ft_strlen(argv[2]) != 0)
-		run_command(argv[2]);
+		run_commands(argv[2], m);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
+	t_minishell	m;
 	//rl_outstream = stderr;
+	init_envp(envp, &m);
 	if (argc >= 2 && !ft_strcmp("-c", argv[1]))
-		run_one_line(argc, argv);
+		run_one_line(argc, argv, &m);
 	else
-		minishell_loop();
+		minishell_loop(&m);
 	exit(g_status);
 }

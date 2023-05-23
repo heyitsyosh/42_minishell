@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/04/19 21:18:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:38:41 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,22 @@ t_ast_node	*parser(t_token **tok)
 	return ();
 }
 
-
-
-t_ast_node	*command()
+t_ast_node	*command(t_token **tok)
 {
 	t_ast_node	*node;
-	while (tok->type != NIL)
+
+	while ((*tok)->type != NIL)
 	{
-		
-		if (tok->type == WORD)
+		if ((*tok)->type == WORD)
 			;
-		else if (tok->type == REDIR_OUT || tok->type == REDIR_IN \
-			|| tok->type == HEREDOC || tok->type == REDIR_APPEND)
+		// else if ((*tok)->type == REDIR_OUT || (*tok)->type == REDIR_IN \
+		// 	|| (*tok)->type == HEREDOC || (*tok)->type == REDIR_APPEND)
+			//redirect
+		// else if ((*tok)->type == IO_NUMBER)
+			//redirect from io_num
+		else if ((*tok)->type == PIPE)
 			
-		else if (tok->type == IO_NUMBER)
-			
+		else if 
 		else
 			break;
 	}

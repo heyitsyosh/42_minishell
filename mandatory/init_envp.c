@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/23 18:32:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:37:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static t_env	*make_envp_list(char **envp)
 	return (envp_head);
 }
 
+//in the case of "env -e ./minishell", minishell is run without envp
+//set_pwd anticipates that scenario and prevents error
 static void	set_pwd(t_env *pwd, t_minishell *m)
 {
 	char	*current_dir;
@@ -48,7 +50,7 @@ static void	set_pwd(t_env *pwd, t_minishell *m)
 		free(pwd->str);
 		pwd->str = current_dir;
 	}
-	m->pwd = ft_strdup(current_dir);
+	m->pwd = current_dir;
 	if (!m->pwd)
 		exit(EXIT_FAILURE);
 }

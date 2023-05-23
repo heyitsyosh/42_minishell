@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/23 19:01:13 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/24 00:34:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
 
-void	builtin_pwd(char *line, t_minishell *m)
+int	builtin_pwd(char *line, t_minishell *m)
 {
-	
+	ft_putendl_fd(m.pwd, STDOUT_FILENO);
+	return (EXIT_SUCESS);
 }

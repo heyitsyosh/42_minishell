@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/24 00:31:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/24 23:12:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	run_one_line(int argc, char **argv, t_minishell	*m)
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	m;
-	//rl_outstream = stderr;
+
+	rl_outstream = stderr;
 	init_envp(envp, &m);
 	if (argc >= 2 && !ft_strcmp("-c", argv[1]))
 		run_one_line(argc, argv, &m);

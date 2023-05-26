@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/24 01:20:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:05:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ static void	add_new_env(t_env *tmp, t_minishell *m)
 	env_add_back(m->envp_head, tmp);
 }
 
-// void	delete_escapes(char **str)
-// {
-// 	while ((*str)[i])
-// }
+void	delete_escapes(char **str)
+{
+	// size_t	i;
+
+	// i = 0;
+	// while ((*str)[i])
+	// {
+	// 	if ()
+	// }
+}
 
 int	builtin_export(char *line, t_minishell *m)
 {

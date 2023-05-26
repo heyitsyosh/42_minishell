@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/15 21:38:41 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/25 19:09:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../includes/libft.h"
 #include "../includes/get_next_line.h"
 
+/*
 t_token	*tokdup(t_token *tok)
 {
 	char	*word_dup;
@@ -45,48 +46,45 @@ void	append_token(t_token **args, t_token *tok_to_add)
 		last_arg->next = tok_to_add;
 	}
 }
+*/
 
-t_ast_node	*make_ast_node(t_token *token)
+t_ast_node	*parse_subshell(t_parse *p)
 {
-	t_ast_node	*new_node;
+	t_ast_node	*subshell_node;
 
-	new_node = (t_ast_node *)malloc(sizeof(t_ast_node));
-	if (!new_node)
-		print_error_and_exit("malloc failure");
-	new_node->token = token;
-	new_node->left_child = NULL;
-	new_node->right_child = NULL;
-	return (new_node);
+	if (p->current_tok->type != OPEN_PARENTHESIS)
+		return (NULL);
+	p->current_tok = p->current_tok->next;
+	return (node);
+}
+
+t_ast_node	*parse_cmd(t_parse *p)
+{
+	if (parse_subshell())
+		return (NULL);
+}
+
+t_ast_node	*parse_and_or(t_parse *p)
+{
+		if (parse_cmd())
+		return (NULL);
+}
+
+t_ast_node	*parse_pipe(t_parse *p)
+{
+	if (parse_and_or())
+		return (NULL);
 }
 
 //"<<", ">>", "<", ">", "|", "(", ")", "&&", "||"
-t_ast_node	*parser(t_token **tok)
+t_ast_node	*parser(t_token *tok)
 {
+	t_parse			*p;
 	t_ast_node		*syntax_tree;
 
-	syntax_tree = command();
-
-	return ();
-}
-
-t_ast_node	*command(t_token **tok)
-{
-	t_ast_node	*node;
-
-	while ((*tok)->type != NIL)
-	{
-		if ((*tok)->type == WORD)
-			;
-		// else if ((*tok)->type == REDIR_OUT || (*tok)->type == REDIR_IN \
-		// 	|| (*tok)->type == HEREDOC || (*tok)->type == REDIR_APPEND)
-			//redirect
-		// else if ((*tok)->type == IO_NUMBER)
-			//redirect from io_num
-		else if ((*tok)->type == PIPE)
-			
-		else if 
-		else
-			break;
-	}
-	return (node);
+	p = init_parse_struct(tok);
+	syntax_tree = parse_pipe(p);
+	//check for error
+	//then return root of tree
+	// return ();
 }

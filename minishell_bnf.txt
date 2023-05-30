@@ -14,3 +14,16 @@ simple_command :=	<word>
 			   |	<redirection>
 			   |	<word> <simple_command>
 			   |	<redirection> <simple_command>
+
+TO-DO 
+: make all errors output to STDERR
+
+: env
+: cd
+: export (details)
+
+: handle signals (ctrl+C, etc)
+: parser
+: expander
+: redirection
+: pipe/execution

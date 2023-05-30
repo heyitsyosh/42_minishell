@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 21:58:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/31 01:49:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ char		**env_list_to_dbl_ptr(t_minishell *m);
 
 bool		is_blank(char c);
 bool		is_operator(char c);
+bool		is_valid_id(char *id);
 
 void		print_error_and_exit(char *error_message);
 void		print_syntax_error(char *unexpected_token);

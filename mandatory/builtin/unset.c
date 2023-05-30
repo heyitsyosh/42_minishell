@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 22:20:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/31 01:56:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ static void	delete_env(t_env *to_delete)
 int	builtin_unset(t_token *args, t_minishell *m)
 {
 	t_env	*matching_id;
+	int		status;
 
+	status = EXIT_SUCCESS;
 	while (args)
 	{
 		matching_id = (get_env(args->word, m->envp_head));
@@ -39,7 +41,13 @@ int	builtin_unset(t_token *args, t_minishell *m)
 				m->envp_head = matching_id->next;
 			delete_env(matching_id);
 		}
+		else if (!(is_valid_id(args->word)))
+		{
+			if (status != EXIT_FAILURE)
+				printf("unset: `%s': not a valid identifier", args->word);
+			status = EXIT_FAILURE;
+		}
 		args = args->next;
 	}
-	return (EXIT_SUCCESS);
+	return (status);
 }

@@ -6,16 +6,16 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 23:29:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:22:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 
 int	builtin_env(t_token *args, t_minishell *m)
 {
 	t_env	*envp;
-	bool	print_nl;
 
 	envp = m->envp_head;
 	print_nl = true;
@@ -33,3 +33,5 @@ int	builtin_env(t_token *args, t_minishell *m)
 }
 
 // -u, -i
+// env [,OPTION/]... [,-/] [,NAME=VALUE/]... [,COMMAND /[,ARG/]...]
+// env - 変更した環境でプログラムを実行する  

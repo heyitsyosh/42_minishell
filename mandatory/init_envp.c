@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 21:56:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:31:08 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ void	init_envp(char **envp, t_minishell *m)
 	set_pwd(get_env("PWD", m->envp_head), m);
 	set_shlvl(get_env("SHLVL", m->envp_head));
 }
-
 
 //_=/usr/bin/env??

@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 17:11:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:56:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 
 bool	is_valid_id(char *id)
 {
@@ -60,19 +61,25 @@ int	builtin_export(t_token *args, t_minishell *m)
 	t_env	*tmp;
 	t_env	*matching_id;
 
-	if (!ft_strchr(line, '='))
-		return ;
-	tmp = make_env_node(line);
-	delete_escapes(&tmp->str);
-	if (!is_valid_id(tmp->id))
+	while (args)
 	{
-		ft_printf("export: '%s': not a valid identifier\n", line);
-		free_envs(tmp);
-		return ;
+		if (ft_strchr(line, '='))
+		{
+			tmp = make_env_node(line);
+			delete_escapes(&tmp->str);
+			if (!is_valid_id(tmp->id))
+			{
+				ft_printf("export: '%s': not a valid identifier\n", line);
+				free_envs(tmp);
+				return (EXIT_FAILURE);
+			}
+			matching_id = get_env(tmp->id, m->envp_head);
+			if (matching_id)
+				replace_str(matching_id, tmp);
+			else
+				add_new_env(tmp, m);
+		}
+		args = args->next;
 	}
-	matching_id = get_env(tmp->id, m->envp_head);
-	if (matching_id)
-		replace_str(matching_id, tmp);
-	else
-		add_new_env(tmp, m);
+	return (EXIT_SUCCESS);
 }

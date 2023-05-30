@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/23 23:37:07 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/30 21:56:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_env	*make_envp_list(char **envp)
 	return (envp_head);
 }
 
-//in the case of "env -e ./minishell", minishell is run without envp
+//in the case of "env -i ./minishell", minishell is run without envp
 //set_pwd anticipates that scenario and prevents error
 static void	set_pwd(t_env *pwd, t_minishell *m)
 {
@@ -78,3 +78,6 @@ void	init_envp(char **envp, t_minishell *m)
 	set_pwd(get_env("PWD", m->envp_head), m);
 	set_shlvl(get_env("SHLVL", m->envp_head));
 }
+
+
+//_=/usr/bin/env??

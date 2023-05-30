@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/27 05:21:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/30 21:58:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_env{
 
 typedef struct s_minishell{
 	bool	is_interactive_mode;
+	// char	*path; unset PATH -> echo $PATH -> ls
 	char	*old_pwd;
 	char	*pwd;
 	t_env	*envp_head;

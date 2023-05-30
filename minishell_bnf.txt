@@ -1,0 +1,16 @@
+command :=			<subshell>
+		|			<simple_command>
+
+subshell :=			'(' <compound_list>')'
+
+compound_list :=	<list> '&&' <list>
+			  |		<list> '||' <list>
+			  |		<pipeline>
+
+pipeline :=			<pipeline> '|' <pipeline>
+		 |			<command>
+
+simple_command :=	<word>
+			   |	<redirection>
+			   |	<word> <simple_command>
+			   |	<redirection> <simple_command>

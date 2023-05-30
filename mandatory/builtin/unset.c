@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/24 00:35:09 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:11:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	delete_env(t_env *to_delete)
 	free(to_delete);
 }
 
-int	builtin_unset(char *id, t_minishell *m)
+int	builtin_unset(t_toke *args, t_minishell *m)
 {
 	t_env	*matching_id;
 

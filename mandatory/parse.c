@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/25 19:09:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:25:08 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,43 +48,90 @@ void	append_token(t_token **args, t_token *tok_to_add)
 }
 */
 
-t_ast_node	*parse_subshell(t_parse *p)
+bool	parse_subshell(t_parse *p)
 {
-	t_ast_node	*subshell_node;
+	t_ast_node	*subshell;
+	t_ast_node	*compound_list;
 
 	if (p->current_tok->type != OPEN_PARENTHESIS)
 		return (NULL);
 	p->current_tok = p->current_tok->next;
-	return (node);
+	compound_list = parse_and_or(p);
+	if (p->current_tok->type == NIL)
+	{
+		// 	UNEXPECTED EOF 
+	}
+	subshell = make_ast_node(SUBSHELL_NODE);
+	attatch_ast_nodes(subshell, compound_list, NULL);
+	return (true);
 }
 
-t_ast_node	*parse_cmd(t_parse *p)
+bool	parse_simple_command(t_parse *p)
 {
-	if (parse_subshell())
-		return (NULL);
+	t_ast_node	*cmd_node;
 }
 
-t_ast_node	*parse_and_or(t_parse *p)
+bool	parse_cmd(t_parse *p)
 {
-		if (parse_cmd())
-		return (NULL);
+	t_ast_node	*cmd_node;
+	t_ast_node	*subtree;
+
+	subtree = parse_subshell(p);
+	if (subtree)
+		return (subtree);
+	cmd_node = parse_simple_command(p);
+	if (cmd_node)
+		return (cmd_node);
+	//return (NULL);
+	//check for error from parse_subshell and parse_simple_command
 }
 
-t_ast_node	*parse_pipe(t_parse *p)
+bool	parse_pipe(t_parse *p)
 {
-	if (parse_and_or())
-		return (NULL);
+	t_ast_node	*cmd_node;
+	t_ast_node	*subtree;
+
+	subtree = parse_subshell(p);
+	if (subtree)
+		return (subtree);
+	cmd_node = parse_simple_command(p);
+	if (cmd_node)
+		return (cmd_node);
+	//return (NULL);
+	//check for error from parse_subshell and parse_simple_command
+}
+
+void	add_cmd(t_parse *p)
+{
+	t_ast_node	*and_or_node;
+	t_ast_node	*subtree;
+}
+
+bool	parse_and_or(t_parse *p)
+{
+	t_commands	*command;
+	t
+
+	while (!tok_type_is(NIL, p))
+	{
+		if (tok_type_is(AND, p) || tok_type_is(OR, p))
+		{
+			move_tok_forward(p);
+			parse_pipe(p);
+			
+		}
+		else
+			break ;
+	}
 }
 
 //"<<", ">>", "<", ">", "|", "(", ")", "&&", "||"
-t_ast_node	*parser(t_token *tok)
+t_parse	*parser(t_token *tok)
 {
 	t_parse			*p;
-	t_ast_node		*syntax_tree;
 
 	p = init_parse_struct(tok);
-	syntax_tree = parse_pipe(p);
+	parse_and_or(p);
 	//check for error
-	//then return root of tree
-	// return ();
+	return (p);
 }

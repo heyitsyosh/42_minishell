@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/26 18:05:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:11:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	delete_escapes(char **str)
 	// }
 }
 
-int	builtin_export(char *line, t_minishell *m)
+int	builtin_export(t_token *args, t_minishell *m)
 {
 	t_env	*tmp;
 	t_env	*matching_id;

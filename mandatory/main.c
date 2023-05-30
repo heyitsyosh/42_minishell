@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/24 23:12:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/27 03:52:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ volatile sig_atomic_t	g_status;
 void	run_commands(char *line, t_minishell *m)
 {
 	t_token		*tok;
+	t_parse		*p;
 
 	tok = tokenize(line);
 	parser(&tok);
@@ -35,6 +36,7 @@ void	run_commands(char *line, t_minishell *m)
 	else
 		set_exit_status
 	*/
+	free(p);
 	free_tokens(tok);
 }
 
@@ -69,6 +71,8 @@ void	run_one_line(int argc, char **argv, t_minishell	*m)
 		run_commands(argv[2], m);
 }
 
+//default execution reads from stdin (interactive mode)
+//option -c executes the arguments that follow
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	m;

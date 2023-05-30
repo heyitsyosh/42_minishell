@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/25 18:08:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/05/27 05:21:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef enum e_type
-{
-	SIMPLE_COMMAND,
-}	t_type;
-
 typedef struct s_env{
 	char			*id;
 	char			*str;
@@ -58,10 +53,6 @@ typedef struct s_minishell{
 	char	*pwd;
 	t_env	*envp_head;
 }	t_minishell;
-
-typedef struct s_parse{
-	t_token	*current_tok;
-}	t_parse;
 
 // Redirecting output example
 //command          : "echo hello; 1 > out"
@@ -79,13 +70,38 @@ typedef struct s_parse{
 // 	int		stashed_fd;
 // }	t_redir;
 
+typedef enum e_ast_node_type
+{
+	SUBSHELL_NODE,
+}	t_ast_node_type;
+
 typedef struct s_ast_node
 {
-	t_token				*token;
-	struct s_ast_node	*left_child;
-	struct s_ast_node	*right_child;
+	t_ast_node_type		type;
+	struct s_ast_node	*left;
+	struct s_ast_node	*right;
+	//t_cmd				*cmd
+	//t_token			*token;
 	//t_redir			*redir;
 }	t_ast_node;
+
+typedef enum e_operator_type
+{
+	AND_OPERATOR,
+	OR_OPERATOR,
+	NO_OPERATOR,
+}	t_operator_type;
+
+typedef struct s_commands{
+	t_token				*args;
+	t_operator_type		operator_type;
+	struct s_commands	*next;
+}	t_commands;
+
+typedef struct s_parse{
+	t_token		*current_tok;
+	t_commands	*cmds;
+}	t_parse;
 
 /*typedef struct s_node
 {
@@ -122,7 +138,11 @@ int			builtin_pwd(t_minishell *m);
 int			builtin_env(t_minishell *m);
 
 t_token		*make_token(char *word, t_token_type type);
+bool		tok_type_is(t_token_type type, t_parse *p);
+
 t_ast_node	*make_ast_node(t_token *token);
+void		attatch_ast_nodes(t_ast_node *base, \
+			t_ast_node *left, t_ast_node *right);
 
 void		free_tokens(t_token *tok);
 

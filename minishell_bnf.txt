@@ -18,11 +18,10 @@ simple_command :=	<word>
 TO-DO 
 : make all errors output to STDERR
 
-: env
 : cd
 : export (details)
 
-: handle signals (ctrl+C, etc)
+: handle signals (ctrl-C (sigint) new prompt new line, ctrl-D exits)
 : parser
 : expander
 : redirection

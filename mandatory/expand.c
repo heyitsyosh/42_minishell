@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 04:32:24 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/29 19:06:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/07 23:42:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/libft.h"
 #include "../includes/get_next_line.h"
 
-char	*no_quote(char **no_quote_ptr
+char	*no_quote(char **no_quote_ptr)
 {
 	size_t		i;
 	char		*unquoted;

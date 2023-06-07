@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 02:11:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 03:54:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	builtin_unset(t_token *args, t_minishell *m)
 		if (!(is_valid_id(args->word)))
 		{
 			if (status != EXIT_FAILURE)
-				printf("unset: `%s': not a valid identifier", args->word);
+				msg_to_stderr("export: ", args->word, \
+					": not a valid identifier\n");
 			status = EXIT_FAILURE;
 		}
 		else if (matching_id)

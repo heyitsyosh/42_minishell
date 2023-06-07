@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 00:58:45 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 04:53:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_minishell{
 	// char	*path; unset PATH -> echo $PATH -> ls
 	char	*old_pwd;
 	char	*pwd;
+	int		status;
 	t_env	*envp_head;
 }	t_minishell;
 

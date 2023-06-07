@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 21:45:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/04/13 15:59:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 03:52:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,11 @@ void	print_syntax_error(char *unexpected_token)
 	ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
 	ft_putstr_fd(unexpected_token, STDERR_FILENO);
 	ft_putstr_fd("'\n", STDERR_FILENO);
+}
+
+void	msg_to_stderr(char *first, char *second, char *third)
+{
+	ft_putstr_fd(first, STDERR_FILENO);
+	ft_putstr_fd(second, STDERR_FILENO);
+	ft_putstr_fd(third, STDERR_FILENO);
 }

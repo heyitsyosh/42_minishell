@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 01:26:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 04:53:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,18 @@ int	builtin_exit(t_token *args, t_minishell *m)
 {
 	int	status;
 
+	if (!args)
+		exit (m->status);
 	errno = 0;
 	status = ft_atoll(args->word);
 	if (!str_is_numeric(args->word) || errno == ERANGE)
 	{
-		ft_printf("exit: %s: numeric argument required\n", args->word);
+		msg_to_stderr("exit: ", args->word, ": numeric argument required\n");
 		exit (2); //why 2? check exit value in other environments
 	}
 	else if (args->next)
 	{
-		ft_printf("exit: too many arguments\n");
+		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	exit (status);

@@ -16,8 +16,6 @@ simple_command :=	<word>
 			   |	<redirection> <simple_command>
 
 TO-DO 
-: make all errors output to STDERR
-
 : cd
 : handle signals (ctrl-C (sigint) new prompt new line, ctrl-D exits)
 : parser

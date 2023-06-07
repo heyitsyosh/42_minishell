@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 02:49:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 03:53:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int	builtin_export(t_token *args, t_minishell *m)
 			if (!is_valid_id(tmp->id))
 			{
 				if (status != EXIT_FAILURE)
-					ft_printf("export: '%s': not a valid identifier\n", args->word);
+					msg_to_stderr("export: ", args->word, \
+					": not a valid identifier\n");
 				status = EXIT_FAILURE;
 				free_envs(tmp);
 				continue ;

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 00:05:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 01:01:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 static bool	str_is_numeric(char *str)
 {
+	if (*str == '+' || *str == '-')
+		str++;
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -28,7 +30,9 @@ int	builtin_exit(t_token *args, t_minishell *m)
 {
 	int	status;
 
-	if (!str_is_numeric(args->word))
+	errno = 0;
+	status = ft_atoll(args->word);
+	if (!str_is_numeric(args->word) || errno == ERANGE)
 	{
 		ft_printf("exit: %s: numeric argument required\n", args->word);
 		exit (2);
@@ -42,7 +46,3 @@ int	builtin_exit(t_token *args, t_minishell *m)
 	exit (status);
 	return (EXIT_SUCCESS);
 }
-
-//0->255
-//why is it exit (2)? must be some reason
-//numeric argument required cutoff seems to be long long 9223372036854775807

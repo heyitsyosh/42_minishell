@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 23:20:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 00:49:48 by myoshika         ###   ########.fr       */
+/*   Created: 2023/06/08 00:44:54 by myoshika          #+#    #+#             */
+/*   Updated: 2023/06/08 00:49:11 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-static long	make_l(const char *str, size_t i, int sign, long num)
+static long	make_ll(const char *str, size_t i, int sign, long num)
 {
-	long	min;
+	long long	min;
+	long long	max;
 
-	min = LONG_MIN;
+	min = LLONG_MIN;
+	max = LLONG_MAX;
 	while (*(str + i) && (*(str + i) >= '0' && *(str + i) <= '9'))
 	{
-		if (sign == 1 && ((num > LONG_MAX / 10)
-				|| (num == LONG_MAX / 10 && *(str + i) - '0' > LONG_MAX % 10)))
+		if (sign == 1 && ((num > max / 10)
+				|| (num == max / 10 && *(str + i) - '0' > max % 10)))
 		{
 			errno = ERANGE;
-			return (LONG_MAX);
+			return (LLONG_MAX);
 		}
 		else if (sign == -1 && ((num < min / 10)
 				|| (num == min / 10 && *(str + i) - '0' > min % 10 * -1)))
 		{
 			errno = ERANGE;
-			return (LONG_MIN);
+			return (LLONG_MIN);
 		}
 		num = (num * 10) + sign * (*(str + i) - '0');
 		i++;
@@ -37,11 +39,11 @@ static long	make_l(const char *str, size_t i, int sign, long num)
 	return (num);
 }
 
-int	ft_atoi(const char *str)
+long long	ft_atoll(const char *str)
 {
-	size_t	i;
-	long	num;
-	int		sign;
+	size_t		i;
+	long long	num;
+	int			sign;
 
 	i = 0;
 	sign = 1;
@@ -54,5 +56,5 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	num = make_l(str, i, sign, 0);
-	return ((int)num);
+	return (num);
 }

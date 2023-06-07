@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/31 01:49:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 00:58:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,40 +112,41 @@ typedef struct s_parse{
 	struct s_node	*next;
 }	t_node; */
 
-void		init_envp(char **envp, t_minishell *m);
-t_env		*get_env(char *var, t_env *env);
-void		free_envs(t_env *env);
-void		env_add_back(t_env *envp, t_env *new_node);
-t_env		*make_env_node(char	*envp);
-char		**env_list_to_dbl_ptr(t_minishell *m);
+void			init_envp(char **envp, t_minishell *m);
+t_env			*get_env(char *var, t_env *env);
+void			free_envs(t_env *env);
+void			env_add_back(t_env *envp, t_env *new_node);
+t_env			*make_env_node(char	*envp);
+char			**env_list_to_dbl_ptr(t_minishell *m);
 
-bool		is_blank(char c);
-bool		is_operator(char c);
-bool		is_valid_id(char *id);
+bool			is_blank(char c);
+bool			is_operator(char c);
+bool			is_io_number(char *line);
+bool			is_valid_id(char *id);
 
-void		print_error_and_exit(char *error_message);
-void		print_syntax_error(char *unexpected_token);
+void			print_error_and_exit(char *error_message);
+void			print_syntax_error(char *unexpected_token);
 
-t_token		*tokenize(char *line);
-t_ast_node	*parser(t_token *tok);
+t_token			*tokenize(char *line);
+t_ast_node		*parser(t_token *tok);
 // void	expand(t_node *node);
 // void	execute(t_node *node);
 
-int			builtin_echo(char *str, bool new_line);
-int			builtin_unset(char *id, t_minishell *m);
-int			builtin_export(char *line, t_minishell *m);
-int			builtin_exit(char *line, t_minishell *m);
-int			builtin_cd(char *line, t_minishell *m);
-int			builtin_pwd(t_minishell *m);
-int			builtin_env(t_minishell *m);
+int				builtin_echo(char *str, bool new_line);
+int				builtin_unset(char *id, t_minishell *m);
+int				builtin_export(char *line, t_minishell *m);
+int				builtin_exit(char *line, t_minishell *m);
+int				builtin_cd(char *line, t_minishell *m);
+int				builtin_pwd(t_minishell *m);
+int				builtin_env(t_minishell *m);
 
-t_token		*make_token(char *word, t_token_type type);
-bool		tok_type_is(t_token_type type, t_parse *p);
+t_token			*make_token(char *word, t_token_type type);
+t_token_type	get_operator_type(char *operator);
 
-t_ast_node	*make_ast_node(t_token *token);
-void		attatch_ast_nodes(t_ast_node *base, \
-			t_ast_node *left, t_ast_node *right);
+t_ast_node		*make_ast_node(t_token *token);
+void			attatch_ast_nodes(t_ast_node *base, \
+				t_ast_node *left, t_ast_node *right);
 
-void		free_tokens(t_token *tok);
+void			free_tokens(t_token *tok);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/31 01:56:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 00:31:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ int	builtin_unset(t_token *args, t_minishell *m)
 	while (args)
 	{
 		matching_id = (get_env(args->word, m->envp_head));
-		if (matching_id)
-		{
-			if (matching_id == m->envp_head)
-				m->envp_head = matching_id->next;
-			delete_env(matching_id);
-		}
-		else if (!(is_valid_id(args->word)))
+		if (!(is_valid_id(args->word)))
 		{
 			if (status != EXIT_FAILURE)
 				printf("unset: `%s': not a valid identifier", args->word);
 			status = EXIT_FAILURE;
+		}
+		else if (matching_id)
+		{
+			if (matching_id == m->envp_head)
+				m->envp_head = matching_id->next;
+			delete_env(matching_id);
 		}
 		args = args->next;
 	}

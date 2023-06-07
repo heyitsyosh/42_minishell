@@ -1,13 +1,23 @@
 NAME = minishell
 
 SRC_FILES = main\
+			init_envp\
+			env_utils\
 			tokenize\
+			tokenize_utils\
 			parse\
 			expand\
 			exec\
 			free\
 			redirect\
-			error
+			error\
+			builtin\cd\
+			builtin\echo\
+			builtin\env\
+			builtin\exit\
+			builtin\export\
+			builtin\pwd\
+			builtin\unset\
 
 SRCS = $(foreach src,$(SRC_FILES),./mandatory/$(src).c)
 OBJS = $(SRCS:.c=.o)

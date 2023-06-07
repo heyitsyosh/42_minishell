@@ -19,8 +19,6 @@ TO-DO
 : make all errors output to STDERR
 
 : cd
-: export (details)
-
 : handle signals (ctrl-C (sigint) new prompt new line, ctrl-D exits)
 : parser
 : expander

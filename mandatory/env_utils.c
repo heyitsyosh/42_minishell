@@ -6,11 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/23 15:24:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 02:07:18 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/libft.h"
+#include "../includes/get_next_line.h"
 
 t_env	*get_env(char *id, t_env *env)
 {
@@ -57,11 +59,13 @@ t_env	*make_env_node(char	*envp)
 		return (NULL);
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
-		exit(EXIT_FAILURE);
+		print_error_and_exit("malloc failure");
 	new_node->id = ft_substr(envp, 0, ptr_to_equal_sign - envp);
+	if (!new_node->id)
+		print_error_and_exit("substr failure");
 	new_node->str = ft_strdup(ptr_to_equal_sign + 1);
-	if (!new_node->id || !new_node->str)
-		exit(EXIT_FAILURE);
+	if (!new_node->str)
+		print_error_and_exit("strdup failure");
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);

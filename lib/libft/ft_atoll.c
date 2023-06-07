@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 00:44:54 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 00:49:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 01:35:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
+#include <errno.h>
 
 static long	make_ll(const char *str, size_t i, int sign, long num)
 {

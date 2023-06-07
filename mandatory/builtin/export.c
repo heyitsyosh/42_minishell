@@ -6,34 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 23:56:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 02:49:11 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
-
-bool	is_valid_id(char *id)
-{
-	if ((!ft_isalpha(*id) && *id != '_'))
-		return (false);
-	while (*id && *id != '=')
-	{
-		if (!ft_isalnum(*id) && *id != '_')
-			return (false);
-		id++;
-	}
-	return (true);
-}
-
-static void	replace_str(t_env *matching_id, t_env *tmp)
-{
-	free(matching_id->str);
-	matching_id->str = ft_strdup(tmp->str);
-	if (!matching_id->str)
-		exit(EXIT_FAILURE);
-	free_envs(tmp);
-}
 
 static void	add_new_env(t_env *tmp, t_minishell *m)
 {
@@ -45,41 +23,80 @@ static void	add_new_env(t_env *tmp, t_minishell *m)
 	env_add_back(m->envp_head, tmp);
 }
 
-void	delete_escapes(char **str)
+static void	copy_without_escaped_chars(char *str_to_change, char *str)
 {
-	// size_t	i;
+	while (*str)
+	{
+		if (*str == '\\' && ft_strchr(*(str + 1), "\"$"))
+			i++;
+		*str_to_change = *str;
+		str++;
+		str_to_change++;
+	}
+}
 
-	// i = 0;
-	// while ((*str)[i])
-	// {
-	// 	if ()
-	// }
+static void	delete_escapes(char **str_to_change, char *str)
+{
+	size_t	i;
+	size_t	new_len;
+
+	i = 0;
+	new_len = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\' && ft_strchr(str[i + 1], "\"$"))
+			i++;
+		new_len++;
+		i++;
+	}
+	free(*str_to_change);
+	*str_to_change = (char *)malloc(new_len + 1);
+	if (!(*str_to_change))
+		print_error_and_exit("malloc failure");
+	copy_without_escaped_chars(*str_to_change, str);
+	free(str);
+}
+
+static void	export_env(t_env *tmp)
+{
+	t_env	*matching_id;
+
+	delete_escapes(&tmp->str, ft_strdup(tmp->str));
+	matching_id = get_env(tmp->id, m->envp_head);
+	if (matching_id)
+	{
+		free(matching_id->str);
+		matching_id->str = ft_strdup(tmp->str);
+		if (!matching_id->str)
+			print_error_and_exit("strdup failure");
+		free_envs(tmp);
+	}
+	else
+		add_new_env(tmp, m);
 }
 
 int	builtin_export(t_token *args, t_minishell *m)
 {
+	int		status;
 	t_env	*tmp;
-	t_env	*matching_id;
 
+	status = EXIT_SUCCESS;
 	while (args)
 	{
-		if (ft_strchr(line, '='))
+		if (ft_strchr(args->word, '='))
 		{
-			tmp = make_env_node(line);
-			delete_escapes(&tmp->str);
+			tmp = make_env_node(args->word);
 			if (!is_valid_id(tmp->id))
 			{
-				ft_printf("export: '%s': not a valid identifier\n", line);
+				if (status != EXIT_FAILURE)
+					ft_printf("export: '%s': not a valid identifier\n", args->word);
+				status = EXIT_FAILURE;
 				free_envs(tmp);
-				return (EXIT_FAILURE);
+				continue ;
 			}
-			matching_id = get_env(tmp->id, m->envp_head);
-			if (matching_id)
-				replace_str(matching_id, tmp);
-			else
-				add_new_env(tmp, m);
+			export_env(tmp);
 		}
 		args = args->next;
 	}
-	return (EXIT_SUCCESS);
+	return (status);
 }

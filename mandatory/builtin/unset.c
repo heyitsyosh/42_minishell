@@ -6,11 +6,24 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 00:31:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 02:11:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	is_valid_id(char *id)
+{
+	if ((!ft_isalpha(*id) && *id != '_'))
+		return (false);
+	while (*id && *id != '=')
+	{
+		if (!ft_isalnum(*id) && *id != '_')
+			return (false);
+		id++;
+	}
+	return (true);
+}
 
 static void	delete_env(t_env *to_delete)
 {

@@ -6,12 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:55:16 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/26 18:14:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 01:28:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 #include <stdbool.h>
+#include <errno.h>
 
 typedef struct s_strtol
 {

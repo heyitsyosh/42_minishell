@@ -6,11 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 23:31:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 02:04:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdlib.h>
+#include <errno.h>
 
 static t_env	*make_envp_list(char **envp)
 {
@@ -43,7 +45,7 @@ static void	set_pwd(t_env *pwd, t_minishell *m)
 
 	current_dir = getcwd(NULL, 0);
 	if (!current_dir)
-		exit(EXIT_FAILURE);
+		print_error_and_exit("getcwd failure");
 	if (!pwd)
 	{
 		pwd = make_env_node("PWD=");
@@ -51,13 +53,11 @@ static void	set_pwd(t_env *pwd, t_minishell *m)
 		pwd->str = current_dir;
 	}
 	m->pwd = current_dir;
-	if (!m->pwd)
-		exit(EXIT_FAILURE);
 }
 
 static void	set_shlvl(t_env *shlvl)
 {
-	int64_t	original_shlvl;
+	long	original_shlvl;
 	char	*check;
 
 	if (!shlvl)
@@ -69,7 +69,7 @@ static void	set_shlvl(t_env *shlvl)
 	free(shlvl->str);
 	shlvl->str = ft_ltoa(original_shlvl);
 	if (!shlvl->str)
-		exit(EXIT_SUCCESS);
+		print_error_and_exit("ltoa failure");
 }
 
 void	init_envp(char **envp, t_minishell *m)
@@ -78,5 +78,3 @@ void	init_envp(char **envp, t_minishell *m)
 	set_pwd(get_env("PWD", m->envp_head), m);
 	set_shlvl(get_env("SHLVL", m->envp_head));
 }
-
-//_=/usr/bin/env??

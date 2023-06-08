@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 19:34:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 01:39:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h> //STDERR_FILENO
-#include <stdlib.h> //getenv
+
+#define CURSOR_UP "\033[1A"
 
 volatile sig_atomic_t	g_status;
 
@@ -58,7 +59,7 @@ void	minishell_loop(t_minishell	*m)
 			free(line);
 		}
 	}
-	//ctrl + d pressed
+	ft_printf("exit\n");
 }
 
 void	run_one_line(int argc, char **argv, t_minishell	*m)

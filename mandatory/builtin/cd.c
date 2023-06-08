@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 18:46:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 01:45:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,6 @@ int	builtin_cd(t_token *args, t_minishell *m)
 //chdir segfault??
 //backslash 
 //delete directory and , ENV kakikaeru junban
+//no args
+//~
+//no $HOME?

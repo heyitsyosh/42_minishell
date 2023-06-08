@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 20:01:22 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 01:53:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 //ctrl+\ (SIGQUIT), do nothing
 //ctrl+c (SIGINT), prompt on new line
-// void	signal_handler(void)
-// {
-	
-// }
+void	signal_handler(int signum)
+{
+	ft_printf("\n");
+	rl_on_new_line();
+}
 
 //SIGDFL in child proccess, dont want to kill the parent signal
 void	setup_child_signal_handler(void)

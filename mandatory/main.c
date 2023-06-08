@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 22:05:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:34:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	minishell_loop(t_minishell	*m)
 	m->is_interactive_mode = true;
 	while (1)
 	{
+		setup_parent_signal_handler();
 		line = readline("> ");
 		if (!line)
 			break ;
@@ -57,6 +58,7 @@ void	minishell_loop(t_minishell	*m)
 			free(line);
 		}
 	}
+	//ctrl + d pressed
 }
 
 void	run_one_line(int argc, char **argv, t_minishell	*m)

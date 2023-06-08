@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:59 by myoshika          #+#    #+#             */
-/*   Updated: 2023/05/30 23:32:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 05:11:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 
-int	builtin_echo(t_token *args, t_minishell *m)
+int	builtin_echo(t_token *args)
 {
 	bool	new_line;
 

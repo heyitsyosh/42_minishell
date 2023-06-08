@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 03:54:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 05:24:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	delete_env(t_env *to_delete)
 	free(to_delete);
 }
 
-int	builtin_unset(t_token *args, t_minishell *m)
+int	builtin_unset(t_token *args)
 {
 	t_env	*matching_id;
 	int		status;
@@ -47,7 +47,7 @@ int	builtin_unset(t_token *args, t_minishell *m)
 	status = EXIT_SUCCESS;
 	while (args)
 	{
-		matching_id = (get_env(args->word, m->envp_head));
+		matching_id = (get_env(args->word, g_ms.envp_head));
 		if (!(is_valid_id(args->word)))
 		{
 			if (status != EXIT_FAILURE)
@@ -57,8 +57,8 @@ int	builtin_unset(t_token *args, t_minishell *m)
 		}
 		else if (matching_id)
 		{
-			if (matching_id == m->envp_head)
-				m->envp_head = matching_id->next;
+			if (matching_id == g_ms.envp_head)
+				g_ms.envp_head = matching_id->next;
 			delete_env(matching_id);
 		}
 		args = args->next;

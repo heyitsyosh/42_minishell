@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 04:53:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 05:12:37 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	str_is_numeric(char *str)
 	return (true);
 }
 
-int	builtin_exit(t_token *args, t_minishell *m)
+int	builtin_exit(t_token *args)
 {
 	int	status;
 

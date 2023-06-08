@@ -6,21 +6,21 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 03:53:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 05:23:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 
-static void	add_new_env(t_env *tmp, t_minishell *m)
+static void	add_new_env(t_env *tmp)
 {
-	if (!m->envp_head)
+	if (!g_ms.envp_head)
 	{
-		m->envp_head = tmp;
+		g_ms.envp_head = tmp;
 		return ;
 	}
-	env_add_back(m->envp_head, tmp);
+	env_add_back(g_ms.envp_head, tmp);
 }
 
 static void	copy_without_escaped_chars(char *str_to_change, char *str)
@@ -62,7 +62,7 @@ static void	export_env(t_env *tmp)
 	t_env	*matching_id;
 
 	delete_escapes(&tmp->str, ft_strdup(tmp->str));
-	matching_id = get_env(tmp->id, m->envp_head);
+	matching_id = get_env(tmp->id, g_ms.envp_head);
 	if (matching_id)
 	{
 		free(matching_id->str);
@@ -72,10 +72,10 @@ static void	export_env(t_env *tmp)
 		free_envs(tmp);
 	}
 	else
-		add_new_env(tmp, m);
+		add_new_env(tmp);
 }
 
-int	builtin_export(t_token *args, t_minishell *m)
+int	builtin_export(t_token *args)
 {
 	int		status;
 	t_env	*tmp;

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 02:07:18 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 05:19:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ t_env	*make_env_node(char	*envp)
 	return (new_node);
 }
 
-char	**env_list_to_dbl_ptr(t_minishell *m)
+char	**env_list_to_dbl_ptr(void)
 {
 	t_env	*envp;
 	char	*joined;
 	char	**ret;
 
 	joined = ft_strdup("");
-	envp = m->envp_head;
+	envp = g_ms.envp_head;
 	while (envp)
 	{
 		joined = ft_strjoin_with_free(joined, envp->id, FREE_FIRST_PARAM);

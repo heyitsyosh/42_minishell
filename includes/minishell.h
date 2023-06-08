@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 01:50:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 05:18:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <signal.h> //sig_atomic_t
 
-extern volatile sig_atomic_t	g_status;
+extern t_minishell g_ms;
 typedef enum e_token_type
 {
 	WORD,
@@ -48,13 +48,14 @@ typedef struct s_env{
 	struct s_env	*prev;
 }	t_env;
 
+//global struct//
 typedef struct s_minishell{
-	bool	is_interactive_mode;
-	// char	*path; unset PATH -> echo $PATH -> ls
-	char	*old_pwd;
-	char	*pwd;
-	int		status;
-	t_env	*envp_head;
+	bool					is_interactive_mode;
+	int						status;
+	char					*old_pwd;
+	char					*pwd;
+	t_env					*envp_head;
+	volatile sig_atomic_t	signum;
 }	t_minishell;
 
 // Redirecting output example
@@ -114,12 +115,12 @@ typedef struct s_parse{
 	struct s_node	*next;
 }	t_node; */
 
-void			init_envp(char **envp, t_minishell *m);
+void			init_envp(char **envp);
 t_env			*get_env(char *var, t_env *env);
 void			free_envs(t_env *env);
 void			env_add_back(t_env *envp, t_env *new_node);
 t_env			*make_env_node(char	*envp);
-char			**env_list_to_dbl_ptr(t_minishell *m);
+char			**env_list_to_dbl_ptr(void);
 
 bool			is_blank(char c);
 bool			is_operator(char c);
@@ -134,13 +135,13 @@ t_ast_node		*parser(t_token *tok);
 // void	expand(t_node *node);
 // void	execute(t_node *node);
 
-int				builtin_echo(char *str, bool new_line);
-int				builtin_unset(char *id, t_minishell *m);
-int				builtin_export(char *line, t_minishell *m);
-int				builtin_exit(char *line, t_minishell *m);
-int				builtin_cd(char *line, t_minishell *m);
-int				builtin_pwd(t_minishell *m);
-int				builtin_env(t_minishell *m);
+int				builtin_echo(t_token *args);
+int				builtin_unset(t_token *args);
+int				builtin_export(t_token *args);
+int				builtin_exit(t_token *args);
+int				builtin_cd(t_token *args);
+int				builtin_pwd(t_token *args);
+int				builtin_env(t_token *args);
 
 t_token			*make_token(char *word, t_token_type type);
 t_token_type	get_operator_type(char *operator);

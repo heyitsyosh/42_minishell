@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 02:04:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 05:18:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_env	*make_envp_list(char **envp)
 
 //in the case of "env -i ./minishell", minishell is run without envp
 //set_pwd anticipates that scenario and prevents error
-static void	set_pwd(t_env *pwd, t_minishell *m)
+static void	set_pwd(t_env *pwd)
 {
 	char	*current_dir;
 
@@ -52,7 +52,7 @@ static void	set_pwd(t_env *pwd, t_minishell *m)
 		free(pwd->str);
 		pwd->str = current_dir;
 	}
-	m->pwd = current_dir;
+	g_ms.pwd = current_dir;
 }
 
 static void	set_shlvl(t_env *shlvl)
@@ -72,9 +72,9 @@ static void	set_shlvl(t_env *shlvl)
 		print_error_and_exit("ltoa failure");
 }
 
-void	init_envp(char **envp, t_minishell *m)
+void	init_envp(char **envp)
 {
-	m->envp_head = make_envp_list(envp);
-	set_pwd(get_env("PWD", m->envp_head), m);
-	set_shlvl(get_env("SHLVL", m->envp_head));
+	g_ms.envp_head = make_envp_list(envp);
+	set_pwd(get_env("PWD", g_ms.envp_head));
+	set_shlvl(get_env("SHLVL", g_ms.envp_head));
 }

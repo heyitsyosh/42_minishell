@@ -6,44 +6,52 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 06:09:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:01:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	cd_with_no_args(void)
-{
-	t_env	*home;
+// int	cd_with_no_args(void)
+// {
+// 	t_env	*home;
 
-	home = getenv("HOME");
-	if (!home)
-	{
-		ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
+// 	home = getenv("HOME");
+// 	if (!home)
+// 	{
+// 		ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
+// 		return (EXIT_FAILURE);
+// 	}
+	
+// }
+
+// get_chdir_destination(t_token *args)
+
+char	*get_relative_path(char	*given)
+{
 	
 }
 
 int	builtin_cd(t_token *args)
 {
-	if (args->next)
+	char	*path;
+
+	if (args && args->next)
 	{
 		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (!args)
-		return (cd_with_no_args());
-	if (*(args->word) == '~')
+	if (args && *args->word == '/')
+		path = args->word;
+	else
+		path = get_relative_path(args);
 }
 
 //chdir segfault??
-//backslash 
 //delete directory and, ENV kakikaeru junban
 //no args
 //~
 //no $HOME?
-
 /*
 types of error messages according to chatgpt
 "No such file or directory": This error message occurs when the specified directory does not exist in the file system.

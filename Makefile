@@ -19,7 +19,7 @@ SRC_FILES = main\
 			builtin\pwd\
 			builtin\unset\
 
-SRCS = $(foreach src,$(SRC_FILES),./mandatory/$(src).c)
+SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 
 INCLUDES = -I ./includes

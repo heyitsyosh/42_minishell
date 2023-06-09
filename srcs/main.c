@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 05:34:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 06:08:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,6 @@
 #include <unistd.h> //STDERR_FILENO
 
 t_minishell g_ms;
-
-void	run_commands(char *line)
-{
-	t_token		*tok;
-	t_parse		*p;
-
-	tok = tokenize(line);
-	parser(&tok);
-	/*
-	if (!error)
-	{
-		//expand(node);
-		set_up_redirect(node);
-		execute(node);
-		reset_redirect(node);
-	}
-	else
-		set_exit_status
-	*/
-	free(p);
-	free_tokens(tok);
-}
 
 void	minishell_loop(void)
 {

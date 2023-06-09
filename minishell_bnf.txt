@@ -17,8 +17,10 @@ simple_command :=	<word>
 
 TO-DO 
 : cd
-: handle signals (ctrl-C (sigint) new prompt new line, ctrl-D exits)
 : parser
 : expander
 : redirection
 : pipe/execution
+
+double check signal works w heredoc, infinite l, multiple commands, etc.
+read abt asynchronous whatever whatever 10.6 in UNIX解像度

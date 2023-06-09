@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 05:18:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/09 21:57:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef enum e_operator_type
 }	t_operator_type;
 
 typedef struct s_commands{
-	t_token				*args;
+	t_token				*args_list;
 	t_operator_type		operator_type;
 	struct s_commands	*next;
 }	t_commands;

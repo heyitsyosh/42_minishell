@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 05:19:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 08:43:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 t_env	*get_env(char *id, t_env *env)
 {
+	if (!id)
+		return (NULL);
 	while (env)
 	{
 		if (!ft_strcmp(id, env->id))

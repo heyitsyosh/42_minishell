@@ -6,13 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 04:32:24 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/10 06:46:03 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 09:10:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/libft.h"
 #include "../includes/get_next_line.h"
+
+//do not interpret dquote or quote when closing quote/dquote is not found!!!!!!!
 
 char	*quote(char **quote_ptr)
 {
@@ -47,16 +49,16 @@ char	*dquote(char **dquote_ptr, char *dquoted, size_t i)
 	while (dquote[i] && dquote[i] != '\"')
 	{
 		index_mover = 0;
-		if (dquote[i] == '\\' && ft_strchr("$\'\"\\", dquote[i + 1]))
+		if (dquote[i] == '\\' && ft_strchr("\\\'\"$", dquote[i + 1]))
 		{
 			index_mover = 2;
 			new_portion = ft_substr(dquote[i], 1, 1);
 		}
 		else if (dquote[i] == '$')
-			new_portion = variable_expansion(dquote[i], &index_mover);
+			new_portion = variable_expansion(dquote[i + 1], &index_mover);
 		else
 		{
-			index_mover = no_interpretation_len(dquote[i]);
+			index_mover = no_interpretation_len(dquote[i], IN_DQUOTE);
 			new_portion = ft_substr(dquote[i], 0, index_mover);
 		}
 		i += index_mover;
@@ -76,16 +78,16 @@ char	*no_quote(char **no_quote_ptr, char *unquoted, size_t i)
 	while (no_quote[i] && no_quote[i] != '\'' && no_quote[i] != '\"')
 	{
 		index_mover = 0;
-		if (no_quote[i] == '\\' && ft_strchr("$\'\"\\", no_quote[i + 1]))
+		if (no_quote[i] == '\\' && ft_strchr("\\\'\"$", no_quote[i + 1]))
 		{
 			index_mover = 2;
 			new_portion = ft_substr(no_quote[i], 1, 1);
 		}
 		else if (no_quote[i] == '$')
-			new_portion = variable_expansion(no_quote[i], &index_mover);
+			new_portion = variable_expansion(no_quote[i + 1], &index_mover);
 		else
 		{
-			index_mover = no_interpretation_len(no_quote[i]);
+			index_mover = no_interpretation_len(no_quote[i], NOT_IN_DQUOTE);
 			new_portion = ft_substr(no_quote[i], 0, index_mover);
 		}
 		i += index_mover;

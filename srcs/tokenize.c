@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 00:57:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 09:00:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ size_t	count_till_closing_quote(char *start_of_quote)
 
 	len = 1;
 	while (start_of_quote[len] && start_of_quote[0] != start_of_quote[len])
+	{
+		if (start_of_quote[0] == '\"' \
+			&& start_of_quote[len] == '\\' && start_of_quote[len + 1] == '\"')
+			len++;
 		len++;
+	}
 	if (*(start_of_quote + len) == *start_of_quote)
 		len++;
 	return (len);

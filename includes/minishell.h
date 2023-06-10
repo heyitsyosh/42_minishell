@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 21:57:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 06:57:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <signal.h> //sig_atomic_t
+
+# define NOT_IN_DQUOTE 0
+# define IN_DQUOTE 1
 
 extern t_minishell g_ms;
 typedef enum e_token_type

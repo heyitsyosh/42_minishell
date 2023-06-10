@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 21:45:42 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 19:23:50 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 10:39:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,13 @@
 // 	printf("[input: %s][endptr: %c]\n", input, *endptr);
 // }
 
+void check(char **a)
+{
+	printf("%c", (*a)[1]);
+}
+
 int main()
 {
-	printf("%lu", SIZE_MAX);
+	char *a = strdup("hello");
+	check(&a);
 }

@@ -6,10 +6,9 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/10 06:19:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 09:11:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 void	run_commands(char *line)
 {

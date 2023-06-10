@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 04:32:24 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/10 09:10:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 10:40:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,18 @@
 #include "../includes/libft.h"
 #include "../includes/get_next_line.h"
 
-//do not interpret dquote or quote when closing quote/dquote is not found!!!!!!!
+char	*no_interpretation_if_not_closed(char *str, char **ptr, size_t i)
+{
+	if (**ptr != (*ptr)[i])
+	{
+		free(str);
+		str = ft_substr(*ptr, 0, 1);
+		*ptr += 1;
+	}
+	else
+		*ptr += i + 1;
+	return (str);
+}
 
 char	*quote(char **quote_ptr)
 {
@@ -30,13 +41,10 @@ char	*quote(char **quote_ptr)
 		quoted_len++;
 		i++;
 	}
-	if (quote[i] == '\'')
-		i++;
 	quoted = ft_substr(quote + 1, 0, quoted_len);
 	if (!quoted)
 		print_error_and_exit("substr failure");
-	*quote_ptr += i;
-	return (quoted);
+	return (no_interpretation_if_not_closed(quoted, quote_ptr, i));
 }
 
 char	*dquote(char **dquote_ptr, char *dquoted, size_t i)
@@ -64,8 +72,7 @@ char	*dquote(char **dquote_ptr, char *dquoted, size_t i)
 		i += index_mover;
 		dquoted = ft_strjoin_with_free(dquoted, new_portion, FREE_BOTH);
 	}
-	*dquote_ptr += i;
-	return (dquoted);
+	return (no_interpretation_if_not_closed(dquoted, dquote_ptr, i));
 }
 
 char	*no_quote(char **no_quote_ptr, char *unquoted, size_t i)

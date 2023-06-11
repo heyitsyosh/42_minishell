@@ -5,6 +5,7 @@
 		"libft.h": "c",
 		"cstdlib": "c",
 		"cstdarg": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"expand.h": "c"
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:27:04 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 04:02:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/12 05:57:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
 #include "../../includes/minishell.h"
-#include "../../includes/libft.h"
 #include "../../includes/expand.h"
+#include "../../includes/libft.h"
 
 char	*get_quoted_str(char *quote, size_t *i)
 {

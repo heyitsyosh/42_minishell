@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:07:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 02:24:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/12 06:00:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/expand.h"
+#include "../../includes/minishell.h"
+#include "../../includes/expand.h"
 #include <stdlib.h> //free
 
 void	free_tokens(t_token *tok)

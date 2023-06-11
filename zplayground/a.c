@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 21:45:42 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/10 10:39:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 10:46:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@
 // 	printf("[input: %s][endptr: %c]\n", input, *endptr);
 // }
 
-void check(char **a)
-{
-	printf("%c", (*a)[1]);
-}
+// sample.c
+#include <stdio.h>
 
-int main()
+int main(int argc, char *argv[])
 {
-	char *a = strdup("hello");
-	check(&a);
+	for (int i = 0; i < argc; i++) {
+		printf("argv[%d] = [%s]\n", i, argv[i]);
+	}
 }

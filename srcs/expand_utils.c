@@ -6,12 +6,24 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:06:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/10 09:08:45 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:24:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/libft.h"
+#include "../includes/get_next_line.h"
+
+char	*expand_to_exit_status(size_t **index_mover)
+{
+	char	*exit_status;
+
+	*index_mover = 2;
+	exit_status = ft_itoa(g_ms.status);
+	if (!exit_status)
+		print_error_and_exit("itoa failure");
+	return (exit_status);
+}
 
 char	*variable_expansion(char *ptr, size_t **index_mover)
 {
@@ -21,6 +33,8 @@ char	*variable_expansion(char *ptr, size_t **index_mover)
 	t_env	*matching_env;
 
 	id_len = 0;
+	if (*ptr == '?')
+		return (expand_to_exit_status(index_mover));
 	while (ft_isalnum() || *ptr == '_')
 		id_len++;
 	id = ft_substr(ptr, 1, id_len);
@@ -51,4 +65,23 @@ size_t	no_interpretation_len(char *ptr, int status)
 		len++;
 	}
 	return (len);
+}
+
+char	*no_interpretation_if_not_closed(char *str, char **ptr, size_t i)
+{
+	if (**ptr != (*ptr)[i])
+	{
+		free(str);
+		str = ft_substr(*ptr, 0, 1);
+		*ptr += 1;
+	}
+	else
+	{
+		if (**ptr == '\'')
+			str = ft_strjoin_with_free(str, "\'", FREE_FIRST_PARAM);
+		else
+			str = ft_strjoin_with_free(str, "\"", FREE_FIRST_PARAM);
+		*ptr += i + 1;
+	}
+	return (str);
 }

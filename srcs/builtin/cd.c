@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 22:01:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/10 11:36:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	builtin_cd(t_token *args)
 //no args
 //~
 //no $HOME?
+//rewrite env oldpwd, pwd
+//shell vars vs env vars
 /*
 types of error messages according to chatgpt
 "No such file or directory": This error message occurs when the specified directory does not exist in the file system.

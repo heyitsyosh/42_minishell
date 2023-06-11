@@ -3,6 +3,7 @@
 		"get_next_line.h": "c",
 		"limits": "c",
 		"libft.h": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"cstdarg": "c"
 	}
 }

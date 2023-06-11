@@ -6,16 +6,17 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:46:50 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/25 10:45:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:53:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stdbool.h>
-# include <stdarg.h>
 # include "./libft.h"
+# include <stdbool.h> //bool
+# include <stddef.h> //size_t
+# include <stdarg.h> //va_start, va_end, va_arg, va_list
 
 typedef struct s_printf
 {

@@ -6,11 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 07:21:17 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/25 10:44:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:57:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_printf.h"
+#include <stdlib.h> //malloc, free
+#include <limits.h> //INT_MAX
 
 size_t	conversion(const char *specifiers, t_printf *info, va_list args)
 {
@@ -70,7 +72,7 @@ int	ft_printf(const char *input, ...)
 			printed += no_conversion(input + info->i, info);
 	}
 	va_end(args);
-	free (info);
+	free(info);
 	if (printed >= INT_MAX)
 		return (-1);
 	return (printed);

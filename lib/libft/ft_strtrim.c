@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:29:25 by myoshika          #+#    #+#             */
-/*   Updated: 2022/09/22 22:38:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:24:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
+#include <stdlib.h> //malloc
 
 static size_t	search(int dir, char const *s1, char const *set)
 {

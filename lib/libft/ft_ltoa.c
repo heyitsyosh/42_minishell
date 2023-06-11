@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:28:23 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/16 20:24:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:21:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
+#include <stdlib.h> //malloc
 
 static int	digit_count(long n)
 {

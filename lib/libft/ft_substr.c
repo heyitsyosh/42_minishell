@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cshono <cshono@student.42.tokyo>           +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:29:27 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/12 23:40:10 by cshono           ###   ########.fr       */
+/*   Updated: 2023/06/11 19:24:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
+#include <stdlib.h> //malloc
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

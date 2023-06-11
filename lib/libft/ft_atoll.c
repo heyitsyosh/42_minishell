@@ -6,12 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 00:44:54 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 01:35:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:56:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
-#include <errno.h>
+#include <limits.h> //LLONG_MAX, LLONG_MIN
+#include <errno.h> //errno, ERANGE
 
 static long	make_ll(const char *str, size_t i, int sign, long num)
 {
@@ -56,6 +57,6 @@ long long	ft_atoll(const char *str)
 			sign = -1;
 		i++;
 	}
-	num = make_l(str, i, sign, 0);
+	num = make_ll(str, i, sign, 0);
 	return (num);
 }

@@ -6,12 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 05:12:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:02:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
+#include <stdlib.h> //EXIT_SUCCESS
 
 int	builtin_env(t_token *args)
 {

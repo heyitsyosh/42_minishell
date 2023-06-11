@@ -6,12 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:20:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 01:35:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:25:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
-#include <errno.h>
+#include <limits.h> //LONG_MAX, LONG_MIN
+#include <errno.h> //errno, ERANGE
 
 static long	make_l(const char *str, size_t i, int sign, long num)
 {

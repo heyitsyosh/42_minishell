@@ -6,12 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 21:45:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/08 03:52:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:44:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/libft.h"
+#include <unistd.h> //STDERR_FILENO
 
 void	print_error_and_exit(char *error_message)
 {

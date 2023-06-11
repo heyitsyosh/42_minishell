@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/10 06:57:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:01:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include <stdbool.h>
-# include <stdio.h>
+# include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
 
 # define NOT_IN_DQUOTE 0

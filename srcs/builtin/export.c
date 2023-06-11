@@ -6,12 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 05:23:09 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:06:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
+#include <stdlib.h> //malloc, free, exit, EXIT_SUCCESS, EXIT_FAILURE
 
 static void	add_new_env(t_env *tmp)
 {

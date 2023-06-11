@@ -6,16 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:15 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/09 05:03:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:19:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <fcntl.h>
-# include <sys/stat.h>
-# include <sys/types.h>
 # include "./libft.h"
 
 # ifndef BUFFER_SIZE

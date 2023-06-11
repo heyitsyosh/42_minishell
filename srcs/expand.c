@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 04:32:24 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 18:25:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:11:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*dquote(char **dquote_ptr, char *dquoted, size_t i)
 		if (dquote[i] == '\\' && ft_strchr("\\\'\"$", dquote[i + 1]))
 		{
 			index_mover = 2;
-			new_portion = ft_substr(dquote[i], 0, 2);
+			new_portion = ft_substr(dquote[i], 1, 1);
 		}
 		else if (dquote[i] == '$')
 			new_portion = variable_expansion(dquote[i + 1], &index_mover);
@@ -70,7 +70,7 @@ char	*no_quote(char **no_quote_ptr, char *unquoted, size_t i)
 		if (no_quote[i] == '\\' && ft_strchr("\\\'\"$", no_quote[i + 1]))
 		{
 			index_mover = 2;
-			new_portion = ft_substr(no_quote[i], 0, 2);
+			new_portion = ft_substr(no_quote[i], 1, 1);
 		}
 		else if (no_quote[i] == '$')
 			new_portion = variable_expansion(no_quote[i + 1], &index_mover);
@@ -112,24 +112,5 @@ void	variable_expansion_loop(t_token *tok, bool *has_wildcard_expansion)
 	tok->word = expanded;
 }
 
-void	expand(t_token *tok)
-{
-	bool	has_wildcard_expansion;
-	t_token	*next;
-
-	while (tok)
-	{
-		has_wildcard_expansion = false;
-		if (tok->type == WORD)
-		{
-			next = tok->next;
-			variable_expansion_loop(tok, &has_wildcard_expansion);
-		//	if (has_wildcard_expansion)
-		// 	wildcard_expansion(tok);
-			quote_removal_loop(tok);
-		}
-		tok = next;
-	}
-}
 
 //might do word splitting and emulate parameters in heredoc

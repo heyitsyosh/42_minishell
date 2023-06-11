@@ -6,13 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 05:18:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:45:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdlib.h>
-#include <errno.h>
+#include <stdlib.h> //free
+#include <unistd.h> //getcwd
+#include <errno.h> //errno, ERANGE
 
 static t_env	*make_envp_list(char **envp)
 {

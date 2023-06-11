@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 05:24:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:07:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <stdlib.h> //free, EXIT_SUCCESS, EXIT_FAILURE
 
 bool	is_valid_id(char *id)
 {

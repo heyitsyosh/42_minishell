@@ -6,12 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 05:14:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:06:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
+#include <unistd.h> //STDERR_FILENO
+#include <stdlib.h> //EXIT_SUCCESS
 
 int	builtin_pwd(t_token *args)
 {

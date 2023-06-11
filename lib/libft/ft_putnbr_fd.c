@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:29:00 by myoshika          #+#    #+#             */
-/*   Updated: 2022/09/22 22:39:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:22:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
+#include <unistd.h> //write
 
 void	ft_putnbr_fd(int n, int fd)
 {

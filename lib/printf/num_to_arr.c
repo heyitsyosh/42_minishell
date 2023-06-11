@@ -6,11 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/25 10:45:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:38:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_printf.h"
+#include <stdlib.h> //malloc, free
+#include <limits.h> //INT_MAX
 
 static int	get_ull_len(unsigned long long ull, int base)
 {

@@ -4,6 +4,7 @@
 		"limits": "c",
 		"libft.h": "c",
 		"cstdlib": "c",
-		"cstdarg": "c"
+		"cstdarg": "c",
+		"minishell.h": "c"
 	}
 }

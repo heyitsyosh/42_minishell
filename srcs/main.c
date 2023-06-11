@@ -6,15 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:55:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:11:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <readline/readline.h> //readline
 #include <readline/history.h> //add_history
-#include <stdlib.h> //exit, free
 #include <unistd.h> //STDERR_FILENO
+#include <stdlib.h> //exit, free
 
 t_minishell	g_ms;
 

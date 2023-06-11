@@ -6,9 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/10 09:11:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:12:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/minishell.h"
+#include <readline/readline.h> //readline
+#include <readline/history.h> //add_history
+#include <stdlib.h> //free
 
 void	run_commands(char *line)
 {

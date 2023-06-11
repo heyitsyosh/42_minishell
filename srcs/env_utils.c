@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:41:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:30:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_env	*make_env_node(char	*envp)
 	ptr_to_equal_sign = ft_strchr(envp, '=');
 	if (!ptr_to_equal_sign)
 		return (NULL);
-	new_node = malloc(sizeof(t_env));
+	new_node = (t_env *)malloc(sizeof(t_env));
 	if (!new_node)
 		print_error_and_exit("malloc failure");
 	new_node->id = ft_substr(envp, 0, ptr_to_equal_sign - envp);

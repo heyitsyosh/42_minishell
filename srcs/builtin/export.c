@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 20:06:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:07:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	builtin_export(t_token *args)
 	t_env	*tmp;
 
 	status = EXIT_SUCCESS;
+	if (!args)
+		export_no_args();
 	while (args)
 	{
 		if (ft_strchr(args->word, '='))

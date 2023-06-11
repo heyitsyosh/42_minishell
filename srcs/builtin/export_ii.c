@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_line.c                                     :+:      :+:    :+:   */
+/*   export_ii.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 02:03:40 by myoshika         ###   ########.fr       */
+/*   Created: 2023/06/12 02:05:54 by myoshika          #+#    #+#             */
+/*   Updated: 2023/06/12 02:09:51 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include <stdlib.h> //free
+#include "../../includes/minishell.h"
+#include "../../includes/printf.h"
 
-void	run_commands(char *line)
+void	export_no_args(void)
 {
-	t_token		*tok;
-	t_parse		*p;
+	t_env	*envp;
 
-	tok = tokenize(line);
-	parser(&tok);
-	/*
-	if (!error)
+	envp = g_ms.envp_head;
+	while (envp)
 	{
-		//expand(node);
-		set_up_redirect(node);
-		execute(node);
-		reset_redirect(node);
+		ft_printf("declare -x %s=\"%s\"\n", envp->id, envp->str);
+		envp = envp->next;
 	}
-	else
-		set_exit_status
-	*/
-	free(p);
-	free_tokens(tok);
 }

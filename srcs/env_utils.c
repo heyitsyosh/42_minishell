@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 21:30:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/12 04:02:08 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/get_next_line.h"
 #include "../includes/minishell.h"
 #include "../includes/libft.h"
-#include "../includes/get_next_line.h"
 #include <stdlib.h> //malloc, free, exit
 
 t_env	*get_env(char *id, t_env *env)

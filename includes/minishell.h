@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 20:01:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/12 04:49:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef enum e_token_type
 	CLOSE_PARENTHESIS,
 	PIPE,
 	NIL,
+	UNSET,
 }	t_token_type;
 
 typedef struct s_token

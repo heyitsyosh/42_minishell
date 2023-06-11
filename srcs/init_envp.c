@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:45:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:02:56 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/libft.h"
 #include <stdlib.h> //free
 #include <unistd.h> //getcwd
 #include <errno.h> //errno, ERANGE

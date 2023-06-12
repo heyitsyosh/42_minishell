@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:11:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 07:40:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 07:54:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "../../includes/libft.h"
 #include <stdlib.h> //free
 
-//no interpretation made when closing quote is not found
 static t_word	*quote(char **quote_ptr)
 {
 	size_t	i;
@@ -42,7 +41,6 @@ static t_word	*quote(char **quote_ptr)
 	return (quoted_node);
 }
 
-//no interpretation made when closing dquote is not found
 static t_word	*dquote(char **dquote_ptr)
 {
 	size_t	i;

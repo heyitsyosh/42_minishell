@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 05:49:26 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 06:06:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 08:02:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,11 @@ bool	matches_pattern(char *d_name, t_word *word)
 t_token	*make_match_list(DIR *current_dir, t_word *word)
 {
 	struct dirent	*entry;
-	char			*d_name_dup;
 	t_token			*match;
-	t_token			*head;
-	t_token			*end;
+	t_token			head;
 
-	head = NULL;
-	end = NULL;
+	head.next = NULL;
+	match = &head;
 	while (1)
 	{
 		entry = readdir(current_dir);
@@ -60,20 +58,13 @@ t_token	*make_match_list(DIR *current_dir, t_word *word)
 			break ;
 		if (matches_pattern(entry->d_name, word))
 		{
-			d_name_dup = ft_strdup(entry->d_name);
-			if (!d_name_dup)
+			match->next = make_token(ft_strdup(entry->d_name), WORD);
+			if (!(match->next)->word)
 				print_error_and_exit("strdup failure");
-			match = make_token(d_name_dup, WORD);
-			if (!head)
-			{
-				head = match;
-				end = match;
-			}
-			else
-				end->next = match;
+			match = match->next;
 		}
 	}
-	return (head);
+	return (head.next);
 }
 
 t_token	*wildcard_expansion(t_word *word, t_token *next)

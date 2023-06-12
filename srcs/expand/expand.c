@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 07:41:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 08:21:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,19 @@ void	concat_non_asterisks(t_word *word, bool *has_wildcard)
 	}
 }
 
-void	replace_token_with_expanded(t_word *word, t_token *wildcard_matches, t_token *tok)
+void	replace_with_expanded(t_word *word, t_token *wildcard, t_token *tok)
 {
 	t_token	*next;
 
-	if (wildcard_matches)
+	if (wildcard)
 	{
 		next = tok->next;
-		free(tok);
-		tok = wildcard_matches;
-		while (tok->next != NULL)
-			tok = tok->next;
-		tok->next = next;
+		free(tok->word);
+		tok->word = wildcard->word;
+		tok->next = wildcard->next;
+		while (wildcard->next != NULL)
+			wildcard = wildcard->next;
+		wildcard->next = next;
 	}
 	else
 	{
@@ -56,25 +57,6 @@ void	replace_token_with_expanded(t_word *word, t_token *wildcard_matches, t_toke
 		tok->word = ft_strdup(word->sub_word);
 		if (!tok->word)
 			print_error_and_exit("substr failure");
-	}
-}
-
-void	print_word_list(t_word	*word)
-{
-	while (word)
-	{
-		printf("[%s]", word->sub_word);
-		if (word->type == WILDCARD)
-			printf(" WILDCARD");
-		else if (word->type == UNQUOTED)
-			printf(" UNQUOTED");
-		else if (word->type == QUOTED)
-			printf(" QUOTED");
-		else if (word->type == DQUOTED)
-			printf(" DQUOTED");
-		printf(", ");
-		fflush(stdout);
-		word = word->next;
 	}
 }
 
@@ -89,15 +71,14 @@ void	expand(t_token *tok)
 	wildcard_matches = NULL;
 	while (tok)
 	{
+		next = tok->next;
 		if (tok->type == WORD)
 		{
-			next = tok->next;
 			word_head = divide_word_to_list(tok->word);
 			concat_non_asterisks(word_head, &has_wildcard);
-			print_word_list(word_head); //aaaaaaaaaaaaa
 			if (has_wildcard)
 				wildcard_matches = wildcard_expansion(word_head, tok);
-			replace_token_with_expanded(word_head, wildcard_matches, tok);
+			replace_with_expanded(word_head, wildcard_matches, tok);
 			free_sub_word_list(word_head);
 		}
 		tok = next;

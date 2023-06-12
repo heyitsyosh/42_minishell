@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 07:42:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 08:23:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	run_commands(char *line)
 	tok = tokenize(line);
 	expand(tok);
 
-	// t_token *tokkk = tok;
-	// while (tokkk)
-	// {
-	// 	printf ("%s (%d), ", tokkk->word, tokkk->type);
-	// 	fflush(stdout);
-	// 	tokkk = tokkk->next;
-	// }
-	// printf("\n");
-	
+	t_token *tokkk = tok;
+	while (tokkk)
+	{
+		printf ("%s (%d), ", tokkk->word, tokkk->type);
+		fflush(stdout);
+		tokkk = tokkk->next;
+	}
+	printf("\n");
+
 	// parser(&tok);
 	/*
 	if (!error)

@@ -6,6 +6,7 @@
 		"cstdlib": "c",
 		"cstdarg": "c",
 		"minishell.h": "c",
-		"expand.h": "c"
+		"expand.h": "c",
+		"stdio.h": "c"
 	}
 }

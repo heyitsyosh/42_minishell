@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:11:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 06:07:43 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 07:40:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,103 +16,103 @@
 #include "../../includes/libft.h"
 #include <stdlib.h> //free
 
+//no interpretation made when closing quote is not found
 static t_word	*quote(char **quote_ptr)
 {
 	size_t	i;
+	char	*quoted_str;
 	t_word	*quoted_node;
-	char	*quoted_sub_str;
 
 	i = 1;
-	quoted_sub_str = get_quoted_str(*quote_ptr, &i);
-	if (!quoted_sub_str)
+	quoted_str = get_quoted_str(*quote_ptr, &i);
+	if (!quoted_str)
 		print_error_and_exit("malloc failure");
 	if ((*quote_ptr)[i] == '\'')
-		quoted_node = make_sub_word_node(quoted_sub_str, QUOTED);
+		quoted_node = make_sub_word_node(quoted_str, QUOTED);
 	else
 	{
-		free(quoted_sub_str);
-		quoted_sub_str = ft_strdup("\'");
-		if (!quoted_sub_str)
+		free(quoted_str);
+		quoted_str = ft_strdup("\'");
+		if (!quoted_str)
 			print_error_and_exit("strdup failure");
-		quoted_node = make_sub_word_node(quoted_sub_str, UNQUOTED);
+		quoted_node = make_sub_word_node(quoted_str, UNQUOTED);
 		i = 0;
 	}
 	*quote_ptr += i + 1;
 	return (quoted_node);
 }
 
+//no interpretation made when closing dquote is not found
 static t_word	*dquote(char **dquote_ptr)
 {
 	size_t	i;
+	char	*dquoted_str;
 	t_word	*dquoted_node;
-	char	*dquoted_sub_str;
 
 	i = 1;
-	dquoted_sub_str = get_dquoted_str(*dquote_ptr, &i);
-	if (!dquoted_sub_str)
+	dquoted_str = get_dquoted_str(*dquote_ptr, &i);
+	if (!dquoted_str)
 		print_error_and_exit("malloc failure");
 	if ((*dquote_ptr)[i] == '\"')
-		dquoted_node = make_sub_word_node(dquoted_sub_str, DQUOTED);
+		dquoted_node = make_sub_word_node(dquoted_str, DQUOTED);
 	else
 	{
-		free(dquoted_sub_str);
-		dquoted_sub_str = ft_strdup("\"");
-		if (!dquoted_sub_str)
+		free(dquoted_str);
+		dquoted_str = ft_strdup("\"");
+		if (!dquoted_str)
 			print_error_and_exit("strdup failure");
-		dquoted_node = make_sub_word_node(dquoted_sub_str, UNQUOTED);
+		dquoted_node = make_sub_word_node(dquoted_str, UNQUOTED);
 		i = 0;
 	}
 	*dquote_ptr += i + 1;
 	return (dquoted_node);
 }
 
-static t_word	*wildcard(char **word)
+static t_word	*wildcard(char **wildcard_ptr)
 {
-	char	*wildcard;
-	t_word	*wildcard_word;
+	char	*wildcard_str;
+	t_word	*wildcard_node;
 
-	wildcard = ft_strdup("*");
-	if (!wildcard)
+	wildcard_str = ft_strdup("*");
+	if (!wildcard_str)
 		print_error_and_exit("strdup failure");
-	wildcard_word = make_sub_word_node(wildcard, WILDCARD);
-	*word += 1;
-	return (wildcard_word);
+	wildcard_node = make_sub_word_node(wildcard_str, WILDCARD);
+	*wildcard_ptr += 1;
+	return (wildcard_node);
 }
 
 static t_word	*no_quote(char **no_quote_ptr)
 {
 	size_t	i;
+	char	*unquoted_str;
 	t_word	*unquoted_node;
-	char	*unquoted_sub_str;
 
 	i = 0;
-	unquoted_sub_str = get_unquoted_str(*no_quote_ptr, &i);
-	*no_quote_ptr += i;
-	if (!unquoted_sub_str)
+	unquoted_str = get_unquoted_str(*no_quote_ptr, &i);
+	if (!unquoted_str)
 		print_error_and_exit("malloc failure");
-	unquoted_node = make_sub_word_node(unquoted_sub_str, UNQUOTED);
+	unquoted_node = make_sub_word_node(unquoted_str, UNQUOTED);
+	*no_quote_ptr += i;
 	return (unquoted_node);
 }
 
 t_word	*divide_word_to_list(char *word)
 {
+	t_word	head;
 	t_word	*sub_word;
-	t_word	*list_head;
-	t_word	*last_sub_word;
 
-	list_head = make_sub_word_node(NULL, HEAD);
-	last_sub_word = list_head;
+	sub_word = &head;
 	while (*word)
 	{
 		if (*word == '\'')
-			sub_word = quote(&word);
+			sub_word->next = quote(&word);
 		else if (*word == '\"')
-			sub_word = dquote(&word);
+			sub_word->next = dquote(&word);
 		else if (*word == '*')
-			sub_word = wildcard(&word);
+			sub_word->next = wildcard(&word);
 		else
-			sub_word = no_quote(&word);
-		last_sub_word->next = sub_word;
+			sub_word->next = no_quote(&word);
+		sub_word = sub_word->next;
 	}
-	return (ret_word_head(list_head));
+	return (head.next);
 }

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 06:30:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 07:41:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	concat_non_asterisks(t_word *word, bool *has_wildcard)
 			word->sub_word = ft_strjoin_with_free(word->sub_word, \
 				(word->next)->sub_word, FREE_BOTH);
 			tmp = word->next->next;
-			free((word->next)->sub_word);
 			free(word->next);
 			word->next = tmp;
 		}
@@ -54,8 +53,28 @@ void	replace_token_with_expanded(t_word *word, t_token *wildcard_matches, t_toke
 	else
 	{
 		free(tok->word);
-		tok->word = word->sub_word;
-		free(word);
+		tok->word = ft_strdup(word->sub_word);
+		if (!tok->word)
+			print_error_and_exit("substr failure");
+	}
+}
+
+void	print_word_list(t_word	*word)
+{
+	while (word)
+	{
+		printf("[%s]", word->sub_word);
+		if (word->type == WILDCARD)
+			printf(" WILDCARD");
+		else if (word->type == UNQUOTED)
+			printf(" UNQUOTED");
+		else if (word->type == QUOTED)
+			printf(" QUOTED");
+		else if (word->type == DQUOTED)
+			printf(" DQUOTED");
+		printf(", ");
+		fflush(stdout);
+		word = word->next;
 	}
 }
 
@@ -75,6 +94,7 @@ void	expand(t_token *tok)
 			next = tok->next;
 			word_head = divide_word_to_list(tok->word);
 			concat_non_asterisks(word_head, &has_wildcard);
+			print_word_list(word_head); //aaaaaaaaaaaaa
 			if (has_wildcard)
 				wildcard_matches = wildcard_expansion(word_head, tok);
 			replace_token_with_expanded(word_head, wildcard_matches, tok);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:27:04 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 06:14:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 07:16:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char	*get_quoted_str(char *quote, size_t *i)
 	while (quote[*i] && quote[*i] != '\'')
 	{
 		quoted_len++;
-		*i++;
+		(*i)++;
 	}
-	quoted = ft_substr(quote, 0, quoted_len);
+	quoted = ft_substr(quote, 1, quoted_len);
 	if (!quoted)
 		print_error_and_exit("substr failure");
 	return (quoted);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:11:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 05:57:19 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 06:07:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #include "../../includes/minishell.h"
 #include "../../includes/expand.h"
 #include "../../includes/libft.h"
+#include <stdlib.h> //free
 
-t_word	*quote(char **quote_ptr)
+static t_word	*quote(char **quote_ptr)
 {
 	size_t	i;
 	t_word	*quoted_node;
-	t_char	*quoted_sub_str;
+	char	*quoted_sub_str;
 
 	i = 1;
 	quoted_sub_str = get_quoted_str(*quote_ptr, &i);
@@ -40,11 +41,11 @@ t_word	*quote(char **quote_ptr)
 	return (quoted_node);
 }
 
-t_word	*dquote(char **dquote_ptr)
+static t_word	*dquote(char **dquote_ptr)
 {
 	size_t	i;
 	t_word	*dquoted_node;
-	t_char	*dquoted_sub_str;
+	char	*dquoted_sub_str;
 
 	i = 1;
 	dquoted_sub_str = get_dquoted_str(*dquote_ptr, &i);
@@ -65,24 +66,24 @@ t_word	*dquote(char **dquote_ptr)
 	return (dquoted_node);
 }
 
-t_word	*wildcard(char **word)
+static t_word	*wildcard(char **word)
 {
-	t_char	*wildcard;
+	char	*wildcard;
 	t_word	*wildcard_word;
 
 	wildcard = ft_strdup("*");
-	if (!asterisk)
+	if (!wildcard)
 		print_error_and_exit("strdup failure");
-	wildcard_word = make_sub_word(wildcard, WILDCARD);
+	wildcard_word = make_sub_word_node(wildcard, WILDCARD);
 	*word += 1;
 	return (wildcard_word);
 }
 
-t_word	*no_quote(char **no_quote_ptr)
+static t_word	*no_quote(char **no_quote_ptr)
 {
 	size_t	i;
 	t_word	*unquoted_node;
-	t_char	*unquoted_sub_str;
+	char	*unquoted_sub_str;
 
 	i = 0;
 	unquoted_sub_str = get_unquoted_str(*no_quote_ptr, &i);
@@ -106,11 +107,11 @@ t_word	*divide_word_to_list(char *word)
 		if (*word == '\'')
 			sub_word = quote(&word);
 		else if (*word == '\"')
-			sub_word = dquote(&word, NULL, 1);
+			sub_word = dquote(&word);
 		else if (*word == '*')
 			sub_word = wildcard(&word);
 		else
-			sub_word = no_quote(&word, NULL, 0);
+			sub_word = no_quote(&word);
 		last_sub_word->next = sub_word;
 	}
 	return (ret_word_head(list_head));

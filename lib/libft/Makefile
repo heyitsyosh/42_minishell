@@ -42,7 +42,8 @@ SRCS_ = ft_isalpha\
 		ft_ltoa\
 		ft_strtol\
 		ft_isspace\
-		ft_atoll
+		ft_atoll\
+		ft_strstr
 
 BONUS_ = ft_lstnew\
 		ft_lstadd_front\

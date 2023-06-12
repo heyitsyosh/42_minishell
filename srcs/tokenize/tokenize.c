@@ -6,13 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 06:01:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 06:28:18 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 
+#include <stdio.h>
 t_token	*operator(char *line)
 {
 	int			i;
@@ -92,13 +93,12 @@ t_token	*tokenize(char *line)
 			line++;
 		if (is_operator(*line))
 			tok->next = operator(line);
-		else if (is_io_number(*line))
+		else if (is_io_number(line))
 			tok->next = io_number(line);
 		else
 			tok->next = word(line);
 		tok = tok->next;
 		line += ft_strlen(tok->word);
 	}
-	tok->next = make_token(NULL, NIL);
 	return (head.next);
 }

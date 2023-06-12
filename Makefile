@@ -1,23 +1,26 @@
 NAME = minishell
 
-SRC_FILES = main\
-			init_envp\
-			env_utils\
-			tokenize\
-			tokenize_utils\
-			parse\
-			expand\
-			exec\
-			free\
-			redirect\
-			error\
-			builtin\cd\
-			builtin\echo\
-			builtin\env\
-			builtin\exit\
-			builtin\export\
-			builtin\pwd\
-			builtin\unset\
+SRC_FILES = main \
+			init_envp \
+			env_utils \
+			process_line \
+			tokenize/tokenize\
+			tokenize/tokenize_utils \
+			expand/expand \
+			expand/word_to_list \
+			expand/word_to_list_ii \
+			expand/word_to_list_utils \
+			expand/variable_expansion \
+			expand/wildcard_expansion \
+			utils/free \
+			utils/error \
+			# builtin\cd\
+			# builtin\echo\
+			# builtin\env\
+			# builtin\exit\
+			# builtin\export\
+			# builtin\pwd\
+			# builtin\unset\
 
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)

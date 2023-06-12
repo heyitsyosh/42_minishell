@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 02:03:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 06:05:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 #include "../includes/libft.h"
 #include <readline/readline.h> //readline
 #include <readline/history.h> //add_history
@@ -27,7 +27,7 @@ void	minishell_loop(void)
 	g_ms.is_interactive_mode = true;
 	while (1)
 	{
-		setup_parent_signal_handler();
+		// setup_parent_signal_handler();
 		line = readline("> ");
 		if (!line)
 			break ;

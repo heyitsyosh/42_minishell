@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 02:05:54 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 02:09:51 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 05:29:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/printf.h"
+#include "../../includes/ft_printf.h"
 
 void	export_no_args(void)
 {

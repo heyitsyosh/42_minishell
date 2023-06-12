@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 04:49:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 06:24:54 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
 
-extern t_minishell g_ms;
 typedef enum e_token_type
 {
 	WORD,
@@ -34,7 +33,6 @@ typedef enum e_token_type
 	OPEN_PARENTHESIS,
 	CLOSE_PARENTHESIS,
 	PIPE,
-	NIL,
 	UNSET,
 }	t_token_type;
 
@@ -56,11 +54,12 @@ typedef struct s_env{
 typedef struct s_minishell{
 	bool					is_interactive_mode;
 	int						status;
-	char					*old_pwd;
 	char					*pwd;
 	t_env					*envp_head;
 	volatile sig_atomic_t	signum;
 }	t_minishell;
+
+extern t_minishell g_ms;
 
 // Redirecting output example
 //command          : "echo hello; 1 > out"
@@ -119,6 +118,10 @@ typedef struct s_parse{
 	struct s_node	*next;
 }	t_node; */
 
+///////////////ERASE!!!!!!!!!!!///////////////
+void			run_commands(char *line);
+////////////////////////////////////////////
+
 void			init_envp(char **envp);
 t_env			*get_env(char *var, t_env *env);
 void			free_envs(t_env *env);
@@ -131,29 +134,36 @@ bool			is_operator(char c);
 bool			is_io_number(char *line);
 bool			is_valid_id(char *id);
 
-void			print_error_and_exit(char *error_message);
-void			print_syntax_error(char *unexpected_token);
 
 t_token			*tokenize(char *line);
-t_ast_node		*parser(t_token *tok);
-// void	expand(t_node *node);
+// t_ast_node		*parser(t_token *tok);
+void			expand(t_token *tok);
 // void	execute(t_node *node);
-
-int				builtin_echo(t_token *args);
-int				builtin_unset(t_token *args);
-int				builtin_export(t_token *args);
-int				builtin_exit(t_token *args);
-int				builtin_cd(t_token *args);
-int				builtin_pwd(t_token *args);
-int				builtin_env(t_token *args);
 
 t_token			*make_token(char *word, t_token_type type);
 t_token_type	get_operator_type(char *operator);
 
-t_ast_node		*make_ast_node(t_token *token);
-void			attatch_ast_nodes(t_ast_node *base, \
-				t_ast_node *left, t_ast_node *right);
+/* UTILS */
 
+/* error.c */
+void			print_error_and_exit(char *error_message);
+void			print_syntax_error(char *unexpected_token);
+void			msg_to_stderr(char *first, char *second, char *third);
+
+/* free.c */
 void			free_tokens(t_token *tok);
+
+/* BUILTINS */
+// int				builtin_echo(t_token *args);
+// int				builtin_unset(t_token *args);
+// int				builtin_export(t_token *args);
+// int				builtin_exit(t_token *args);
+// int				builtin_cd(t_token *args);
+// int				builtin_pwd(t_token *args);
+// int				builtin_env(t_token *args);
+
+// t_ast_node		*make_ast_node(t_token *token);
+// void			attatch_ast_nodes(t_ast_node *base, \
+// 				t_ast_node *left, t_ast_node *right);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:25:30 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 04:02:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 06:14:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 #include "../../includes/libft.h"
 #include <stdlib.h> //malloc, free
 
-t_word	*make_sub_word_node(char *sub_word, e_sub_word_type type)
+t_word	*make_sub_word_node(char *sub_word, t_sub_word_type type)
 {
 	t_word	*new_node;
 
 	new_node = (t_word *)malloc(sizeof(t_word));
 	if (!new_node)
 		print_error_and_exit("malloc failure");
-	new_word->sub_word = sub_word;
-	new_word->type = type;
-	new_word->next = NULL;
+	new_node->sub_word = sub_word;
+	new_node->type = type;
+	new_node->next = NULL;
 	return (new_node);
 }
 
@@ -44,7 +44,7 @@ size_t	no_interpretation_len(char *ptr, int status)
 	len = 0;
 	while (!ft_strchr("\\\"$", *ptr))
 	{
-		if (status == NOT_IN_DQUOTE && (*ptr == "\'" || *ptr == "*"))
+		if (status == NOT_IN_DQUOTE && (*ptr == '\'' || *ptr == '*'))
 			break ;
 		ptr++;
 		len++;

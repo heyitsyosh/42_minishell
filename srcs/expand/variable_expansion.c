@@ -6,15 +6,16 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:06:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 05:56:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 06:04:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/expand.h"
 #include "../../includes/libft.h"
+#include <stdlib.h> //free
 
-char	*get_id(char *ptr)
+static char	*get_id(char *ptr, size_t *index_mover)
 {
 	size_t	id_len;
 	char	*id;
@@ -29,7 +30,7 @@ char	*get_id(char *ptr)
 	return (id);
 }
 
-char	*expand_to_exit_status(size_t **index_mover)
+static char	*expand_to_exit_status(size_t *index_mover)
 {
 	char	*exit_status;
 

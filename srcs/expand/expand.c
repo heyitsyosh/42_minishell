@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 05:56:45 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 06:30:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	concat_non_asterisks(t_word *word, bool *has_wildcard)
 
 	while (word && word->next)
 	{
-		if (word->type != ASTERISK && (word->next)->type != ASTERISK)
+		if (word->type != WILDCARD && (word->next)->type != WILDCARD)
 		{
 			word->sub_word = ft_strjoin_with_free(word->sub_word, \
 				(word->next)->sub_word, FREE_BOTH);
@@ -38,7 +38,7 @@ void	concat_non_asterisks(t_word *word, bool *has_wildcard)
 	}
 }
 
-void	move_word_to_tok(t_word *word, t_token *wildcard_matches, t_token *tok)
+void	replace_token_with_expanded(t_word *word, t_token *wildcard_matches, t_token *tok)
 {
 	t_token	*next;
 
@@ -62,8 +62,8 @@ void	move_word_to_tok(t_word *word, t_token *wildcard_matches, t_token *tok)
 void	expand(t_token *tok)
 {
 	t_token	*next;
-	t_word	*word_head;
 	t_token	*wildcard_matches;
+	t_word	*word_head;
 	bool	has_wildcard;
 
 	has_wildcard = false;
@@ -73,11 +73,11 @@ void	expand(t_token *tok)
 		if (tok->type == WORD)
 		{
 			next = tok->next;
-			word_head = divide_word_to_list(word);
+			word_head = divide_word_to_list(tok->word);
 			concat_non_asterisks(word_head, &has_wildcard);
 			if (has_wildcard)
-				wildcard_matches = wildcard_expansion(word_head, tok, next);
-			move_word_to_token(word_head, wildcard_matches, tok);
+				wildcard_matches = wildcard_expansion(word_head, tok);
+			replace_token_with_expanded(word_head, wildcard_matches, tok);
 			free_sub_word_list(word_head);
 		}
 		tok = next;

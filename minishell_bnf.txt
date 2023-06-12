@@ -18,9 +18,13 @@ simple_command :=	<word>
 TO-DO 
 : cd
 : parser
-: expander
 : redirection
 : pipe/execution
 
 double check signal works w heredoc, infinite l, multiple commands, etc.
+
+to-do: 6.12
+complete expander, expander testing with sample strings, make functional
+finish cd
+ask ppl for help w parser
 read abt asynchronous whatever whatever 10.6 in UNIX解像度

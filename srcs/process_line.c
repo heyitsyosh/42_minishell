@@ -6,20 +6,32 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 02:03:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 06:30:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdlib.h> //free
 
+#include <stdio.h>
 void	run_commands(char *line)
 {
 	t_token		*tok;
-	t_parse		*p;
+	// t_parse		*p;
 
 	tok = tokenize(line);
-	parser(&tok);
+	expand(tok);
+
+	t_token *tokkk = tok;
+	while (tokkk)
+	{
+		printf ("%s (%d), ", tokkk->word, tokkk->type);
+		fflush(stdout);
+		tokkk = tokkk->next;
+	}
+	printf("\n");
+	
+	// parser(&tok);
 	/*
 	if (!error)
 	{
@@ -31,6 +43,6 @@ void	run_commands(char *line)
 	else
 		set_exit_status
 	*/
-	free(p);
+	// free(p);
 	free_tokens(tok);
 }

@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:59 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 02:06:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 05:29:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/printf.h"
+#include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //EXIT_SUCCESS
 

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 02:02:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 04:55:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ static void	set_pwd(t_env *pwd)
 		free(pwd->str);
 		pwd->str = current_dir;
 	}
-	g_ms.pwd = current_dir;
+	g_ms.pwd = ft_strdup(current_dir);
+	if (!g_ms.pwd)
+		print_error_and_exit("strdup failure");
 }
 
 static void	set_shlvl(t_env *shlvl)

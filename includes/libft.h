@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:29:25 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:30:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 05:06:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ char		*ft_ltoa(long n);
 long		ft_strtol(const char *nptr, char **endptr, int base);
 int			ft_isspace(int c);
 long long	ft_atoll(const char *str);
+char		*ft_strstr(const char *haystack, const char *needle);
 
 #endif

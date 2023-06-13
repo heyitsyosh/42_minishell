@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 06:24:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 08:49:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,32 +118,30 @@ typedef struct s_parse{
 	struct s_node	*next;
 }	t_node; */
 
-///////////////ERASE!!!!!!!!!!!///////////////
+/* process_line.c */
 void			run_commands(char *line);
-////////////////////////////////////////////
 
+/* init_envp.c */
 void			init_envp(char **envp);
+
+/* env_utils.c */
 t_env			*get_env(char *var, t_env *env);
-void			free_envs(t_env *env);
 void			env_add_back(t_env *envp, t_env *new_node);
 t_env			*make_env_node(char	*envp);
 char			**env_list_to_dbl_ptr(void);
 
+/* tokenize.c */
+t_token			*tokenize(char *line);
+
+/* tokenize_utils.c */
 bool			is_blank(char c);
 bool			is_operator(char c);
 bool			is_io_number(char *line);
-bool			is_valid_id(char *id);
-
-
-t_token			*tokenize(char *line);
-// t_ast_node		*parser(t_token *tok);
-void			expand(t_token *tok);
-// void	execute(t_node *node);
-
-t_token			*make_token(char *word, t_token_type type);
 t_token_type	get_operator_type(char *operator);
+t_token			*make_token(char *word, t_token_type type);
 
-/* UTILS */
+/* expand.c */
+void			expand(t_token *tok);
 
 /* error.c */
 void			print_error_and_exit(char *error_message);
@@ -152,7 +150,10 @@ void			msg_to_stderr(char *first, char *second, char *third);
 
 /* free.c */
 void			free_tokens(t_token *tok);
+void			free_envs(t_env *env);
 
+////////////////////////////////////////////////////////////////////
+bool			is_valid_id(char *id);
 /* BUILTINS */
 // int				builtin_echo(t_token *args);
 // int				builtin_unset(t_token *args);
@@ -165,5 +166,8 @@ void			free_tokens(t_token *tok);
 // t_ast_node		*make_ast_node(t_token *token);
 // void			attatch_ast_nodes(t_ast_node *base, \
 // 				t_ast_node *left, t_ast_node *right);
+
+// t_ast_node		*parser(t_token *tok);
+// void	execute(t_node *node);
 
 #endif

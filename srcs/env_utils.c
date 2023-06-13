@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/12 04:02:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 08:45:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,6 @@ t_env	*get_env(char *id, t_env *env)
 		env = env->next;
 	}
 	return (env);
-}
-
-void	free_envs(t_env *env)
-{
-	t_env	*node_to_free;
-
-	while (env)
-	{
-		node_to_free = env;
-		free(env->id);
-		free(env->str);
-		env = env->next;
-		free(node_to_free);
-	}
 }
 
 void	env_add_back(t_env *envp, t_env *env_to_add)

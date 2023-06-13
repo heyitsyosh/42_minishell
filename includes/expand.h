@@ -6,14 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 06:53:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/13 08:50:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPAND_H
 # define EXPAND_H
 
-#include <stdio.h>
 typedef enum e_sub_word_type
 {
 	QUOTED,

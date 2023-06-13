@@ -6,6 +6,6 @@
 
 int	main(int argc, char *argv[])
 {
-	 chdir("..//srcs");
+	 chdir(NULL);
 	 printf("%s\n", getcwd(0, 0));
 }

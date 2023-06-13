@@ -6,35 +6,36 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 04:56:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/14 02:38:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 #include <string.h> //strerror
 #include <errno.h> //errno
+#include <stdlib.h> //free
+#include <unistd.h> //chdir
 
-int	cd_with_no_args(void)
+static int	get_path(t_token *args)
 {
+	char	*path;
 	t_env	*home;
 
-	home = getenv("HOME");
+	home = get_env("HOME");
 	if (!home)
 	{
 		ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	
+	if (!args)
+		path = ft_strdup(home->str);
+	else
+		path = ft_strjoin(home->str, (args->str) + 2);
+	return (path);
 }
 
-// get_chdir_destination(t_token *args)
-
-char	*get_relative_path(char	*given)
-{
-	
-}
-
-void	update_pwd_oldpwd(char *to_be_pwd)
+static void	update_pwd_oldpwd(char *to_be_pwd)
 {
 	t_env	*pwd;
 	t_env	*oldpwd;
@@ -44,18 +45,15 @@ void	update_pwd_oldpwd(char *to_be_pwd)
 	if (pwd)
 	{
 		to_be_oldpwd = pwd->str;
-		pwd->str = to_be_pwd;
+		replace_env_str(pwd, ft_strdup(to_be_pwd));
+		if (!pwd->str)
+			print_error_and_exit("strdup failure");
 	}
-	free(g_ms.pwd)
-	g_ms.pwd = ft_strdup(to_be_pwd);
-	if (!g_ms.pwd)
-		print_error_and_exit("strdup failure");
 	oldpwd = get_env("OLDPWD", g_ms.envp_head);
 	if (oldpwd)
-	{
-		free(oldpwd->word);
-		oldpwd->word = to_be_oldpwd;
-	}
+		replace_env_str(oldpwd, to_be_old_pwd);
+	free(g_ms.pwd)
+	g_ms.pwd = to_be_pwd;
 }
 
 int	builtin_cd(t_token *args)
@@ -67,23 +65,18 @@ int	builtin_cd(t_token *args)
 		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (args && *args->word == '/')
-		path = args->word;
+	if (!args || ft_strcmp(args->word, "~/"))
+		path = get_path(args);
 	else
-		path = get_relative_path(args);
+		path = ft_strdup(args->word);
+	if (!path)
+		print_error_and_exit("malloc failure");
 	if (chdir(path) == -1)
 	{
-		msg_to_stderr("cd: ", strerror(errno), "\n")
+		msg_to_stderr("cd: ", path, strerror(errno));
+		ft_putstr_fd("\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	update_pwd_oldpwd(path);
 	return (EXIT_SUCCESS);
 }
-
-//chdir segfault??
-//delete directory and, ENV kakikaeru junban
-//no args
-//~
-//no $HOME?
-//rewrite env oldpwd, pwd
-//shell vars vs env vars

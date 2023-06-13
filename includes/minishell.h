@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 08:49:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/14 02:01:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void			init_envp(char **envp);
 /* env_utils.c */
 t_env			*get_env(char *var, t_env *env);
 void			env_add_back(t_env *envp, t_env *new_node);
+void			replace_env_str(t_env *env, char *new_str);
 t_env			*make_env_node(char	*envp);
 char			**env_list_to_dbl_ptr(void);
 

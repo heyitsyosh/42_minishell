@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 08:45:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/14 02:01:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ void	env_add_back(t_env *envp, t_env *env_to_add)
 		envp = envp->next;
 	envp->next = env_to_add;
 	env_to_add->prev = envp;
+}
+
+void	replace_env_str(t_env *env, char *new_str)
+{
+	if (!env)
+		return ;
+	free(env->str);
+	env->str = new_str;
 }
 
 t_env	*make_env_node(char	*envp)

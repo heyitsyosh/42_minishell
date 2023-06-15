@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 05:49:26 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 08:02:13 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:22:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ bool	matches_pattern(char *d_name, t_word *word)
 			if (active_wildcard)
 				ptr_to_matching_substr = ft_strstr(d_name, word->sub_word);
 			else
-				if (ft_strncmp(d_name, word->sub_word, ft_strlen(word->sub_word)))
+				if (ft_strncmp(d_name, word->sub_word, \
+					ft_strlen(word->sub_word)))
 					ptr_to_matching_substr = NULL;
 			if (!ptr_to_matching_substr)
 				return (false);

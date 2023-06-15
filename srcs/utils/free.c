@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:07:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 08:45:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:14:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_sub_word_list(t_word *words)
 	{
 		tmp = words;
 		words = words->next;
-		// free(tmp->sub_word);
+		free(tmp->sub_word);
 		free(tmp);
 	}
 }
@@ -53,15 +53,3 @@ void	free_envs(t_env *env)
 		free(node_to_free);
 	}
 }
-
-// void	free_nodes(t_node *nodes)
-// {
-// 	t_node	*tmp;
-
-// 	while (nodes)
-// 	{
-// 		tmp = nodes;
-// 		nodes = nodes->next;
-// 		free (tmp);
-// 	}
-// }

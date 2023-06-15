@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 06:05:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:11:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ int	main(int argc, char **argv, char **envp)
 		run_one_line(argc, argv);
 	else
 		minishell_loop();
-	exit(g_ms.status);
+	exit(g_ms.exit_status);
 }

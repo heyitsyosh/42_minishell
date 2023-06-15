@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 21:45:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 06:04:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/14 07:57:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	print_syntax_error(char *unexpected_token)
 
 void	msg_to_stderr(char *first, char *second, char *third)
 {
-	ft_putstr_fd(first, STDERR_FILENO);
-	ft_putstr_fd(second, STDERR_FILENO);
-	ft_putstr_fd(third, STDERR_FILENO);
+	if (first)
+		ft_putstr_fd(first, STDERR_FILENO);
+	if (second)
+		ft_putstr_fd(second, STDERR_FILENO);
+	if (third)
+		ft_putstr_fd(third, STDERR_FILENO);
 }

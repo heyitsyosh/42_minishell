@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/14 02:01:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:45:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,26 @@
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
 
+typedef struct s_env{
+	char			*id;
+	char			*str;
+	struct s_env	*next;
+	struct s_env	*prev;
+}	t_env;
+
 typedef enum e_token_type
 {
 	WORD,
 	IO_NUMBER,
+	PIPE,
 	AND,
 	OR,
 	REDIR_APPEND,
 	HEREDOC,
-	REDIR_OUT,
 	REDIR_IN,
+	REDIR_OUT,
 	OPEN_PARENTHESIS,
 	CLOSE_PARENTHESIS,
-	PIPE,
 	UNSET,
 }	t_token_type;
 
@@ -43,80 +50,49 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_env{
-	char			*id;
-	char			*str;
-	struct s_env	*next;
-	struct s_env	*prev;
-}	t_env;
+
+	//t_redir			*redir;
+
+typedef enum e_ast_node_type
+{
+	SUBSHELL_NODE,
+	PIPE_NODE,
+	AND_NODE,
+	OR_NODE,
+	CMD_NODE,
+}	t_ast_node_type;
+
+typedef struct s_cmd
+{
+	// t_redir	*redir;
+	char	*command;
+	char	**args;
+}	t_cmd;
+
+typedef struct s_ast_node
+{
+	t_ast_node_type		type;
+	t_cmd				*cmd;
+	struct s_ast_node	*left;
+	struct s_ast_node	*right;
+}	t_ast_node;
+
+typedef struct s_parse
+{
+	t_token	*tmp_args;
+	char	*syntax_err_location;
+}	t_parse;
 
 //global struct//
 typedef struct s_minishell{
 	bool					is_interactive_mode;
-	int						status;
+	int						exit_status;
 	char					*pwd;
 	t_env					*envp_head;
 	volatile sig_atomic_t	signum;
 }	t_minishell;
 
 extern t_minishell g_ms;
-
-// Redirecting output example
-//command          : "echo hello; 1 > out"
-// targetfd         : 1
-// filename         : "out"
-// filefd           : open("out")
-// stashed_targetfd : dup(targetfd)
-
-// typedef struct s_redir
-// {
-// 	int		left;
-// 	int		right;
-// 	char	*filename;
-// 	int		file_fd;
-// 	int		stashed_fd;
-// }	t_redir;
-
-typedef enum e_ast_node_type
-{
-	SUBSHELL_NODE,
-}	t_ast_node_type;
-
-typedef struct s_ast_node
-{
-	t_ast_node_type		type;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
-	//t_cmd				*cmd
-	//t_token			*token;
-	//t_redir			*redir;
-}	t_ast_node;
-
-typedef enum e_operator_type
-{
-	AND_OPERATOR,
-	OR_OPERATOR,
-	NO_OPERATOR,
-}	t_operator_type;
-
-typedef struct s_commands{
-	t_token				*args_list;
-	t_operator_type		operator_type;
-	struct s_commands	*next;
-}	t_commands;
-
-typedef struct s_parse{
-	t_token		*current_tok;
-	t_commands	*cmds;
-}	t_parse;
-
-/*typedef struct s_node
-{
-	t_type			type;
-	t_token			*args;
-	t_redir			*redir;
-	struct s_node	*next;
-}	t_node; */
 
 /* process_line.c */
 void			run_commands(char *line);
@@ -170,5 +146,43 @@ bool			is_valid_id(char *id);
 
 // t_ast_node		*parser(t_token *tok);
 // void	execute(t_node *node);
+/////////////////////////////////////////////////////////
+
+// Redirecting output example
+//command          : "echo hello; 1 > out"
+// targetfd         : 1
+// filename         : "out"
+// filefd           : open("out")
+// stashed_targetfd : dup(targetfd)
+
+// typedef struct s_redir
+// {
+// 	int		left;
+// 	int		right;
+// 	char	*filename;
+// 	int		file_fd;
+// 	int		stashed_fd;
+// }	t_redir;
+
+// typedef enum e_operator_type
+// {
+// 	AND_OPERATOR,
+// 	OR_OPERATOR,
+// 	NO_OPERATOR,
+// }	t_operator_type;
+
+// typedef struct s_commands{
+// 	t_token				*args_list;
+// 	t_operator_type		operator_type;
+// 	struct s_commands	*next;
+// }	t_commands;
+
+/*typedef struct s_node
+{
+	t_type			type;
+	t_token			*args;
+	t_redir			*redir;
+	struct s_node	*next;
+}	t_node; */
 
 #endif

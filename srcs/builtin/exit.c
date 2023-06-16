@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 20:04:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/17 03:48:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	builtin_exit(t_token *args)
 	if (!str_is_numeric(args->word) || errno == ERANGE)
 	{
 		msg_to_stderr("exit: ", args->word, ": numeric argument required\n");
-		exit(2); //why 2? check exit value in other environments
+		exit(2);
 	}
 	else if (args->next)
 	{

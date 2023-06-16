@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/09 21:13:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/17 03:46:33 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	signal_handler(int signum)
 
 void	setup_child_signal_handler(void)
 {
-	if (signal(SIGINT, SIG_DFL) == SIG_ERR \
-		|| signal(SIGQUIT, SIG_DFL) == SIG_ERR)
+	if (signal(SIGINT, SIG_DFL) == SIG_ERR || \
+		signal(SIGQUIT, SIG_DFL) == SIG_ERR)
 		print_error_and_exit("signal failure");
 }
 
 void	setup_parent_signal_handler(void)
 {
 	g_ms.signum = 0;
-	if (signal(SIGINT, signal_handler) == SIG_ERR \
-		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	if (signal(SIGINT, signal_handler) == SIG_ERR || \
+		signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		print_error_and_exit("signal failure");
 }

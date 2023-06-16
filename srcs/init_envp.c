@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/16 23:38:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/17 03:44:37 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <unistd.h> //getcwd
 #include <errno.h> //errno, ERANGE
 
-#include <stdio.h>
 static t_env	*make_envp_list(char **envp)
 {
 	size_t	i;

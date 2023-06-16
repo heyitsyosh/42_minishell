@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/17 02:32:59 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/17 04:24:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ t_ast	*parse_subshell(t_token **tok, t_parse *p)
 
 	if ((*tok)->type != OPEN_PARENTHESIS)
 		return (NULL);
+	if (!(*tok)->next || is_unexpected((*tok)->type, (*tok)->next->type))
+		return (set_syntax_error((*tok)->next, p));
 	node = make_ast_node(SUBSHELL_NODE, NULL, NULL);
 	*tok = (*tok)->next;
-	while (*tok && (*tok)->type != CLOSE_PARENTHESIS)
-	{
-		right_child = create_ast(tok);
-		node->left = left_child;
-	}
-	if ((*tok)->type == CLOSE_PARENTHESIS)
+	right_child = create_ast(tok, p);
+	node->left = left_child;
+	if ((*tok)->type != CLOSE_PARENTHESIS)
+		return (set_syntax_error((*tok)->next, p));
+	else
 		*tok = (*tok)->next;
-	//set syntax error
-	while (is_redir(*tok))
-		add_redir(node, tok, p);
+	// while (is_redir(*tok))
+	// 	add_redir(node, tok, p);
 	return (node);
 }
 
@@ -80,7 +80,7 @@ t_parse	*parser(t_token *tok)
 	t_ast	*ast;
 	t_parse	*p;
 
-	p = init_p(&p);
+	p = init_p();
 	ast = create_ast(&tok);
 	if (p->syntax_err_location)
 	{
@@ -93,3 +93,6 @@ t_parse	*parser(t_token *tok)
 	free_parse_struct(&p);
 	return (ast);
 }
+
+//how to detect error of when node before node is wrong 
+//(example: cmd | cmd expected but && || cmd

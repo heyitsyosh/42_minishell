@@ -6,14 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 08:28:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/17 03:46:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 
-#include <stdio.h>
 t_token	*operator(char *line)
 {
 	int			i;
@@ -35,8 +34,8 @@ size_t	count_till_closing_quote(char *start_of_quote)
 	size_t	len;
 
 	len = 1;
-	while (start_of_quote[len] && !is_blank(start_of_quote[len]) \
-		&& start_of_quote[0] != start_of_quote[len])
+	while (start_of_quote[len] && !is_blank(start_of_quote[len]) && \
+			start_of_quote[0] != start_of_quote[len])
 	{
 		if (start_of_quote[0] == '\"' \
 			&& start_of_quote[len] == '\\' && start_of_quote[len + 1] == '\"')

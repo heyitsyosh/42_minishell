@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/14 08:11:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:39:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	minishell_loop(void)
 		if (*line)
 		{
 			add_history(line);
-			run_commands(line);
+			run_line(line);
 			free(line);
 		}
 		if (g_ms.signum == SIGINT)
@@ -52,7 +52,7 @@ void	run_one_line(int argc, char **argv)
 		exit(2);
 	}
 	if (ft_strlen(argv[2]) != 0)
-		run_commands(argv[2]);
+		run_line(argv[2]);
 }
 
 //default execution reads from stdin (interactive mode)

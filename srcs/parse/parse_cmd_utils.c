@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:47:28 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/15 18:52:51 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:53:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ void	arg_list_to_dbl_ptr(t_ast *cmd_node, t_parse *p)
 
 	if (!p->tmp_args)
 		return ;
-	cmd_node->args = (char **)malloc(count_malloc_size(p->tmp_args) + 1);
-	if (!cmd_node->args)
+	cmd_node->cmd = make_cmd_struct();
+	cmd_node->cmd->args = (char **)malloc(count_malloc_size(p->tmp_args) + 1);
+	if (!cmd_node->cmd->args)
 		print_error_and_exit("malloc failure");
-	convert_nodes_to_dbl_ptr(cmd_node->args, p->tmp_args);
+	convert_nodes_to_dbl_ptr(cmd_node->cmd->args, p->tmp_args);
 	free_tokens(p->tmp_args);
 	p->tmp_args = NULL;
 }

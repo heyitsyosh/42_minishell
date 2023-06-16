@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/15 18:51:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/17 02:33:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/libft.h"
 
-bool	is_cmd_or_redir(t_token *tok)
+bool	is_redir(t_token *tok)
 {
 	return (tok->type == WORD || tok->type == IO_NUMBER \
 	|| tok->type == REDIR_APPEND || tok->type == HEREDOC \
@@ -55,16 +55,21 @@ t_ast	*parse_cmd(t_token **tok, t_parse *p)
 	node = parse_subshell(tok, p);
 	if (node)
 		return (node);
-	if (*tok && is_cmd_or_redir(*tok))
-		node = make_ast_node(CMD_NODE, NULL, NULL);
-	node->cmd = make_cmd_struct();
-	while (*tok && is_cmd_or_redir(*tok))
+	if (!(*tok) || ((*tok)->type != WORD))
+		return (NULL);
+	node = make_ast_node(CMD_NODE, NULL, NULL);
+	while (*tok && ((*tok)->type == WORD || is_redir(*tok)))
 	{
 		if ((*tok)->type == WORD)
 			add_cmd_element(tok, p);
-		else
-			add_redir(tok, node);
+		if (is_redir((*tok)->type))
+			add_redir(node, p); ////////////////
 	}
 	arg_list_to_dbl_ptr(node, p);
+	else
+	{
+		free_ast(node);
+		node = NULL;
+	}
 	return (node);
 }

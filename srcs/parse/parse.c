@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/15 18:51:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/17 02:32:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,22 @@
 t_ast	*parse_subshell(t_token **tok, t_parse *p)
 {
 	t_ast	*node;
-	t_ast	*right_child;
+	t_ast	*left_child;
 
 	if ((*tok)->type != OPEN_PARENTHESIS)
 		return (NULL);
-		
+	node = make_ast_node(SUBSHELL_NODE, NULL, NULL);
+	*tok = (*tok)->next;
+	while (*tok && (*tok)->type != CLOSE_PARENTHESIS)
+	{
+		right_child = create_ast(tok);
+		node->left = left_child;
+	}
+	if ((*tok)->type == CLOSE_PARENTHESIS)
+		*tok = (*tok)->next;
+	//set syntax error
+	while (is_redir(*tok))
+		add_redir(node, tok, p);
 	return (node);
 }
 

@@ -2,8 +2,7 @@ NAME = minishell
 
 SRC_FILES = main \
 			init_envp \
-			env_utils \
-			process_line \
+			run_line \
 			tokenize/tokenize\
 			tokenize/tokenize_utils \
 			expand/expand \
@@ -14,6 +13,7 @@ SRC_FILES = main \
 			expand/wildcard_expansion \
 			utils/free \
 			utils/error \
+			utils/env_utils \
 			# builtin\cd\
 			# builtin\echo\
 			# builtin\env\

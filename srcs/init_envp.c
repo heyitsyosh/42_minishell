@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 07:01:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:38:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,4 @@ void	init_envp(char **envp)
 	g_ms.envp_head = make_envp_list(envp);
 	set_pwd(get_env("PWD", g_ms.envp_head));
 	set_shlvl(get_env("SHLVL", g_ms.envp_head));
-
-	// t_env	*e = g_ms.envp_head;
-	// while (e)
-	// {
-	// 	printf("%s=%s\n", e->id, e->str);
-	// 	e = e->next;
-	// }
-	// fflush(stdout);
-	// t_env *pwd;
-	// pwd = get_env("PWD", g_ms.envp_head);
-	// printf("%s", pwd->str);
-	// fflush(stdout);
 }

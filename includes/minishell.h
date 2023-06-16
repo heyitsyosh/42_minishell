@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/15 18:45:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/17 00:20:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ typedef enum e_token_type
 	PIPE,
 	AND,
 	OR,
-	REDIR_APPEND,
+	REDIRECT_APPEND,
 	HEREDOC,
-	REDIR_IN,
-	REDIR_OUT,
+	REDIRECT_IN,
+	REDIRECT_OUT,
 	OPEN_PARENTHESIS,
 	CLOSE_PARENTHESIS,
 	UNSET,
@@ -49,9 +49,17 @@ typedef struct s_token
 	t_token_type	type;
 	struct s_token	*next;
 }	t_token;
+	
+typedef struct s_cmd
+{
+	char	*command;
+	char	**args;
+}	t_cmd;
 
-
-	//t_redir			*redir;
+// typedef struct s_redirect
+// {
+	
+// }	t_redirect;
 
 typedef enum e_ast_node_type
 {
@@ -62,17 +70,11 @@ typedef enum e_ast_node_type
 	CMD_NODE,
 }	t_ast_node_type;
 
-typedef struct s_cmd
-{
-	// t_redir	*redir;
-	char	*command;
-	char	**args;
-}	t_cmd;
-
 typedef struct s_ast_node
 {
 	t_ast_node_type		type;
 	t_cmd				*cmd;
+	// t_redirect			*redirect;
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;
 }	t_ast_node;
@@ -92,7 +94,7 @@ typedef struct s_minishell{
 	volatile sig_atomic_t	signum;
 }	t_minishell;
 
-extern t_minishell g_ms;
+extern t_minishell	g_ms;
 
 /* process_line.c */
 void			run_commands(char *line);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:07:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 01:42:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 05:53:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,19 @@ void	free_envs(t_env *env)
 	}
 }
 
-// void	free_ast(t_ast *root)
-// {
-	
-// }
+void	free_ast(t_ast *ast)
+{
+	if (ast)
+	{
+		free_ast(ast->left);
+		free_ast(ast->right);
+		if (ast->cmd)
+		{
+			free(ast->cmd->command);
+			// if (ast->cmd->args)
+				//free dbl ptr
+			free_tokens(ast->cmd->arg_list);
+		}
+		free(ast);
+	}
+}

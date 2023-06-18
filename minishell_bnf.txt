@@ -16,15 +16,9 @@ simple_command :=	<word>
 			   |	<redirection> <simple_command>
 
 TO-DO
-: parser
 : redirection
 : pipe/execution
 
 double check signal works w heredoc, infinite l, multiple commands, etc.
-read abt asynchronous whatever whatever 10.6 in UNIX解像度
+read abt asynchronous whatever whatever 10.6 in 詳解UNIX
 test builtins
-
-TO-NOT-DO?
-CDPATH in cd
-word splitting
-expansion in heredoc

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 02:47:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 06:04:01 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 bool	is_redir(t_token *tok)
 {
-	return (tok->type == WORD || tok->type == IO_NUMBER \
-	|| tok->type == REDIRECT_APPEND || tok->type == HEREDOC \
-	|| tok->type == REDIRECT_IN || tok->type == REDIRECT_OUT);
+	return (tok->type == IO_NUMBER \
+	|| tok->type == REDIRECT_APPEND || tok->type == REDIRECT_IN \
+	|| tok->type == REDIRECT_HEREDOC || tok->type == REDIRECT_OUT);
 }
 
 bool	is_unexpected(t_token_type type, t_token_type next_type)

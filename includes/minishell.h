@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 04:13:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 06:59:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef enum e_token_type
 	AND,
 	OR,
 	REDIRECT_APPEND,
-	HEREDOC,
+	REDIRECT_HEREDOC,
 	REDIRECT_IN,
 	REDIRECT_OUT,
 	OPEN_PARENTHESIS,
@@ -57,10 +57,12 @@ typedef struct s_cmd
 	t_token	*arg_list;
 }	t_cmd;
 
-// typedef struct s_redirect
-// {
+typedef struct s_redirect
+{
 	
-// }	t_redirect;
+	struct t_redirect	*prev;
+	struct t_redirect	*next;
+}	t_redirect;
 
 typedef enum e_ast_node_type
 {
@@ -75,7 +77,7 @@ typedef struct s_ast
 {
 	t_ast_node_type	type;
 	t_cmd			*cmd;
-	// t_redirect		*redirect;
+	t_redirect		*redir;
 	struct t_ast	*left;
 	struct t_ast	*right;
 }	t_ast;
@@ -125,6 +127,7 @@ t_ast			*parse_subshell(t_token **tok, char **syntax_err);
 
 /* parse_cmd.c */
 t_ast			*parse_cmd(t_token **tok, char **syntax_err);
+void			add_redirection(t_token **tok, t_ast *cmd_node);
 
 /* parse_utils.c */
 bool			is_redir(t_token *tok);
@@ -140,13 +143,13 @@ void			msg_to_stderr(char *first, char *second, char *third);
 /* free.c */
 void			free_tokens(t_token *tok);
 void			free_envs(t_env *env);
-void			free_ast(t_ast *root);
+void			free_ast(t_ast *ast);
 
 ////////////////////////////////////////////////////////////////////
 void		print_tokens(t_token *head);
-void	print_ast(t_ast *ast);
-bool			is_valid_id(char *id);
-/* BUILTINS */
+void		print_ast(t_ast *ast);
+bool		is_valid_id(char *id);
+/* builtins */
 // int				builtin_echo(t_token *args);
 // int				builtin_unset(t_token *args);
 // int				builtin_export(t_token *args);
@@ -155,12 +158,6 @@ bool			is_valid_id(char *id);
 // int				builtin_pwd(t_token *args);
 // int				builtin_env(t_token *args);
 
-// t_ast_node		*make_ast_node(t_token *token);
-// void			attatch_ast_nodes(t_ast_node *base, \
-// 				t_ast_node *left, t_ast_node *right);
-
-// t_ast_node		*parser(t_token *tok);
-// void	execute(t_node *node);
 /////////////////////////////////////////////////////////
 
 // Redirecting output example
@@ -178,26 +175,5 @@ bool			is_valid_id(char *id);
 // 	int		file_fd;
 // 	int		stashed_fd;
 // }	t_redir;
-
-// typedef enum e_operator_type
-// {
-// 	AND_OPERATOR,
-// 	OR_OPERATOR,
-// 	NO_OPERATOR,
-// }	t_operator_type;
-
-// typedef struct s_commands{
-// 	t_token				*args_list;
-// 	t_operator_type		operator_type;
-// 	struct s_commands	*next;
-// }	t_commands;
-
-/*typedef struct s_node
-{
-	t_type			type;
-	t_token			*args;
-	t_redir			*redir;
-	struct s_node	*next;
-}	t_node; */
 
 #endif

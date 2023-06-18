@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 04:22:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 07:46:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,25 @@ static t_cmd	*make_cmd_struct(void)
 	return (cmd);
 }
 
-// void	add_redir(t_token **tok, t_ast *cmd_node)
+static t_redirect	*make_redir_struct(void)
+{
+	t_redirect	*redir;
+
+	redir = (t_redirect *)malloc(sizeof(t_redirect));
+	if (!redir)
+		print_error_and_exit("malloc failure");
+	return (redir);
+}
+
+// void	add_redirection(t_token **tok, t_ast *node)
 // {
-	
+// 	if (!node->redir)
+// 		make_redir_struct();
+// 	if ((*tok)->type == IO_NUMBER)
+		
+// 	else
 // }
 
-//add current token to list of command and its args
-//list is temporarily saved in (p->tmp_args),
-//then is later converted to a (char **) to be used in execve
 static void	add_cmd_element(t_token **tok, t_cmd *cmd)
 {
 	char	*to_add;
@@ -73,8 +84,7 @@ t_ast	*parse_cmd(t_token **tok, char **syntax_err)
 			add_cmd_element(tok, node->cmd);
 		}
 		// if (is_redir((*tok)->type))
-		// 	add_redir(node, p);
+		// 	add_redirection(tok, node);
 	}
-	//処理 for when node is still unset at this point??
 	return (node);
 }

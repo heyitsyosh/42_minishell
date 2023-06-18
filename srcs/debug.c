@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 04:18:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 04:27:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static	void	print_ast_2(t_ast *ast)
 			tmp = tmp->next;
 		}
 		if (tmp)
-			printf("%s], ", tmp->word);
+			printf("%s]", tmp->word);
 		fflush(stdout);
 	}
 	else if (ast->type == PIPE_NODE)

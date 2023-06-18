@@ -6,19 +6,19 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:47:28 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/16 23:53:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 01:49:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 #include <stdlib.h> //malloc
 
-void	make_cmd_struct(void)
+static t_cmd	*make_cmd_struct(void)
 {
 	t_cmd	*cmd;
 
-	cmd = (t_cmd *)malloc((sizeof)t_cmd);
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		print_error_and_exit("malloc failure");
 	cmd->command = NULL;

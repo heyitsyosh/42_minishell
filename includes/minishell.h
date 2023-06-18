@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/17 00:20:58 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 02:20:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdbool.h>
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
+#include <stdio.h>
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
@@ -70,14 +71,14 @@ typedef enum e_ast_node_type
 	CMD_NODE,
 }	t_ast_node_type;
 
-typedef struct s_ast_node
+typedef struct s_ast
 {
-	t_ast_node_type		type;
-	t_cmd				*cmd;
-	// t_redirect			*redirect;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
-}	t_ast_node;
+	t_ast_node_type	type;
+	t_cmd			*cmd;
+	// t_redirect		*redirect;
+	struct t_ast	*left;
+	struct t_ast	*right;
+}	t_ast;
 
 typedef struct s_parse
 {
@@ -97,7 +98,7 @@ typedef struct s_minishell{
 extern t_minishell	g_ms;
 
 /* process_line.c */
-void			run_commands(char *line);
+void			run_line(char *line);
 
 /* init_envp.c */
 void			init_envp(char **envp);
@@ -122,6 +123,26 @@ t_token			*make_token(char *word, t_token_type type);
 /* expand.c */
 void			expand(t_token *tok);
 
+/* parse.c */
+t_ast			*parser(t_token *tok);
+t_ast			*create_ast(t_token **tok, t_parse *p);
+t_ast			*parse_and_or(t_token **tok, t_parse *p);
+t_ast			*parse_subshell(t_token **tok, t_parse *p);
+
+/* parse_cmd.c */
+t_ast			*parse_cmd(t_token **tok, t_parse *p);
+bool			is_redir(t_token *tok);
+
+/* parse_cmd_utils.c */
+void			arg_list_to_dbl_ptr(t_ast *cmd_node, t_parse *p);
+
+/* parse_utils.c */
+bool			is_unexpected(t_token_type type, t_token_type next_type);
+t_ast			*set_syntax_error(t_token *tok, t_parse *p);
+t_ast			*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs);
+t_parse			*init_p(void);
+void			free_p(t_parse **p);
+
 /* error.c */
 void			print_error_and_exit(char *error_message);
 void			print_syntax_error(char *unexpected_token);
@@ -130,8 +151,10 @@ void			msg_to_stderr(char *first, char *second, char *third);
 /* free.c */
 void			free_tokens(t_token *tok);
 void			free_envs(t_env *env);
+void			free_ast(t_ast *root);
 
 ////////////////////////////////////////////////////////////////////
+void		print_tokens(t_token *head);
 bool			is_valid_id(char *id);
 /* BUILTINS */
 // int				builtin_echo(t_token *args);

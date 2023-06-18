@@ -11,9 +11,14 @@ SRC_FILES = main \
 			expand/word_to_list_utils \
 			expand/variable_expansion \
 			expand/wildcard_expansion \
+			parse/parse \
+			parse/parse_cmd \
+			parse/parse_cmd_utils \
+			parse/parse_utils \
 			utils/free \
 			utils/error \
 			utils/env_utils \
+			debug \
 			# builtin\cd\
 			# builtin\echo\
 			# builtin\env\

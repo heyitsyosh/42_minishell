@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_line.c                                         :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 01:57:18 by myoshika         ###   ########.fr       */
+/*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
+/*   Updated: 2023/06/19 02:18:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdlib.h> //free
+#include "../includes/libft.h"
 
-void	run_line(char *line)
+void	print_tokens(t_token *head)
 {
-	t_token	*tok;
-	t_ast	*ast;
-
-	tok = tokenize(line);
-	expand(tok);
-	ast = parser(tok);
-	/*
-	if (ast)
+	while (head->next)
 	{
-		set_up_redirect(node);
-		execute(node);
-		reset_redirect(node);
+		printf("%s->", head->word);
+		head = head->next;
 	}
-	else
-		g_ms.exit_status = 2;
-	*/
-	// free_ast(ast);
-	free_tokens(tok);
+	if (head)
+	printf("[%s]\n", head->word);
 }

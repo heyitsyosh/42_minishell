@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:07:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/14 08:14:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 01:42:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,8 @@ void	free_envs(t_env *env)
 		free(node_to_free);
 	}
 }
+
+// void	free_ast(t_ast *root)
+// {
+	
+// }

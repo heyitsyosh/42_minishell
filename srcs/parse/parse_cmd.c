@@ -6,18 +6,18 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/17 04:25:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 01:46:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 
 bool	is_redir(t_token *tok)
 {
 	return (tok->type == WORD || tok->type == IO_NUMBER \
-	|| tok->type == REDIR_APPEND || tok->type == HEREDOC \
-	|| tok->type == REDIR_IN || tok->type == REDIR_OUT);
+	|| tok->type == REDIRECT_APPEND || tok->type == HEREDOC \
+	|| tok->type == REDIRECT_IN || tok->type == REDIRECT_OUT);
 }
 
 // void	add_redir(t_token **tok, t_ast *cmd_node)
@@ -28,7 +28,7 @@ bool	is_redir(t_token *tok)
 //add current token to list of command and its args
 //list is temporarily saved in (p->tmp_args),
 //then is later converted to a (char **) to be used in execve
-void	add_cmd_element(t_token **tok, t_parse *p)
+static void	add_cmd_element(t_token **tok, t_parse *p)
 {
 	char	*to_add;
 	t_token	*tmp_args;

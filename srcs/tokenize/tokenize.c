@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/17 03:46:07 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 02:23:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,10 @@ t_token	*tokenize(char *line)
 			tok->next = operator(line);
 		else if (is_io_number(line))
 			tok->next = io_number(line);
-		else
+		else if (*line)
 			tok->next = word(line);
+		else
+			break ;
 		tok = tok->next;
 		line += ft_strlen(tok->word);
 	}

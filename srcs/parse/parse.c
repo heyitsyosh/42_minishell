@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/17 04:24:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 02:24:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_next_line.h"
-#include "../includes/minishell.h"
-#include "../includes/libft.h"
+#include "../../includes/get_next_line.h"
+#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 
 t_ast	*parse_subshell(t_token **tok, t_parse *p)
 {
@@ -25,10 +25,10 @@ t_ast	*parse_subshell(t_token **tok, t_parse *p)
 		return (set_syntax_error((*tok)->next, p));
 	node = make_ast_node(SUBSHELL_NODE, NULL, NULL);
 	*tok = (*tok)->next;
-	right_child = create_ast(tok, p);
+	left_child = create_ast(tok, p);
 	node->left = left_child;
-	if ((*tok)->type != CLOSE_PARENTHESIS)
-		return (set_syntax_error((*tok)->next, p));
+	if (!(*tok) || (*tok)->type != CLOSE_PARENTHESIS)
+		return (set_syntax_error(*tok, p));
 	else
 		*tok = (*tok)->next;
 	// while (is_redir(*tok))
@@ -75,24 +75,24 @@ t_ast	*create_ast(t_token **tok, t_parse *p)
 	return (node);
 }
 
-t_parse	*parser(t_token *tok)
+t_ast	*parser(t_token *tok)
 {
 	t_ast	*ast;
 	t_parse	*p;
 
 	p = init_p();
-	ast = create_ast(&tok);
+	if (!tok || is_unexpected(UNSET, tok->type))
+		set_syntax_error(tok, p);
+	else
+		ast = create_ast(&tok, p);
 	if (p->syntax_err_location)
 	{
 		msg_to_stderr("syntax error near unexpected token `", \
-			p->syntax_err_location, "'");
-		free_parse_struct(&p);
-		free_ast(ast);
+			p->syntax_err_location, "'\n");
+		free_p(&p);
+		// free_ast(ast);
 		return (NULL);
 	}
-	free_parse_struct(&p);
+	free_p(&p);
 	return (ast);
 }
-
-//how to detect error of when node before node is wrong 
-//(example: cmd | cmd expected but && || cmd

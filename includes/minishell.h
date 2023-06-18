@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 02:20:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 02:56:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_cmd
 {
 	char	*command;
 	char	**args;
+	t_token	*arg_list;
 }	t_cmd;
 
 // typedef struct s_redirect
@@ -79,12 +80,6 @@ typedef struct s_ast
 	struct t_ast	*left;
 	struct t_ast	*right;
 }	t_ast;
-
-typedef struct s_parse
-{
-	t_token	*tmp_args;
-	char	*syntax_err_location;
-}	t_parse;
 
 //global struct//
 typedef struct s_minishell{
@@ -125,23 +120,18 @@ void			expand(t_token *tok);
 
 /* parse.c */
 t_ast			*parser(t_token *tok);
-t_ast			*create_ast(t_token **tok, t_parse *p);
-t_ast			*parse_and_or(t_token **tok, t_parse *p);
-t_ast			*parse_subshell(t_token **tok, t_parse *p);
+t_ast			*create_ast(t_token **tok, char **syntax_err);
+t_ast			*parse_and_or(t_token **tok, char **syntax_err);
+t_ast			*parse_subshell(t_token **tok, char **syntax_err);
 
 /* parse_cmd.c */
-t_ast			*parse_cmd(t_token **tok, t_parse *p);
-bool			is_redir(t_token *tok);
-
-/* parse_cmd_utils.c */
-void			arg_list_to_dbl_ptr(t_ast *cmd_node, t_parse *p);
+t_ast			*parse_cmd(t_token **tok, char **syntax_err);
 
 /* parse_utils.c */
+bool			is_redir(t_token *tok);
 bool			is_unexpected(t_token_type type, t_token_type next_type);
-t_ast			*set_syntax_error(t_token *tok, t_parse *p);
+t_ast			*set_syntax_error(t_token *tok, char **syntax_err);
 t_ast			*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs);
-t_parse			*init_p(void);
-void			free_p(t_parse **p);
 
 /* error.c */
 void			print_error_and_exit(char *error_message);

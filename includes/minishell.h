@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 02:56:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 04:13:33 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdbool.h>
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
-#include <stdio.h>
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
@@ -145,6 +144,7 @@ void			free_ast(t_ast *root);
 
 ////////////////////////////////////////////////////////////////////
 void		print_tokens(t_token *head);
+void	print_ast(t_ast *ast);
 bool			is_valid_id(char *id);
 /* BUILTINS */
 // int				builtin_echo(t_token *args);

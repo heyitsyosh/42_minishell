@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 02:58:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 04:22:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,13 @@ t_ast	*parse_cmd(t_token **tok, char **syntax_err)
 	while (*tok && ((*tok)->type == WORD || is_redir(*tok)))
 	{
 		if ((*tok)->type == WORD)
+		{
+			node->type = CMD_NODE;
 			add_cmd_element(tok, node->cmd);
+		}
 		// if (is_redir((*tok)->type))
 		// 	add_redir(node, p);
 	}
-	//when node is still unset at this point??
+	//処理 for when node is still unset at this point??
 	return (node);
 }

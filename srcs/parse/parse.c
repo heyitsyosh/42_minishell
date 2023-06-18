@@ -6,13 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 02:49:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 04:12:51 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
+#include <stdlib.h> //free
 
 t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 {
@@ -85,6 +86,7 @@ t_ast	*parser(t_token *tok)
 		set_syntax_error(tok, &syntax_err);
 	else
 		ast = create_ast(&tok, &syntax_err);
+	print_ast(ast);
 	if (syntax_err)
 	{
 		msg_to_stderr("syntax error near unexpected token `", syntax_err, "'\n");

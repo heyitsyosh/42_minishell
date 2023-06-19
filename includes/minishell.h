@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 06:59:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:31:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_token
 	t_token_type	type;
 	struct s_token	*next;
 }	t_token;
-	
+
 typedef struct s_cmd
 {
 	char	*command;
@@ -57,9 +57,24 @@ typedef struct s_cmd
 	t_token	*arg_list;
 }	t_cmd;
 
+// Redirecting output example
+//command          : "echo hello; 1 > out"
+// targetfd         : 1
+// filename         : "out"
+// filefd           : open("out")
+// stashed_targetfd : dup(targetfd)
+
+// typedef struct s_redir
+// {
+// 	int		left;
+// 	int		right;
+// 	char	*filename;
+// 	int		file_fd;
+// 	int		stashed_fd;
+// }	t_redir;
+
 typedef struct s_redirect
 {
-	
 	struct t_redirect	*prev;
 	struct t_redirect	*next;
 }	t_redirect;
@@ -131,7 +146,7 @@ void			add_redirection(t_token **tok, t_ast *cmd_node);
 
 /* parse_utils.c */
 bool			is_redir(t_token *tok);
-bool			is_unexpected(t_token_type type, t_token_type next_type);
+bool			is_unexpected(t_token *next);
 t_ast			*set_syntax_error(t_token *tok, char **syntax_err);
 t_ast			*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs);
 
@@ -145,35 +160,19 @@ void			free_tokens(t_token *tok);
 void			free_envs(t_env *env);
 void			free_ast(t_ast *ast);
 
-////////////////////////////////////////////////////////////////////
-void		print_tokens(t_token *head);
-void		print_ast(t_ast *ast);
-bool		is_valid_id(char *id);
 /* builtins */
-// int				builtin_echo(t_token *args);
-// int				builtin_unset(t_token *args);
-// int				builtin_export(t_token *args);
-// int				builtin_exit(t_token *args);
-// int				builtin_cd(t_token *args);
-// int				builtin_pwd(t_token *args);
-// int				builtin_env(t_token *args);
+int				builtin_echo(t_token *args);
+int				builtin_unset(t_token *args);
+int				builtin_export(t_token *args);
+int				builtin_exit(t_token *args);
+int				builtin_cd(t_token *args);
+int				builtin_pwd(t_token *args);
+int				builtin_env(t_token *args);
 
-/////////////////////////////////////////////////////////
+bool			is_valid_id(char *id);
 
-// Redirecting output example
-//command          : "echo hello; 1 > out"
-// targetfd         : 1
-// filename         : "out"
-// filefd           : open("out")
-// stashed_targetfd : dup(targetfd)
-
-// typedef struct s_redir
-// {
-// 	int		left;
-// 	int		right;
-// 	char	*filename;
-// 	int		file_fd;
-// 	int		stashed_fd;
-// }	t_redir;
+/* debug.c */
+void			print_tokens(t_token *head);
+void			print_ast(t_ast *ast);
 
 #endif

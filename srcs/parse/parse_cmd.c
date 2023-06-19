@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 07:46:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:13:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,6 @@ static t_cmd	*make_cmd_struct(void)
 	cmd->arg_list = NULL;
 	return (cmd);
 }
-
-static t_redirect	*make_redir_struct(void)
-{
-	t_redirect	*redir;
-
-	redir = (t_redirect *)malloc(sizeof(t_redirect));
-	if (!redir)
-		print_error_and_exit("malloc failure");
-	return (redir);
-}
-
-// void	add_redirection(t_token **tok, t_ast *node)
-// {
-// 	if (!node->redir)
-// 		make_redir_struct();
-// 	if ((*tok)->type == IO_NUMBER)
-		
-// 	else
-// }
 
 static void	add_cmd_element(t_token **tok, t_cmd *cmd)
 {
@@ -83,8 +64,8 @@ t_ast	*parse_cmd(t_token **tok, char **syntax_err)
 			node->type = CMD_NODE;
 			add_cmd_element(tok, node->cmd);
 		}
-		// if (is_redir((*tok)->type))
-		// 	add_redirection(tok, node);
+		else if (is_redir((*tok)->type))
+			parse_redirection(tok, node, syntax_err);
 	}
 	return (node);
 }

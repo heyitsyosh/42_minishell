@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 06:04:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:30:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ bool	is_redir(t_token *tok)
 	|| tok->type == REDIRECT_HEREDOC || tok->type == REDIRECT_OUT);
 }
 
-bool	is_unexpected(t_token_type type, t_token_type next_type)
+bool	is_unexpected(t_token *next)
 {
-	if (type == PIPE || type == AND || type == OR || \
-		type == OPEN_PARENTHESIS || type == UNSET)
-	{
-		if (next_type == PIPE || next_type == AND || \
-			next_type == OR || type == CLOSE_PARENTHESIS)
-			return (true);
-	}
+	if (!next)
+		return (true);
+	if (next->type == PIPE || next->type == AND || \
+		next->type == OR || next->type == CLOSE_PARENTHESIS)
+		return (true);
 	return (false);
 }
 

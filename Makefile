@@ -17,7 +17,7 @@ SRC_FILES = main \
 			utils/free \
 			utils/error \
 			utils/env_utils \
-			debug \
+			# utils/debug \
 			# builtin\cd\
 			# builtin\echo\
 			# builtin\env\

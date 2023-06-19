@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 07:46:58 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:31:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 
 	if ((*tok)->type != OPEN_PARENTHESIS)
 		return (NULL);
-	if (!(*tok)->next || is_unexpected((*tok)->type, (*tok)->next->type))
+	if (is_unexpected((*tok)->next))
 		return (set_syntax_error((*tok)->next, syntax_err));
 	node = make_ast_node(SUBSHELL_NODE, NULL, NULL);
 	*tok = (*tok)->next;
@@ -35,8 +35,8 @@ t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 	}
 	else
 		*tok = (*tok)->next;
-	// while (is_redir(*tok))
-	// 	add_redirection(node, tok);
+	while (is_redir(*tok))
+		parse_redirection(node, tok);
 	return (node);
 }
 
@@ -53,7 +53,7 @@ t_ast	*parse_and_or(t_token **tok, char **syntax_err)
 			type = AND_NODE;
 		else
 			type = OR_NODE;
-		if (!(*tok)->next || is_unexpected((*tok)->type, (*tok)->next->type))
+		if (is_unexpected((*tok)->next))
 		{
 			if (node)
 				free_ast(node);
@@ -74,7 +74,7 @@ t_ast	*create_ast(t_token **tok, char	**syntax_err)
 	node = parse_and_or(tok, syntax_err);
 	while (*tok && (*tok)->type == PIPE)
 	{
-		if (!(*tok)->next || is_unexpected((*tok)->type, (*tok)->next->type))
+		if (is_unexpected((*tok)->next))
 		{
 			if (node)
 				free_ast(node);
@@ -93,7 +93,7 @@ t_ast	*parser(t_token *tok)
 	char	*syntax_err;
 
 	syntax_err = NULL;
-	if (!tok || is_unexpected(UNSET, tok->type))
+	if (!tok || is_unexpected(tok))
 		set_syntax_error(tok, &syntax_err);
 	else
 		ast = create_ast(&tok, &syntax_err);

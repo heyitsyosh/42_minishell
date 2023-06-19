@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 04:27:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:09:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/libft.h"
-#include <stdio.h>
+#include <stdio.h> //printf, fflush
 
+/*
 void	print_tokens(t_token *head)
 {
 	while (head->next)
@@ -22,7 +22,7 @@ void	print_tokens(t_token *head)
 		head = head->next;
 	}
 	if (head)
-	printf("%s\n", head->word);
+		printf("%s\n", head->word);
 }
 
 static	void	print_ast_2(t_ast *ast)
@@ -69,3 +69,4 @@ void	print_ast(t_ast *ast)
 		print_ast(ast->right);
 	}
 }
+*/

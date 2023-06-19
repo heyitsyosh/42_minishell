@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 18:30:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/20 02:04:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ t_ast	*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs)
 	root->left = lhs;
 	root->right = rhs;
 	return (root);
+}
+
+bool	tok_is(t_token_type type, t_token *tok)
+{
+	if (!tok)
+		return (false);
+	return (tok->type == type);
 }

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 18:31:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/20 02:44:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,35 +50,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_cmd
-{
-	char	*command;
-	char	**args;
-	t_token	*arg_list;
-}	t_cmd;
-
-// Redirecting output example
-//command          : "echo hello; 1 > out"
-// targetfd         : 1
-// filename         : "out"
-// filefd           : open("out")
-// stashed_targetfd : dup(targetfd)
-
-// typedef struct s_redir
-// {
-// 	int		left;
-// 	int		right;
-// 	char	*filename;
-// 	int		file_fd;
-// 	int		stashed_fd;
-// }	t_redir;
-
-typedef struct s_redirect
-{
-	struct t_redirect	*prev;
-	struct t_redirect	*next;
-}	t_redirect;
-
 typedef enum e_ast_node_type
 {
 	SUBSHELL_NODE,
@@ -87,6 +58,25 @@ typedef enum e_ast_node_type
 	OR_NODE,
 	CMD_NODE,
 }	t_ast_node_type;
+
+typedef struct s_cmd
+{
+	char	*command;
+	char	**args;
+	t_token	*arg_list;
+}	t_cmd;
+
+typedef struct s_redirect
+{
+	char				*filename;
+	int					file_fd;
+	int					target_fd;
+	bool				io_num_used;
+	int					io_num;
+	t_token_type		type;
+	struct t_redirect	*prev;
+	struct t_redirect	*next;
+}	t_redirect;
 
 typedef struct s_ast
 {

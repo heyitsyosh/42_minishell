@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 18:31:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/20 02:09:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 	t_ast	*node;
 	t_ast	*left_child;
 
-	if ((*tok)->type != OPEN_PARENTHESIS)
+	if (!tok_is(OPEN_PARENTHESIS, *tok))
 		return (NULL);
 	if (is_unexpected((*tok)->next))
 		return (set_syntax_error((*tok)->next, syntax_err));
@@ -28,7 +28,7 @@ t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 	*tok = (*tok)->next;
 	left_child = create_ast(tok, syntax_err);
 	node->left = left_child;
-	if (!(*tok) || (*tok)->type != CLOSE_PARENTHESIS)
+	if (!tok_is(CLOSE_PARENTHESIS, *tok))
 	{
 		free_ast(node);
 		return (set_syntax_error(*tok, syntax_err));
@@ -47,7 +47,7 @@ t_ast	*parse_and_or(t_token **tok, char **syntax_err)
 	t_ast_node_type	type;
 
 	node = parse_cmd(tok, syntax_err);
-	while (*tok && ((*tok)->type == AND || (*tok)->type == OR))
+	while ((tok_is(AND, *tok) || tok_is(OR, *tok)))
 	{
 		if ((*tok)->type == AND)
 			type = AND_NODE;
@@ -72,7 +72,7 @@ t_ast	*create_ast(t_token **tok, char	**syntax_err)
 	t_ast	*right_child;
 
 	node = parse_and_or(tok, syntax_err);
-	while (*tok && (*tok)->type == PIPE)
+	while (tok_is(PIPE, *tok))
 	{
 		if (is_unexpected((*tok)->next))
 		{

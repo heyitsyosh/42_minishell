@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/20 02:44:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:47:37 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,32 @@ typedef struct s_cmd
 	t_token	*arg_list;
 }	t_cmd;
 
-typedef struct s_redirect
+typedef struct s_redir
 {
-	char				*filename;
-	int					file_fd;
-	int					target_fd;
-	bool				io_num_used;
-	int					io_num;
-	t_token_type		type;
-	struct t_redirect	*prev;
-	struct t_redirect	*next;
-}	t_redirect;
+	char			*filename;
+	int				file_fd;
+	int				target_fd;
+	int				saved_target_fd;
+	bool			io_num_used;
+	int				io_num;
+	t_token_type	type;
+	struct t_redir	*prev;
+	struct t_redir	*next;
+}	t_redir;
 
 typedef struct s_ast
 {
 	t_ast_node_type	type;
 	t_cmd			*cmd;
-	t_redirect		*redir;
+	t_redir			*redir;
 	struct t_ast	*left;
 	struct t_ast	*right;
 }	t_ast;
+
+typedef struct s_exec
+{
+	
+}	t_exec;
 
 //global struct//
 typedef struct s_minishell{
@@ -134,11 +140,19 @@ t_ast			*parse_subshell(t_token **tok, char **syntax_err);
 t_ast			*parse_cmd(t_token **tok, char **syntax_err);
 void			add_redirection(t_token **tok, t_ast *cmd_node);
 
+/* parse_redirect.c */
+void			parse_redir(t_token **tok, t_ast *node, char **syntax_err);
+
+/* parse_redirect_utils.c */
+void			add_redir_to_list(t_ast *node, t_redir *redir_to_add);
+t_redir			*make_redir_struct(void);
+
 /* parse_utils.c */
 bool			is_redir(t_token *tok);
 bool			is_unexpected(t_token *next);
 t_ast			*set_syntax_error(t_token *tok, char **syntax_err);
 t_ast			*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs);
+bool			tok_is(t_token_type type, t_token *tok);
 
 /* error.c */
 void			print_error_and_exit(char *error_message);

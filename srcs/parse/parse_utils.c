@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/20 02:04:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:37:33 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_ast	*set_syntax_error(t_token *tok, char **syntax_err)
 		*syntax_err = ft_strdup(tok->word);
 	if (!*syntax_err)
 		print_error_and_exit("strdup failure");
+	g_ms.exit_status = 2;
 	return (NULL);
 }
 

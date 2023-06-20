@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_line.c                                         :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/20 17:00:06 by myoshika         ###   ########.fr       */
+/*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
+/*   Updated: 2023/06/20 18:46:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdlib.h> //free
+#include "../includes/libft.h"
 
-void	run_line(char *line)
+t_exec	*make_exec_struct(void)
 {
-	t_token	*tok;
-	t_ast	*ast;
+	t_exec	*exec;
 
-	tok = tokenize(line);
-	expand(tok);
-	ast = parser(tok);
-	free_tokens(tok);
-	if (ast)
-		execute(make_exec_struct(), ast);
-	else
-		g_ms.exit_status = 2;
-	free_ast(ast);
+	exec = (t_exec *)malloc(sizeof(t_exec));
+	if (!exec)
+		print_error_and_exit("malloc failure");
+	return (exec);
+}
+
+// static bool	needs_execution()
+// {
+	
+// }
+
+static void	execute(t_exec *exec, t_ast *ast)
+{
+	if (needs_execution())
+	{
+		set_up_redirect(ast);
+		execute(ast);
+		reset_redirect(ast);
+	}
 }

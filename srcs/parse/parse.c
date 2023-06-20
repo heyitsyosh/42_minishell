@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/20 02:09:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:38:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 	else
 		*tok = (*tok)->next;
 	while (is_redir(*tok))
-		parse_redirection(node, tok);
+		parse_redirect(node, tok);
 	return (node);
 }
 

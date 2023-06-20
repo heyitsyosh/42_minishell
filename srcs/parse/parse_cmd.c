@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/20 02:07:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:10:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_ast	*parse_cmd(t_token **tok, char **syntax_err)
 		if (tok_is(WORD, *tok))
 			add_cmd_element(tok, node);
 		else if (is_redir(*tok))
-			parse_redirection(tok, node, syntax_err);
+			parse_redirect(tok, node, syntax_err);
 	}
 	if (syntax_err)
 	{

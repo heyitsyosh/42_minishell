@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/14 02:01:22 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:33:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	export_env(t_env *tmp)
 	t_env	*matching_id;
 
 	delete_escapes(&tmp->str, ft_strdup(tmp->str));
-	matching_id = get_env(tmp->id, g_ms.envp_head);
+	matching_id = get_env(tmp->id);
 	if (matching_id)
 	{
 		replace_env_str(matching_id, ft_strdup(tmp->str));

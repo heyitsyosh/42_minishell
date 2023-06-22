@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:06:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/15 18:22:18 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:33:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*variable_expansion(char *ptr, size_t *index_mover)
 	if (*ptr == '?')
 		return (expand_to_exit_status(index_mover));
 	id = get_id(ptr, index_mover);
-	matching_env = get_env(id, g_ms.envp_head);
+	matching_env = get_env(id);
 	free(id);
 	if (matching_env)
 		expanded_variable = ft_strdup(matching_env->str);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/14 02:38:43 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:33:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	update_pwd_oldpwd(char *to_be_pwd)
 	t_env	*oldpwd;
 	char	*to_be_oldpwd;
 
-	pwd = get_env("PWD", g_ms.envp_head);
+	pwd = get_env("PWD");
 	if (pwd)
 	{
 		to_be_oldpwd = pwd->str;
@@ -49,7 +49,7 @@ static void	update_pwd_oldpwd(char *to_be_pwd)
 		if (!pwd->str)
 			print_error_and_exit("strdup failure");
 	}
-	oldpwd = get_env("OLDPWD", g_ms.envp_head);
+	oldpwd = get_env("OLDPWD");
 	if (oldpwd)
 		replace_env_str(oldpwd, to_be_old_pwd);
 	free(g_ms.pwd)

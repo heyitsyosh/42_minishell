@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/20 18:37:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/22 07:18:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 bool	is_redir(t_token *tok)
 {
 	return (tok->type == IO_NUMBER \
-	|| tok->type == REDIRECT_APPEND || tok->type == REDIRECT_IN \
-	|| tok->type == REDIRECT_HEREDOC || tok->type == REDIRECT_OUT);
+	|| tok->type == RD_APPEND || tok->type == RD_IN \
+	|| tok->type == RD_HEREDOC || tok->type == RD_OUT);
 }
 
 bool	is_unexpected(t_token *next)
@@ -50,7 +50,7 @@ t_ast	*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs)
 	root = (t_ast *)malloc(sizeof(t_ast));
 	if (!root)
 		print_error_and_exit("malloc failure");
-	root->cmd = NULL;
+	root->cmd_list = NULL;
 	root->type = type;
 	root->left = lhs;
 	root->right = rhs;

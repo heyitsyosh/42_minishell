@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/17 03:44:59 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:31:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 #include "../../includes/libft.h"
 #include <stdlib.h> //malloc, free, exit
 
-t_env	*get_env(char *id, t_env *env)
+t_env	*get_env(char *id)
 {
-	if (!id)
+	t_env	*env;
+
+	env = g_ms.envp_head;
+	if (!id || !env)
 		return (NULL);
 	while (env)
 	{

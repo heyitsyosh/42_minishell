@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cmd_utils.c                                  :+:      :+:    :+:   */
+/*   make_argv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:47:28 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 02:52:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:01:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,43 @@
 #include "../../includes/libft.h"
 #include <stdlib.h> //malloc
 
-
-static size_t	count_malloc_size(t_token *tmp_args)
+static size_t	count_malloc_size(t_token *cmd_list)
 {
 	size_t	size;
 
 	size = 0;
-	while (tmp_args)
+	while (cmd_list)
 	{
 		size++;
-		tmp_args = tmp_args->next;
+		cmd_list = cmd_list->next;
 	}
 	return (size);
 }
 
-static void	tok_list_to_dbl_ptr(char **args, t_token *arg_list)
+static void	tok_list_to_dbl_ptr(char **argv, t_token *cmd_list)
 {
 	size_t	i;
 
 	i = 0;
-	while (arg_list)
+	while (cmd_list)
 	{
-		*(args + i) = ft_strdup(arg_list->word);
-		if (!*(args + i))
+		*(argv + i) = ft_strdup(cmd_list->word);
+		if (!*(argv + i))
 			print_error_and_exit("strdup failure");
-		arg_list = arg_list->next;
+		cmd_list = cmd_list->next;
 		i++;
 	}
-	*(args + i) = NULL;
+	*(argv + i) = NULL;
 }
 
-void	arg_list_to_dbl_ptr(t_ast *cmd_node)
+char	**make_argv_from_list(t_token *cmd_list)
 {
+	char	**argv;
 	size_t	malloc_size;
 
-	if (arg_list)
-		return ;
-	cmd_node->cmd->args = (char **)malloc(count_malloc_size(p->tmp_args) + 1);
-	if (!cmd_node->cmd->args)
+	argv = (char **)malloc(count_malloc_size(cmd_list) + 1);
+	if (!argv)
 		print_error_and_exit("malloc failure");
-	convert_nodes_to_dbl_ptr(cmd_node->cmd->args, p->tmp_args);
-	free_tokens(p->tmp_args);
-	p->tmp_args = NULL;
+	token_nodes_to_dbl_ptr(argv, cmd_list);
+	return (argv);
 }

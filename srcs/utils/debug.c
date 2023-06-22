@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 18:09:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:21:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static	void	print_ast_2(t_ast *ast)
 		return ;
 	if (ast->type == CMD_NODE)
 	{
-		tmp = ast->cmd->arg_list;
+		tmp = ast->cmd_list;
 		printf(" [");
 		while (tmp->next)
 		{

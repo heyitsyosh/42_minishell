@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 20:07:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:33:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	builtin_unset(t_token *args)
 	status = EXIT_SUCCESS;
 	while (args)
 	{
-		matching_id = (get_env(args->word, g_ms.envp_head));
+		matching_id = (get_env(args->word));
 		if (!(is_valid_id(args->word)))
 		{
 			if (status != EXIT_FAILURE)

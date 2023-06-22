@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 00:55:19 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 06:01:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/21 21:59:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ t_token_type	get_operator_type(char *operator)
 	else if (!ft_strcmp(operator, "||"))
 		return (OR);
 	else if (!ft_strcmp(operator, ">>"))
-		return (REDIRECT_APPEND);
+		return (RD_APPEND);
 	else if (!ft_strcmp(operator, "<<"))
-		return (REDIRECT_HEREDOC);
+		return (RD_HEREDOC);
 	else if (!ft_strcmp(operator, "<"))
-		return (REDIRECT_IN);
+		return (RD_IN);
 	else if (!ft_strcmp(operator, ">"))
-		return (REDIRECT_OUT);
+		return (RD_OUT);
 	else if (!ft_strcmp(operator, "("))
 		return (OPEN_PARENTHESIS);
 	else if (!ft_strcmp(operator, ")"))

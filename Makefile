@@ -13,9 +13,14 @@ SRC_FILES = main \
 			expand/wildcard_expansion \
 			parse/parse \
 			parse/parse_cmd \
-			parse/parse_redirection \
+			parse/parse_redir \
 			parse/parse_redir_utils \
 			parse/parse_utils \
+			execute/exec \
+			execute/exec_cmd \
+			execute/exec_execve \
+			execute/make_argv \
+			execute/make_envp \
 			utils/free \
 			utils/error \
 			utils/env_utils \

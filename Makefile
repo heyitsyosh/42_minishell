@@ -2,7 +2,6 @@ NAME = minishell
 
 SRC_FILES = main \
 			init_envp \
-			run_line \
 			tokenize/tokenize\
 			tokenize/tokenize_utils \
 			expand/expand \
@@ -19,7 +18,7 @@ SRC_FILES = main \
 			utils/free \
 			utils/error \
 			utils/env_utils \
-			utils/xstrdup \
+			utils/x_strdup \
 			utils/debug \
 			execute/exec \
 			execute/exec_cmd \

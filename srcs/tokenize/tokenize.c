@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 11:56:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:38:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*operator(char *line)
 	i = 0;
 	while (ft_strncmp(operators[i], line, ft_strlen(operators[i])))
 		i++;
-	operator = xstrdup(operators[i]);
+	operator = x_strdup(operators[i]);
 	return (make_token(operator, get_operator_type(operator)));
 }
 

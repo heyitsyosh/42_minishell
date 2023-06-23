@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:03:44 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 11:21:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:38:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	set_redir_info(t_token **tok, t_redir *redir)
 {
 	char	*str_after_redir;
 
-	str_after_redir = xstrdup((*tok)->word);
+	str_after_redir = x_strdup((*tok)->word);
 	if (redir->type == RD_HEREDOC)
 		redir->delimitor = str_after_redir;
 	else

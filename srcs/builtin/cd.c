@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 13:38:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:37:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*get_path(t_token *args)
 		return (NULL);
 	}
 	if (!args)
-		path = xstrdup(home->str);
+		path = x_strdup(home->str);
 	else
 		path = ft_strjoin(home->str, (args->word) + 1);
 	if (!path)
@@ -45,7 +45,7 @@ static void	update_oldpwd(void)
 	oldpwd = get_env("OLDPWD");
 	if (!oldpwd)
 		oldpwd = make_env_node("OLDPWD=");
-	to_be_oldpwd = xstrdup(g_ms.pwd);
+	to_be_oldpwd = x_strdup(g_ms.pwd);
 	replace_env_str(oldpwd, to_be_oldpwd);
 }
 
@@ -56,7 +56,7 @@ static void	update_pwd(char *to_be_pwd)
 	pwd = get_env("PWD");
 	if (!pwd)
 		pwd = make_env_node("PWD=");
-	replace_env_str(pwd, xstrdup(to_be_pwd));
+	replace_env_str(pwd, x_strdup(to_be_pwd));
 	free(g_ms.pwd);
 	g_ms.pwd = to_be_pwd;
 }
@@ -74,7 +74,7 @@ int	builtin_cd(t_token *args)
 		|| !ft_strncmp(args->word, "~/", 2))
 		path = get_path(args);
 	else
-		path = xstrdup(args->word);
+		path = x_strdup(args->word);
 	if (chdir(path) == -1)
 	{
 		msg_to_stderr("cd: ", path, ": ");

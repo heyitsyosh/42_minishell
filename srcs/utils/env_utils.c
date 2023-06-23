@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 11:43:48 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:38:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_env	*make_env_node(char	*envp)
 	new_node->id = ft_substr(envp, 0, ptr_to_equal_sign - envp);
 	if (!new_node->id)
 		print_error_and_exit("substr failure");
-	new_node->str = xstrdup(ptr_to_equal_sign + 1);
+	new_node->str = x_strdup(ptr_to_equal_sign + 1);
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
@@ -75,7 +75,7 @@ char	**make_envp_from_list(void)
 	char	*joined;
 	char	**ret;
 
-	joined = xstrdup("");
+	joined = x_strdup("");
 	envp = g_ms.envp_head;
 	while (envp)
 	{

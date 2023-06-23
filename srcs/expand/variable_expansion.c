@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:06:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 11:24:25 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:37:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ char	*variable_expansion(char *ptr, size_t *index_mover)
 	matching_env = get_env(id);
 	free(id);
 	if (matching_env)
-		expanded_variable = xstrdup(matching_env->str);
+		expanded_variable = x_strdup(matching_env->str);
 	else
-		expanded_variable = xstrdup("");
+		expanded_variable = x_strdup("");
 	return (expanded_variable);
 }

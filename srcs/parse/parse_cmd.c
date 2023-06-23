@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 11:21:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:38:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	add_cmd_element(t_token **tok, t_ast *node)
 	char	*to_add;
 	t_token	*tmp;
 
-	to_add = xstrdup((*tok)->word);
+	to_add = x_strdup((*tok)->word);
 	if (!node->cmd_list)
 		node->cmd_list = make_token(to_add, WORD);
 	else

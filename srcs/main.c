@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 13:11:22 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:18:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,23 @@
 
 t_minishell	g_ms;
 
-void	minishell_loop(void)
+static void	run_line(char *line)
+{
+	t_token	*tok;
+	t_ast	*ast;
+
+	tok = tokenize(line);
+	expand(tok);
+	ast = parser(tok);
+	free_tokens(tok);
+	if (ast)
+		execute(ast);
+	else
+		g_ms.exit_status = 2;
+	free_ast(ast);
+}
+
+static void	minishell_loop(void)
 {
 	char	*line;
 
@@ -43,7 +59,7 @@ void	minishell_loop(void)
 	ft_printf("exit\n");
 }
 
-void	run_one_line(int argc, char **argv)
+static void	run_one_line(int argc, char **argv)
 {
 	g_ms.is_interactive_mode = false;
 	if (argc == 2)

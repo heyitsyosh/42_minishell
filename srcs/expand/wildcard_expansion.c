@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 05:49:26 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 11:26:03 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:38:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_token	*make_match_list(DIR *current_dir, t_word *word)
 			break ;
 		if (matches_pattern(entry->d_name, word))
 		{
-			match->next = make_token(xstrdup(entry->d_name), WORD);
+			match->next = make_token(x_strdup(entry->d_name), WORD);
 			match = match->next;
 		}
 	}
@@ -77,6 +77,6 @@ t_token	*wildcard_expansion(t_word *word, t_token *next)
 	matches = make_match_list(current_dir, word);
 	closedir(current_dir);
 	if (!matches)
-		matches = make_token(xstrdup(""), WORD);
+		matches = make_token(x_strdup(""), WORD);
 	return (matches);
 }

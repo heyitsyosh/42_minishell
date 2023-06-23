@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_line.c                                         :+:      :+:    :+:   */
+/*   x_strdup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 10:01:02 by myoshika         ###   ########.fr       */
+/*   Created: 2023/06/23 11:18:01 by myoshika          #+#    #+#             */
+/*   Updated: 2023/06/23 15:38:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include <stdlib.h> //free
+#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 
-void	run_line(char *line)
+char	*x_strdup(const char *to_dup)
 {
-	t_token	*tok;
-	t_ast	*ast;
+	char	*dup;
 
-	tok = tokenize(line);
-	expand(tok);
-	ast = parser(tok);
-	free_tokens(tok);
-	if (ast)
-		execute(ast);
-	else
-		g_ms.exit_status = 2;
-	free_ast(ast);
+	dup = ft_strdup(to_dup);
+	if (!to_dup)
+		print_error_and_exit("strdup failure");
+	return (dup);
 }

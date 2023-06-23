@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 11:21:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:38:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ bool	is_unexpected(t_token *next)
 t_ast	*set_syntax_error(t_token *tok, char **syntax_err)
 {
 	if (!tok)
-		*syntax_err = xstrdup("newline");
+		*syntax_err = x_strdup("newline");
 	else
-		*syntax_err = xstrdup(tok->word);
+		*syntax_err = x_strdup(tok->word);
 	return (NULL);
 }
 

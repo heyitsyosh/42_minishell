@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 12:10:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:07:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../includes/libft.h"
 #include <unistd.h> //access, execve, X_OK
 #include <stdlib.h> //free, EXIT_SUCCESS
+#include <errno.h> //errno
 
 static char	*get_path_str(t_env *env)
 {
@@ -41,20 +42,24 @@ static char	*get_filepath(char *to_execute)
 		pathname = ft_strjoin_with_free(pathname, to_execute, FREE_FIRST_PARAM);
 		if (!pathname)
 			print_error_and_exit("malloc failure");
-		if (access(pathname, X_OK) == 0)
+		if (access(pathname, F_OK) == 0)
 			return (pathname);
 		else if (!end)
 			break ;
 		free(pathname);
 		path = end + 1;
 	}
-	return (path);
+	return (pathname);
 }
 
 static void	execve_func(char *pathname, char **argv, char **envp)
 {
 	execve(pathname, argv, envp);
-	print_error_and_exit("execve failure");
+	if (errno)
+	{
+		msg_to_stderr(argv[0], ": ", strerror(errno));
+		ft_putstr_fd("\n", STDERR_FILENO);
+	}
 }
 
 void	exec_execve(t_token *cmd_list)
@@ -68,11 +73,13 @@ void	exec_execve(t_token *cmd_list)
 	if (!ft_strchr(argv[0], '/'))
 		filepath = get_filepath(argv[0]);
 	else
-		filepath = xstrdup(argv[0]);
+		filepath = x_strdup(argv[0]);
 	// {
+	printf("[%s]", filepath);
+	fflush(stdout);
 	execve_func(filepath, argv, envp);
-	g_ms.exit_status = EXIT_SUCCESS;
-	// }
+	// g_ms.exit_status = EXIT_SUCCESS;
+	// } 
 	free(filepath);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);

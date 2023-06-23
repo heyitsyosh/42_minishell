@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 12:55:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:37:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ typedef struct s_minishell{
 }	t_minishell;
 
 extern t_minishell	g_ms;
-
-/* process_line.c */
-void			run_line(char *line);
 
 /* init_envp.c */
 void			init_envp(char **envp);
@@ -186,7 +183,7 @@ void			print_tokens(t_token *head);
 void			print_ast(t_ast *ast);
 void			print_redir_list(t_redir *redir);
 
-/* xstrdup.c */
-char			*xstrdup(const char *to_dup);
+/* x_strdup.c */
+char			*x_strdup(const char *to_dup);
 
 #endif

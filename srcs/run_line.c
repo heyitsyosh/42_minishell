@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:09:18 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 09:31:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 10:01:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void	run_line(char *line)
 	expand(tok);
 	ast = parser(tok);
 	free_tokens(tok);
-	// if (ast)
-	// 	execute(ast);
-	// else
-	// 	g_ms.exit_status = 2;
-	print_ast(ast);
+	if (ast)
+		execute(ast);
+	else
+		g_ms.exit_status = 2;
 	free_ast(ast);
 }

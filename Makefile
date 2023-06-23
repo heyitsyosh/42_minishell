@@ -19,19 +19,20 @@ SRC_FILES = main \
 			utils/free \
 			utils/error \
 			utils/env_utils \
+			utils/xstrdup \
 			utils/debug \
-			# execute/exec \
-			# execute/exec_cmd \
-			# execute/exec_execve \
-			# execute/make_argv \
-			# execute/make_envp \
-			# builtin\cd\
-			# builtin\echo\
-			# builtin\env\
-			# builtin\exit\
-			# builtin\export\
-			# builtin\pwd\
-			# builtin\unset\
+			execute/exec \
+			execute/exec_cmd \
+			execute/exec_execve \
+			execute/make_argv \
+			builtin/cd\
+			builtin/echo\
+			builtin/env\
+			builtin/exit\
+			builtin/export\
+			builtin/export_ii\
+			builtin/pwd\
+			builtin/unset\
 
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)

@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:48:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:10:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
-#include <unistd.h> //access, X_OK
+#include <unistd.h> //access, execve, X_OK
 #include <stdlib.h> //free, EXIT_SUCCESS
 
 static char	*get_path_str(t_env *env)
@@ -48,7 +48,7 @@ static char	*get_filepath(char *to_execute)
 		free(pathname);
 		path = end + 1;
 	}
-	return (NULL);
+	return (path);
 }
 
 static void	execve_func(char *pathname, char **argv, char **envp)
@@ -57,39 +57,25 @@ static void	execve_func(char *pathname, char **argv, char **envp)
 	print_error_and_exit("execve failure");
 }
 
-static bool	pathname_is_valid(char *pathname, char *to_execute)
-{
-	if (!pathname)
-	{
-		ft_putstr_fd(to_execute, STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		return (false);
-	}
-	return (true);
-}
-
 void	exec_execve(t_token *cmd_list)
 {
+	char	*filepath;
 	char	**argv;
 	char	**envp;
-	char	*pathname;
-	char	*to_execute;
 
-	to_execute = cmd_list->word;
-	if (!ft_strchr(to_execute, '/'))
-		pathname = get_filepath(to_execute);
-	// else
-	//	pathname = ;
 	argv = make_argv_from_list(cmd_list);
-	envp = make_envp_from_list(g_ms.envp_head);
-	if (pathname_is_valid(pathname, to_execute))
-	{
-		execve_func(pathname, argv, envp);
-		// set errno ??
-		g_ms.exit_status = EXIT_SUCCESS;
-	}
+	envp = make_envp_from_list();
+	if (!ft_strchr(argv[0], '/'))
+		filepath = get_filepath(argv[0]);
 	else
-		g_ms.exit_status = 127;
+		filepath = xstrdup(argv[0]);
+	// {
+	execve_func(filepath, argv, envp);
+	g_ms.exit_status = EXIT_SUCCESS;
+	// }
+	free(filepath);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);
 }
+
+//investigate exit status. and error messages (no valid filepath = 127)

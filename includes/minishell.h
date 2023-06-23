@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 09:45:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:55:01 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ typedef struct s_redir
 	int				io_num;
 	char			*delimitor;
 	t_token_type	type;
-	struct t_redir	*prev;
-	struct t_redir	*next;
+	struct s_redir	*prev;
+	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_ast
@@ -79,8 +79,8 @@ typedef struct s_ast
 	t_ast_node_type	type;
 	t_token			*cmd_list;
 	t_redir			*redir;
-	struct t_ast	*left;
-	struct t_ast	*right;
+	struct s_ast	*left;
+	struct s_ast	*right;
 }	t_ast;
 
 //global struct//
@@ -151,9 +151,6 @@ void			exec_execve(t_token *cmd_list);
 /* make_argv */
 char			**make_argv_from_list(t_token *cmd_list);
 
-/* make_envp */
-char			**make_envp_from_list(t_env *env_list);
-
 /* builtins */
 int				builtin_echo(t_token *args);
 int				builtin_cd(t_token *args);
@@ -164,13 +161,14 @@ int				builtin_env(t_token *args);
 int				builtin_exit(t_token *args);
 
 bool			is_valid_id(char *id);
+void			export_no_args(void);
 
 /* env_utils.c */
 t_env			*get_env(char *var);
 void			env_add_back(t_env *envp, t_env *new_node);
 void			replace_env_str(t_env *env, char *new_str);
 t_env			*make_env_node(char	*envp);
-char			**env_list_to_dbl_ptr(void);
+char			**make_envp_from_list(void);
 
 /* error.c */
 void			print_error_and_exit(char *error_message);
@@ -181,10 +179,14 @@ void			msg_to_stderr(char *first, char *second, char *third);
 void			free_tokens(t_token *tok);
 void			free_envs(t_env *env);
 void			free_ast(t_ast *ast);
+void			free_dbl_ptr(char **dbl_ptr);
 
 /* debug.c */
 void			print_tokens(t_token *head);
 void			print_ast(t_ast *ast);
 void			print_redir_list(t_redir *redir);
+
+/* xstrdup.c */
+char			*xstrdup(const char *to_dup);
 
 #endif

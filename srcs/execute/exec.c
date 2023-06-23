@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:49:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:38:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ void	execute_subshell(t_ast *ast)
 		print_error_and_exit("fork failure");
 	if (pid == 0)
 	{
-		set_up_redirect(ast->redir);
+		// set_up_redirect(ast->redir);
 		execute(ast->left);
-		reset_redirect(ast->redir);
+		// reset_redirect(ast->redir);
 		exit(g_ms.exit_status);
 	}
 	wait(&wait_status);
 	g_ms.exit_status = WEXITSTATUS(wait_status);
-} //emulate redirection (ex. (echo hello > out) > file)
+}
+//emulate redirection (ex. (echo hello > out) > file)
 
 void	execute(t_ast *ast)
 {

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 09:44:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:00:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 	else
 		*tok = (*tok)->next;
 	while (is_redir(*tok) && !*syntax_err)
-		parse_redir(node, tok, syntax_err);
+		parse_redir(tok, node, syntax_err);
 	return (node);
 }
 
@@ -97,7 +97,7 @@ t_ast	*parser(t_token *tok)
 		set_syntax_error(tok, &syntax_err);
 	else
 		ast = create_ast(&tok, &syntax_err);
-	if (tok) //ex. echo (echo)
+	if (tok)
 		set_syntax_error(tok, &syntax_err);
 	if (syntax_err)
 	{

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/19 02:20:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:24:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ void	replace_with_expanded(t_word *word, t_token *wildcard, t_token *tok)
 	else
 	{
 		free(tok->word);
-		tok->word = ft_strdup(word->sub_word);
-		if (!tok->word)
-			print_error_and_exit("substr failure");
+		tok->word = xstrdup(word->sub_word);
 	}
 }
 

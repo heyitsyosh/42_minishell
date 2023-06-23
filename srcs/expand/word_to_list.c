@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:11:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 07:54:25 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:25:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ static t_word	*quote(char **quote_ptr)
 	else
 	{
 		free(quoted_str);
-		quoted_str = ft_strdup("\'");
-		if (!quoted_str)
-			print_error_and_exit("strdup failure");
+		quoted_str = xstrdup("\'");
 		quoted_node = make_sub_word_node(quoted_str, UNQUOTED);
 		i = 0;
 	}
@@ -56,9 +54,7 @@ static t_word	*dquote(char **dquote_ptr)
 	else
 	{
 		free(dquoted_str);
-		dquoted_str = ft_strdup("\"");
-		if (!dquoted_str)
-			print_error_and_exit("strdup failure");
+		dquoted_str = xstrdup("\"");
 		dquoted_node = make_sub_word_node(dquoted_str, UNQUOTED);
 		i = 0;
 	}
@@ -71,9 +67,7 @@ static t_word	*wildcard(char **wildcard_ptr)
 	char	*wildcard_str;
 	t_word	*wildcard_node;
 
-	wildcard_str = ft_strdup("*");
-	if (!wildcard_str)
-		print_error_and_exit("strdup failure");
+	wildcard_str = xstrdup("*");
 	wildcard_node = make_sub_word_node(wildcard_str, WILDCARD);
 	*wildcard_ptr += 1;
 	return (wildcard_node);

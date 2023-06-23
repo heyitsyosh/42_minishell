@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:33:25 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:38:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdlib.h> //free
 #include <unistd.h> //chdir
 
-static int	get_path(t_token *args)
+static char	*get_path(t_token *args)
 {
 	char	*path;
 	t_env	*home;
@@ -26,33 +26,38 @@ static int	get_path(t_token *args)
 	if (!home)
 	{
 		ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		return (NULL);
 	}
 	if (!args)
-		path = ft_strdup(home->str);
+		path = xstrdup(home->str);
 	else
-		path = ft_strjoin(home->str, (args->str) + 2);
+		path = ft_strjoin(home->str, (args->word) + 1);
+	if (!path)
+		print_error_and_exit("strjoin failure");
 	return (path);
 }
 
-static void	update_pwd_oldpwd(char *to_be_pwd)
+static void	update_oldpwd(void)
 {
-	t_env	*pwd;
 	t_env	*oldpwd;
 	char	*to_be_oldpwd;
 
-	pwd = get_env("PWD");
-	if (pwd)
-	{
-		to_be_oldpwd = pwd->str;
-		replace_env_str(pwd, ft_strdup(to_be_pwd));
-		if (!pwd->str)
-			print_error_and_exit("strdup failure");
-	}
 	oldpwd = get_env("OLDPWD");
-	if (oldpwd)
-		replace_env_str(oldpwd, to_be_old_pwd);
-	free(g_ms.pwd)
+	if (!oldpwd)
+		oldpwd = make_env_node("OLDPWD=");
+	to_be_oldpwd = xstrdup(g_ms.pwd);
+	replace_env_str(oldpwd, to_be_oldpwd);
+}
+
+static void	update_pwd(char *to_be_pwd)
+{
+	t_env	*pwd;
+
+	pwd = get_env("PWD");
+	if (!pwd)
+		pwd = make_env_node("PWD=");
+	replace_env_str(pwd, xstrdup(to_be_pwd));
+	free(g_ms.pwd);
 	g_ms.pwd = to_be_pwd;
 }
 
@@ -65,18 +70,19 @@ int	builtin_cd(t_token *args)
 		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (!args || ft_strcmp(args->word, "~/"))
+	if (!args || !ft_strcmp(args->word, "~") \
+		|| !ft_strncmp(args->word, "~/", 2))
 		path = get_path(args);
 	else
-		path = ft_strdup(args->word);
-	if (!path)
-		print_error_and_exit("malloc failure");
+		path = xstrdup(args->word);
 	if (chdir(path) == -1)
 	{
-		msg_to_stderr("cd: ", path, strerror(errno));
-		ft_putstr_fd("\n", STDERR_FILENO);
+		msg_to_stderr("cd: ", path, ": ");
+		msg_to_stderr(strerror(errno), "\n", NULL);
+		free(path);
 		return (EXIT_FAILURE);
 	}
-	update_pwd_oldpwd(path);
+	update_oldpwd();
+	update_pwd(path);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:33:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:59:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ static void	add_new_env(t_env *tmp)
 	env_add_back(g_ms.envp_head, tmp);
 }
 
-static void	copy_without_escaped_chars(char *str_to_change, char *str)
+static void	copy_without_escaped_chars(char *no_escape_str, char *str)
 {
 	while (*str)
 	{
-		if (*str == '\\' && ft_strchr(*(str + 1), "\"$"))
-			i++;
-		*str_to_change = *str;
+		if (*str == '\\' && ft_strchr("\"$", *(str + 1)))
+			str++;
+		*no_escape_str = *str;
 		str++;
-		str_to_change++;
+		str++;
 	}
 }
 
-static void	delete_escapes(char **str_to_change, char *str)
+static void	delete_escapes(char **no_escape_str, char *str)
 {
 	size_t	i;
 	size_t	new_len;
@@ -45,16 +45,16 @@ static void	delete_escapes(char **str_to_change, char *str)
 	new_len = 0;
 	while (str[i])
 	{
-		if (str[i] == '\\' && ft_strchr(str[i + 1], "\"$"))
+		if (str[i] == '\\' && ft_strchr("\"$", str[i + 1]))
 			i++;
 		new_len++;
 		i++;
 	}
-	free(*str_to_change);
-	*str_to_change = (char *)malloc(new_len + 1);
-	if (!(*str_to_change))
+	free(*no_escape_str);
+	*no_escape_str = (char *)malloc(new_len + 1);
+	if (!(*no_escape_str))
 		print_error_and_exit("malloc failure");
-	copy_without_escaped_chars(*str_to_change, str);
+	copy_without_escaped_chars(*no_escape_str, str);
 	free(str);
 }
 
@@ -62,13 +62,11 @@ static void	export_env(t_env *tmp)
 {
 	t_env	*matching_id;
 
-	delete_escapes(&tmp->str, ft_strdup(tmp->str));
+	delete_escapes(&tmp->str, xstrdup(tmp->str));
 	matching_id = get_env(tmp->id);
 	if (matching_id)
 	{
-		replace_env_str(matching_id, ft_strdup(tmp->str));
-		if (!matching_id->str)
-			print_error_and_exit("strdup failure");
+		replace_env_str(matching_id, xstrdup(tmp->str));
 		free_envs(tmp);
 	}
 	else

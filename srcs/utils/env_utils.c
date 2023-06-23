@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:31:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:43:48 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,19 @@ t_env	*make_env_node(char	*envp)
 	new_node->id = ft_substr(envp, 0, ptr_to_equal_sign - envp);
 	if (!new_node->id)
 		print_error_and_exit("substr failure");
-	new_node->str = ft_strdup(ptr_to_equal_sign + 1);
-	if (!new_node->str)
-		print_error_and_exit("strdup failure");
+	new_node->str = xstrdup(ptr_to_equal_sign + 1);
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
 }
 
-char	**env_list_to_dbl_ptr(void)
+char	**make_envp_from_list(void)
 {
 	t_env	*envp;
 	char	*joined;
 	char	**ret;
 
-	joined = ft_strdup("");
+	joined = xstrdup("");
 	envp = g_ms.envp_head;
 	while (envp)
 	{
@@ -87,9 +85,11 @@ char	**env_list_to_dbl_ptr(void)
 		joined = ft_strjoin_with_free(joined, "\n", FREE_FIRST_PARAM);
 		envp = envp->next;
 	}
+	if (!joined)
+		print_error_and_exit("strjoin failure");
 	ret = ft_split(joined, '\n');
 	if (!ret)
-		exit(EXIT_FAILURE);
+		print_error_and_exit("split failure");
 	free(joined);
 	return (ret);
 }

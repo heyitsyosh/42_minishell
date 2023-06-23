@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/17 03:48:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:54:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	builtin_exit(t_token *args)
 	int	status;
 
 	if (!args)
-		exit(g_ms.status);
+		exit(g_ms.exit_status);
 	errno = 0;
 	status = ft_atoll(args->word);
 	if (!str_is_numeric(args->word) || errno == ERANGE)

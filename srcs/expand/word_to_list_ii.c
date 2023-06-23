@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:27:04 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 07:16:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:25:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_dquoted_str(char *dquote, size_t *i)
 	char	*new_portion;
 	char	*dquoted;
 
-	dquoted = ft_strdup("");
+	dquoted = xstrdup("");
 	while (dquote[*i] && dquote[*i] != '\"')
 	{
 		index_mover = 0;
@@ -66,7 +66,7 @@ char	*get_unquoted_str(char *no_quote, size_t *i)
 	char	*new_portion;
 	char	*unquoted;
 
-	unquoted = ft_strdup("");
+	unquoted = xstrdup("");
 	while (no_quote[*i] && !ft_strchr("\'\"*", no_quote[*i]))
 	{
 		index_mover = 0;

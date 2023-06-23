@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:07:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:21:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:11:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,19 @@ void	free_ast(t_ast *ast)
 		free_tokens(ast->cmd_list);
 		free(ast);
 	}
+}
+
+void	free_dbl_ptr(char **dbl_ptr)
+{
+	size_t	i;
+
+	i = 0;
+	if (!dbl_ptr)
+		return ;
+	while (dbl_ptr[i])
+	{
+		free(dbl_ptr[i]);
+		i++;
+	}
+	free(dbl_ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:03:44 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/21 22:14:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:47:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	set_redir_info(t_token **tok, t_redir *redir)
 	}
 }
 
-bool	parse_redirection(t_token **tok, t_ast *node, char **syntax_err)
+void	parse_redir(t_token **tok, t_ast *node, char **syntax_err)
 {
 	t_redir	*redir;
 

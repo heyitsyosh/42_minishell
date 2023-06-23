@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/22 07:17:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:54:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ t_ast	*parse_cmd(t_token **tok, char **syntax_err)
 	node = parse_subshell(tok, syntax_err);
 	if (node)
 		return (node);
-	if (!tok_is(WORD, *tok) || !is_redir(*tok))
+	if (!tok_is(WORD, *tok) && !is_redir(*tok))
 		return (NULL);
 	node = make_ast_node(CMD_NODE, NULL, NULL);
-	while ((tok_is(WORD, *tok) || is_redir(*tok)) && !(*syntax_err))
+	while ((tok_is(WORD, *tok) || is_redir(*tok)) && !*syntax_err)
 	{
 		if (tok_is(WORD, *tok))
 			add_cmd_element(tok, node);
-		else if (is_redir(*tok))
-			parse_redirect(tok, node, syntax_err);
+		else
+			parse_redir(tok, node, syntax_err);
 	}
 	if (*syntax_err)
 	{
@@ -57,5 +57,3 @@ t_ast	*parse_cmd(t_token **tok, char **syntax_err)
 	}
 	return (node);
 }
-
-//echo (echo)

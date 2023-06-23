@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:23:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:44:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 	}
 	else
 		*tok = (*tok)->next;
-	while (is_redir(*tok))
-		parse_redirect(node, tok);
+	while (is_redir(*tok) && !*syntax_err)
+		parse_redir(node, tok, syntax_err);
 	return (node);
 }
 
@@ -47,7 +47,7 @@ t_ast	*parse_and_or(t_token **tok, char **syntax_err)
 	t_ast_node_type	type;
 
 	node = parse_cmd(tok, syntax_err);
-	while ((tok_is(AND, *tok) || tok_is(OR, *tok)))
+	while ((tok_is(AND, *tok) || tok_is(OR, *tok)) && !*syntax_err)
 	{
 		if ((*tok)->type == AND)
 			type = AND_NODE;
@@ -72,7 +72,7 @@ t_ast	*create_ast(t_token **tok, char	**syntax_err)
 	t_ast	*right_child;
 
 	node = parse_and_or(tok, syntax_err);
-	while (tok_is(PIPE, *tok))
+	while (tok_is(PIPE, *tok) && !*syntax_err)
 	{
 		if (is_unexpected((*tok)->next))
 		{

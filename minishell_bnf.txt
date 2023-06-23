@@ -14,11 +14,4 @@ simple_command :=	<word>
 			   |	<redirection>
 			   |	<word> <simple_command>
 			   |	<redirection> <simple_command>
-
-TO-DO
-: redirection
-: pipe/execution
-
-double check signal works w heredoc, infinite l, multiple commands, etc.
-read abt asynchronous whatever whatever 10.6 in 詳解UNIX
-test builtins
+			   

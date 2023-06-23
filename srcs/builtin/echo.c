@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:59 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 13:10:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:48:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,6 @@ int	builtin_echo(t_token *args)
 		ft_printf("\n");
 	return (EXIT_SUCCESS);
 }
+
+//why doese echo w no args not print newline
+//builtins run in main process?

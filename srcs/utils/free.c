@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:07:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 12:11:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:21:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 
 void	free_tokens(t_token *tok)
 {
-	t_token	*tmp;
+	t_token	*tok_to_free;
 
 	while (tok)
 	{
-		tmp = tok;
+		tok_to_free = tok;
 		tok = tok->next;
-		free(tmp->word);
-		free(tmp);
+		free(tok_to_free->word);
+		free(tok_to_free);
 	}
 }
 
@@ -41,12 +41,29 @@ void	free_envs(t_env *env)
 	}
 }
 
+static void	free_redir(t_redir *redir)
+{
+	t_redir	*redir_to_free;
+
+	if (!redir)
+		return ;
+	while (redir)
+	{
+		redir_to_free = redir;
+		free(redir->delimitor);
+		free(redir->filename);
+		redir = redir->next;
+		free(redir_to_free);
+	}
+}
+
 void	free_ast(t_ast *ast)
 {
 	if (ast)
 	{
 		free_ast(ast->left);
 		free_ast(ast->right);
+		free_redir(ast->redir);
 		free_tokens(ast->cmd_list);
 		free(ast);
 	}

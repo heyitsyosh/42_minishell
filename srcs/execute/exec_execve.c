@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 17:34:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:01:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*get_filepath(char *to_execute)
 		pathname = ft_strjoin_with_free(pathname, to_execute, FREE_FIRST_PARAM);
 		if (!pathname)
 			print_error_and_exit("malloc failure");
-		if (access(pathname, F_OK) == 0)
+		if (access(pathname, F_OK) == 0) //investigate F_OK, isdir, X_OK
 			return (pathname);
 		else if (!end)
 			break ;

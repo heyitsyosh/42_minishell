@@ -14,4 +14,17 @@ simple_command :=	<word>
 			   |	<redirection>
 			   |	<word> <simple_command>
 			   |	<redirection> <simple_command>
-			   
+
+のーと:
+
+redirect
+heredoc
+execute
+pipe
+signal
+
+double check signal works w heredoc, infinite l, multiple commands, etc.
+read abt asynchronous whatever whatever 10.6 in 詳解UNIX
+test builtins
+check how exit status works (have a full understanding!!)
+exit | echo hello とか？？

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 20:07:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:10:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../includes/libft.h"
 #include <unistd.h> //access, execve, X_OK
 #include <stdlib.h> //free, EXIT_SUCCESS
+#include <string.h> //strerror
 #include <errno.h> //errno
 
 static char	*get_path_str(t_env *env)
@@ -78,8 +79,7 @@ void	exec_execve(t_token *cmd_list)
 	printf("[%s]", filepath);
 	fflush(stdout);
 	execve_func(filepath, argv, envp);
-	// g_ms.exit_status = EXIT_SUCCESS;
-	// } 
+	// }
 	free(filepath);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);

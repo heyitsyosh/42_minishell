@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:59 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 13:48:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:40:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	builtin_echo(t_token *args)
 	bool	new_line;
 
 	new_line = true;
-	if (!ft_strcmp(args->word, "-n"))
+	if (args && !ft_strcmp(args->word, "-n"))
 	{
 		new_line = false;
 		args = args->next;

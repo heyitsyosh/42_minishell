@@ -6,17 +6,19 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 17:10:07 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:34:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
-#include <unistd.h> //access, execve, X_OK
+#include <unistd.h> //access, fork, execve, X_OK
 #include <stdlib.h> //free, EXIT_SUCCESS
 #include <string.h> //strerror
 #include <errno.h> //errno
+#include <sys/types.h> //pid_t
+#include <sys/wait.h> //wait
 
 static char	*get_path_str(t_env *env)
 {
@@ -83,6 +85,24 @@ void	exec_execve(t_token *cmd_list)
 	free(filepath);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);
+}
+
+void	exec_nonbuiltin(t_ast *cmd)
+{
+	pid_t	pid;
+	int		wait_status;
+
+	pid = fork();
+	if (pid == -1)
+		print_error_and_exit("fork failure");
+	else if (pid == 0)
+	{
+		// set_up_redirect(cmd->redir);
+		exec_execve(cmd->cmd_list);
+		// reset_redirect(cmd->redir);
+	}
+	else
+		wait(&wait_status);
 }
 
 //investigate exit status. and error messages (no valid filepath = 127)

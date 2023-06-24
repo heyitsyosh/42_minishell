@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 11:38:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:37:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/types.h> //pid_t
 #include <sys/wait.h> //wait
 
+/*
 void	execute_subshell(t_ast *ast)
 {
 	pid_t	pid;
@@ -36,6 +37,7 @@ void	execute_subshell(t_ast *ast)
 	wait(&wait_status);
 	g_ms.exit_status = WEXITSTATUS(wait_status);
 }
+*/
 //emulate redirection (ex. (echo hello > out) > file)
 
 void	execute(t_ast *ast)
@@ -44,8 +46,8 @@ void	execute(t_ast *ast)
 		return ;
 	else if (ast->type == CMD_NODE)
 		execute_cmd(ast);
-	if (ast->type == SUBSHELL_NODE)
-		execute_subshell(ast);
+	// if (ast->type == SUBSHELL_NODE)
+	// 	execute_subshell(ast);
 	else if (ast->type == PIPE_NODE || ast->type == AND_NODE \
 			|| ast->type == OR_NODE)
 	{

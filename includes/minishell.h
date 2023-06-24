@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:37:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:36:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ void			execute_subshell(t_ast *ast);
 
 /* exec_cmd */
 void			execute_cmd(t_ast *cmd);
-void			exec_builtin(t_token *cmd_list);
+void			exec_builtin(t_ast *cmd);
+void			exec_nonbuiltin(t_ast *cmd);
 
 /* exec_execve */
 void			exec_execve(t_token *cmd_list);

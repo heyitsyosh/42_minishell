@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:41:19 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:32:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@
 	
 // }
 
-// IN PROGRESS!!!!!!!!!!!!!!!
-
-bool	open_redir_file(t_redir *r)
+static bool	open(t_redir *r)
 {
 	if (r->type == RD_OUT)
 		r->file_fd = open(r->filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -40,17 +38,23 @@ bool	open_redir_file(t_redir *r)
 	{
 		msg_to_stderr(r->filename, ": ", strerror(errno));
 		ft_putstr_fd("'\n", STDERR_FILENO);
+		return (false);
 	}
+	return (true);
 }
 
-static bool	redir_iter(t_redir *redir, bool (*f)(t_redir *))
+bool	open_redir_files(t_redir *redir)
 {
 	while (redir)
 	{
-		if (!f(redir))
+		if (!open(redir))
+		{
+			//error message?
 			return (false);
+		}
 		redir = redir->next;
 	}
+	return (true);
 }
 
 //bad file descriptor from ulimit -n
@@ -62,4 +66,11 @@ void	set_up_redirect(t_redir *redir)
 	redir_iter(redir, open_redir_file);
 	redir_iter(redir, stash_file_fd);
 	redir_iter(redir, do_redirect);
+}
+
+
+void	reset_redirect(t_redir *redir)
+{
+	if (!redir)
+		return ;
 }

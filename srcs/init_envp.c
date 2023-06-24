@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:37:41 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:26:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_env	*make_envp_list(char **envp)
 	t_env	*envp_tail;
 
 	i = 0;
+	envp_head = NULL;
 	while (envp[i])
 	{
 		new_env = make_env_node(envp[i]);

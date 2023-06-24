@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:08:00 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 17:40:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:34:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	exec_builtin(t_ast *builtin)
 {
 	const t_token	*list = builtin->cmd_list;
 	const char		*cmd = list->word;
-
+	
+	//open_redir_files(builtin->redir);
 	//set_up_redirect(builtin->redir);
 	if (!ft_strcmp("echo", cmd))
 		g_ms.exit_status = builtin_echo(list->next);
@@ -47,15 +48,4 @@ void	exec_builtin(t_ast *builtin)
 	if (!ft_strcmp("exit", cmd))
 		g_ms.exit_status = builtin_exit(list->next);
 	// reset_redirect(builtin->redir);
-}
-
-void	execute_cmd(t_ast *cmd)
-{
-	if (cmd->cmd_list)
-	{
-		if (is_builtin(cmd->cmd_list->word))
-			exec_builtin(cmd);
-		else
-			exec_nonbuiltin(cmd);
-	}
 }

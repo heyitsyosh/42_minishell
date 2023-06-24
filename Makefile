@@ -21,8 +21,8 @@ SRC_FILES = main \
 			utils/x_strdup \
 			utils/debug \
 			execute/exec \
-			execute/exec_cmd \
-			execute/exec_execve \
+			execute/exec_builtin \
+			execute/exec_nonbuiltin \
 			execute/make_argv \
 			builtin/cd\
 			builtin/echo\

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 18:31:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:33:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	exec_nonbuiltin(t_ast *cmd)
 		print_error_and_exit("fork failure");
 	else if (pid == 0)
 	{
-		open_redir_files
+		// open_redir_files(cmd->redir);
 		// set_up_redirect(cmd->redir);
 		exec_execve(cmd->cmd_list);
 		// reset_redirect(cmd->redir);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_execve.c                                      :+:      :+:    :+:   */
+/*   exec_nonbuiltin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 18:33:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:48:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*get_filepath(char *to_execute)
 	return (pathname);
 }
 
-static void	execve_func(char *pathname, char **argv, char **envp)
+static void	exec_execve(char *pathname, char **argv, char **envp)
 {
 	execve(pathname, argv, envp);
 	if (errno)
@@ -65,7 +65,7 @@ static void	execve_func(char *pathname, char **argv, char **envp)
 	}
 }
 
-void	exec_execve(t_token *cmd_list)
+void	exec_nonbuiltin(t_token *cmd_list)
 {
 	char	*filepath;
 	char	**argv;
@@ -77,33 +77,10 @@ void	exec_execve(t_token *cmd_list)
 		filepath = get_filepath(argv[0]);
 	else
 		filepath = x_strdup(argv[0]);
-	// {
-	printf("[%s]", filepath);
-	fflush(stdout);
-	execve_func(filepath, argv, envp);
-	// }
+	exec_execve(filepath, argv, envp);
 	free(filepath);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);
-}
-
-void	exec_nonbuiltin(t_ast *cmd)
-{
-	pid_t	pid;
-	int		wait_status;
-
-	pid = fork();
-	if (pid == -1)
-		print_error_and_exit("fork failure");
-	else if (pid == 0)
-	{
-		// open_redir_files(cmd->redir);
-		// set_up_redirect(cmd->redir);
-		exec_execve(cmd->cmd_list);
-		// reset_redirect(cmd->redir);
-	}
-	else
-		wait(&wait_status);
 }
 
 //investigate exit status. and error messages (no valid filepath = 127)

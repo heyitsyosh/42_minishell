@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 18:32:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:06:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	set_up_redirect(t_redir *redir)
 {
 	if (!redir)
 		return ;
-	redir_iter(redir, open_redir_file);
-	redir_iter(redir, stash_file_fd);
-	redir_iter(redir, do_redirect);
+	redir->stashed_target_fd = dup(target_fd);
+	
+	do_redirect();
 }
 
 
@@ -73,4 +73,13 @@ void	reset_redirect(t_redir *redir)
 {
 	if (!redir)
 		return ;
+	while (redir)
+	{
+		if (close(redir->file_fd) == -1 \
+			|| close(redir->target_fd) == -1)
+			print_error_and_exit("close failure");
+		if (dup2(stashed_target_fd, target_fd) == -1)
+			print_error_and_exit("dup2 failure");
+		redir = redir->next;
+	}
 }

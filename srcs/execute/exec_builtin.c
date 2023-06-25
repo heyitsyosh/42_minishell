@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:08:00 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 18:34:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:31:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 
-static bool	is_builtin(char *cmd)
+bool	is_builtin(char *cmd)
 {
 	if (!ft_strcmp("echo", cmd) \
 		|| !ft_strcmp("cd", cmd) \

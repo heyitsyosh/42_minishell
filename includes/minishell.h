@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 18:32:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:48:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,15 +136,15 @@ bool			tok_is(t_token_type type, t_token *tok);
 
 /* exec */
 void			execute(t_ast *ast);
+void			execute_cmd(t_ast *cmd);
 void			execute_subshell(t_ast *ast);
 
-/* exec_cmd */
-void			execute_cmd(t_ast *cmd);
+/* exec_builtin */
+bool			is_builtin(char *cmd);
 void			exec_builtin(t_ast *cmd);
-void			exec_nonbuiltin(t_ast *cmd);
 
-/* exec_execve */
-void			exec_execve(t_token *cmd_list);
+/* exec_nonbuiltin */
+void			exec_nonbuiltin(t_token *cmd_list);
 
 /* redirect */
 bool			open_redir_files(t_redir *redir);

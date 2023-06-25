@@ -6,25 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/24 18:32:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:28:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/libft.h"
-
-	// open_redir_file(); // 必要なfileをopenしたり、heredocの場合はpipeを作成したり
-	// do_redirect();     // dupを用いて、fdのredirectを行う
-	// exec_cmd();        // コマンドを実行する
-	// reset_redirect();
-
-//dup2(oldfd, newfd, ...)
-//dup2(filefd, target_fd)
-
-// void	stash_file_fd(t_redir *r)
-// {
-	
-// }
+#include <fcntl.h> //O_*
+#include <unistd.h> //open, close, STDERR_FILENO
 
 static bool	open(t_redir *r)
 {
@@ -57,20 +46,40 @@ bool	open_redir_files(t_redir *redir)
 	return (true);
 }
 
+//dup2(oldfd, newfd, ...)
+//dup2(filefd, target_fd)
+
+void	stash_file()
+{
+	
+}
+
+void	do_redirect()
+{
+	
+}
+
 //bad file descriptor from ulimit -n
 //if (redir->io_num > 1048575)
 void	set_up_redirect(t_redir *redir)
 {
 	if (!redir)
 		return ;
-	redir_iter(redir, open_redir_file);
-	redir_iter(redir, stash_file_fd);
-	redir_iter(redir, do_redirect);
+	stash_file();
+	do_redirect();
 }
-
 
 void	reset_redirect(t_redir *redir)
 {
 	if (!redir)
 		return ;
+	while (redir)
+	{
+		if (close(redir->file_fd) == -1 \
+			|| close(redir->target_fd) == -1)
+			print_error_and_exit("close failure");
+		if (dup2(stashed_target_fd, target_fd) == -1)
+			print_error_and_exit("dup2 failure");
+		redir = redir->next;
+	}
 }

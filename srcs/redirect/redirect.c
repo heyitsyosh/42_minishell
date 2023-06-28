@@ -6,25 +6,17 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/25 18:06:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:34:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/libft.h"
-
-	// open_redir_file(); // 必要なfileをopenしたり、heredocの場合はpipeを作成したり
-	// do_redirect();     // dupを用いて、fdのredirectを行う
-	// exec_cmd();        // コマンドを実行する
-	// reset_redirect();
+#include <fcntl.h> //O_*
+#include <unistd.h> //open, close, dup, dup2, STDERR_FILENO
 
 //dup2(oldfd, newfd, ...)
 //dup2(filefd, target_fd)
-
-// void	stash_file_fd(t_redir *r)
-// {
-	
-// }
 
 static bool	open(t_redir *r)
 {
@@ -47,9 +39,11 @@ bool	open_redir_files(t_redir *redir)
 {
 	while (redir)
 	{
-		if (!open(redir))
+		if (redir->io_num > 1048575)
+			msg_to_stderr(ft_itoa(redir->io_num), ": ", "Bad file descriptor\n");
+		if (redir->io_num > 1048575 || !open(redir))
 		{
-			//error message?
+			g_ms.exit_status = 1;
 			return (false);
 		}
 		redir = redir->next;
@@ -58,13 +52,12 @@ bool	open_redir_files(t_redir *redir)
 }
 
 //bad file descriptor from ulimit -n
-//if (redir->io_num > 1048575)
 void	set_up_redirect(t_redir *redir)
 {
 	if (!redir)
 		return ;
 	redir->stashed_target_fd = dup(target_fd);
-	
+	if ()
 	do_redirect();
 }
 

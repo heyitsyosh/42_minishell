@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/25 17:48:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:44:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_redir
 	char			*filename;
 	int				file_fd;
 	int				target_fd;
-	int				saved_target_fd;
+	int				stashed_target_fd;
 	bool			io_num_used;
 	int				io_num;
 	char			*delimitor;

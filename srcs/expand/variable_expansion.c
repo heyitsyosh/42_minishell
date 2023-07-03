@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:06:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:37:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:42:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*get_id(char *ptr, size_t *index_mover)
 	id_len = 0;
 	while (ft_isalnum(ptr[id_len]) || ptr[id_len] == '_')
 		id_len++;
-	id = ft_substr(ptr, 1, id_len);
+	id = ft_substr(ptr, 0, id_len);
 	if (!id)
 		print_error_and_exit("substr failure");
 	*index_mover = id_len + 1;

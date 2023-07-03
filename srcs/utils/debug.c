@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 09:54:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:23:26 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	print_tokens(t_token *head)
 {
 	while (head->next)
 	{
-		printf("%s->", head->word);
+		printf("[%s]->", head->word);
 		head = head->next;
 	}
 	if (head)
-		printf("%s\n", head->word);
+		printf("[%s]\n", head->word);
 }
 
 void	print_redir_list(t_redir *redir)

@@ -24,6 +24,7 @@ SRC_FILES = main \
 			execute/exec_builtin \
 			execute/exec_nonbuiltin \
 			execute/make_argv \
+			redirect/redirect \
 			builtin/cd\
 			builtin/echo\
 			builtin/env\

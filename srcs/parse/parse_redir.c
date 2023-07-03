@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:03:44 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/25 18:22:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/07/03 19:10:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 static void	set_io_num(t_token **tok, t_redir *redir)
 {
 	redir->io_num_used = false;
+	redir->io_num = -1;
 	if (tok_is(IO_NUMBER, *tok))
 	{
 		redir->io_num_used = true;

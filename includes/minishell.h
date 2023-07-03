@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/25 18:44:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:59:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ void			exec_nonbuiltin(t_token *cmd_list);
 
 /* redirect */
 bool			open_redir_files(t_redir *redir);
+void			set_up_redirect(t_redir *redir);
+void			reset_redirect(t_redir *redir);
 
 /* make_argv */
 char			**make_argv_from_list(t_token *cmd_list);

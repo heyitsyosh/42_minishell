@@ -6,13 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/03 19:11:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/07/03 19:40:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 #include <errno.h> //errno
+#include <string.h> //strerror
 #include <fcntl.h> //O_*
 #include <unistd.h> //open, close, dup, dup2, STDERR_FILENO
 
@@ -27,7 +28,7 @@ static bool	open_fd(t_redir *r)
 	if (r->file_fd == -1)
 	{
 		msg_to_stderr(r->filename, ": ", strerror(errno));
-		ft_putstr_fd("'\n", STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 		return (false);
 	}
 	return (true);

@@ -37,7 +37,7 @@ SRC_FILES = main \
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 
-INCLUDES = -I ./includes
+INCLUDES = -I ./includes -fsanitize=address -g3
 
 LIBFTPRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl

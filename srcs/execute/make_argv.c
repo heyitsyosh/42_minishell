@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:47:28 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:37:43 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/07/03 20:25:54 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ static void	tok_list_to_dbl_ptr(char **argv, t_token *cmd_list)
 	i = 0;
 	while (cmd_list)
 	{
-		*(argv + i) = x_strdup(cmd_list->word);
+		argv[i] = x_strdup(cmd_list->word);
 		cmd_list = cmd_list->next;
 		i++;
 	}
-	*(argv + i) = NULL;
+	argv[i] = NULL;
 }
 
 char	**make_argv_from_list(t_token *cmd_list)

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:25:30 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 08:19:25 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/07/03 19:44:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,3 @@ void	free_sub_word_list(t_word *words)
 		free(tmp);
 	}
 }
-

@@ -24,6 +24,7 @@ SRC_FILES = main \
 			execute/exec_builtin \
 			execute/exec_nonbuiltin \
 			execute/make_argv \
+			execute/make_envp \
 			redirect/redirect \
 			builtin/cd\
 			builtin/echo\
@@ -37,7 +38,8 @@ SRC_FILES = main \
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 
-INCLUDES = -I ./includes -fsanitize=address -g3
+INCLUDES = -I ./includes 
+# -fsanitize=address -g3
 
 LIBFTPRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl

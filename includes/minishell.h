@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/03 18:59:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/07/07 22:11:11 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,9 @@ void			reset_redirect(t_redir *redir);
 /* make_argv */
 char			**make_argv_from_list(t_token *cmd_list);
 
+/* make_envp */
+char			**make_envp_from_list(void);
+
 /* builtins */
 int				builtin_echo(t_token *args);
 int				builtin_cd(t_token *args);
@@ -171,7 +174,6 @@ t_env			*get_env(char *var);
 void			env_add_back(t_env *envp, t_env *new_node);
 void			replace_env_str(t_env *env, char *new_str);
 t_env			*make_env_node(char	*envp);
-char			**make_envp_from_list(void);
 
 /* error.c */
 void			print_error_and_exit(char *error_message);

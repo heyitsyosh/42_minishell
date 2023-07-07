@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:38:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/07/07 22:09:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,4 @@ t_env	*make_env_node(char	*envp)
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
-}
-
-char	**make_envp_from_list(void)
-{
-	t_env	*envp;
-	char	*joined;
-	char	**ret;
-
-	joined = x_strdup("");
-	envp = g_ms.envp_head;
-	while (envp)
-	{
-		joined = ft_strjoin_with_free(joined, envp->id, FREE_FIRST_PARAM);
-		joined = ft_strjoin_with_free(joined, "=", FREE_FIRST_PARAM);
-		joined = ft_strjoin_with_free(joined, envp->str, FREE_FIRST_PARAM);
-		joined = ft_strjoin_with_free(joined, "\n", FREE_FIRST_PARAM);
-		envp = envp->next;
-	}
-	if (!joined)
-		print_error_and_exit("strjoin failure");
-	ret = ft_split(joined, '\n');
-	if (!ret)
-		print_error_and_exit("split failure");
-	free(joined);
-	return (ret);
 }

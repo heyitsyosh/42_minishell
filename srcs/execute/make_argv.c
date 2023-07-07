@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:47:28 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/03 20:25:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/07/07 22:02:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/libft.h"
 #include <stdlib.h> //malloc
 
-static size_t	count_malloc_size(t_token *cmd_list)
+static size_t	get_malloc_size(t_token *cmd_list)
 {
 	size_t	size;
 
@@ -46,7 +46,7 @@ char	**make_argv_from_list(t_token *cmd_list)
 	char	**argv;
 	size_t	malloc_size;
 
-	argv = (char **)malloc(count_malloc_size(cmd_list) + 1);
+	argv = (char **)malloc((get_malloc_size(cmd_list) + 1) * sizeof(char *));
 	if (!argv)
 		print_error_and_exit("malloc failure");
 	tok_list_to_dbl_ptr(argv, cmd_list);

@@ -26,6 +26,7 @@ SRC_FILES = main \
 			execute/make_argv \
 			execute/make_envp \
 			redirect/redirect \
+			redirect/heredoc \
 			builtin/cd\
 			builtin/echo\
 			builtin/env\
@@ -65,5 +66,8 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+readline: 
+	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
 
 .PHONY: all clean fclean re

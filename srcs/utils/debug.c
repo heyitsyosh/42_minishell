@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/03 19:44:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:43:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	print_redir_list(t_redir *redir)
 	{
 		if (redir->filename)
 			printf("filename:%s ", redir->filename);
-		if (redir->delimitor)
-			printf("delimitor:%s ", redir->delimitor);
+		if (redir->delimiter)
+			printf("delimiter:%s ", redir->delimiter);
 		printf("target_fd:%d", redir->target_fd);
 		redir = redir->next;
 		if (redir)

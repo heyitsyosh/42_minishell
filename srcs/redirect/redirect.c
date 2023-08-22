@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/03 20:05:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:35:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static bool	open_fd(t_redir *r)
 		r->file_fd = open(r->filename, O_RDONLY);
 	else if (r->type == RD_APPEND)
 		r->file_fd = open(r->filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	else if (r->type == RD_HEREDOC)
+		r->file_fd = set_up_heredoc(r);
 	if (r->file_fd == -1)
 	{
 		msg_to_stderr(r->filename, ": ", strerror(errno));
@@ -41,7 +43,7 @@ bool	open_redir_files(t_redir *redir)
 	{
 		if (redir->io_num > 1048575)
 			msg_to_stderr(ft_itoa(redir->io_num), ": ", "Bad file descriptor\n");
-		if ((redir->io_num > 1048575) || !open_fd(redir))
+		if (!open_fd(redir) || (redir->io_num > 1048575))
 		{
 			g_ms.exit_status = 1;
 			return (false);
@@ -51,6 +53,7 @@ bool	open_redir_files(t_redir *redir)
 	return (true);
 }
 
+//does this work for subshell?? (echo hello > a.txt) > out
 void	set_up_redirect(t_redir *redir)
 {
 	if (!redir)
@@ -75,10 +78,6 @@ void	reset_redirect(t_redir *redir)
 			print_error_and_exit("close failure");
 		if (dup2(redir->stashed_target_fd, redir->target_fd) == -1)
 			print_error_and_exit("dup2 failure");
-		redir = redir->next;
+		redir = redir->prev;
 	}
 }
-
-//double free or corruption (out)
-//corrupted size vs. prev_size??
-//malloc_consolidate(): invalid chunk size??

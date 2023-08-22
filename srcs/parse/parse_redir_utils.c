@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:55:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/21 21:52:09 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:43:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_redir	*make_redir_struct(void)
 	if (!redir)
 		print_error_and_exit("malloc failure");
 	redir->filename = NULL;
-	redir->delimitor = NULL;
+	redir->delimiter = NULL;
 	redir->prev = NULL;
 	redir->next = NULL;
 	return (redir);

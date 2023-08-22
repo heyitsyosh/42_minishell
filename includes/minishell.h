@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/07 22:11:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:43:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_redir
 	int				stashed_target_fd;
 	bool			io_num_used;
 	int				io_num;
-	char			*delimitor;
+	char			*delimiter;
 	t_token_type	type;
 	struct s_redir	*prev;
 	struct s_redir	*next;
@@ -150,6 +150,9 @@ void			exec_nonbuiltin(t_token *cmd_list);
 bool			open_redir_files(t_redir *redir);
 void			set_up_redirect(t_redir *redir);
 void			reset_redirect(t_redir *redir);
+
+/* heredoc */
+int				set_up_heredoc(t_redir *redir);
 
 /* make_argv */
 char			**make_argv_from_list(t_token *cmd_list);

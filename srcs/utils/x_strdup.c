@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:44:11 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/03 19:44:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:09:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*x_strdup(const char *to_dup)
 	char	*dup;
 
 	dup = ft_strdup(to_dup);
-	if (!to_dup)
+	if (!dup)
 		print_error_and_exit("strdup failure");
 	return (dup);
 }

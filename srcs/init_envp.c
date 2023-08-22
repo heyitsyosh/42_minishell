@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/07 21:39:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/22 03:18:11 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	set_pwd(t_env *pwd)
 	{
 		pwd = make_env_node("PWD=");
 		free(pwd->str);
-		pwd->str =  x_strdup(current_dir);
+		pwd->str = x_strdup(current_dir);
 	}
 	g_ms.pwd = current_dir;
 }

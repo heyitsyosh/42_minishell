@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:07:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/03 20:08:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:43:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	free_redir(t_redir *redir)
 	while (redir)
 	{
 		redir_to_free = redir;
-		free(redir->delimitor);
+		free(redir->delimiter);
 		free(redir->filename);
 		redir = redir->next;
 		free(redir_to_free);

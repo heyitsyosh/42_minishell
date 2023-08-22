@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/22 23:37:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:50:03 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	execute_subshell(t_ast *ast)
 		print_error_and_exit("fork failure");
 	if (pid == 0)
 	{
-		if (!open_redir_files(ast->redir))
-			return ;
-		set_up_redirect(ast->redir);
-		execute(ast->left);
+		if (open_redir_files(ast->redir))
+		{
+			set_up_redirect(ast->redir);
+			execute(ast->left);
+		}
 		reset_redirect(ast->redir);
 		exit(g_ms.exit_status);
 	}
@@ -61,15 +62,16 @@ void	exec_in_child(t_ast *cmd)
 
 void	execute_cmd(t_ast *cmd)
 {
-	if (!open_redir_files(cmd->redir))
-		return ;
-	set_up_redirect(cmd->redir);
-	if (cmd->cmd_list)
+	if (open_redir_files(cmd->redir))
 	{
-		if (is_builtin(cmd->cmd_list->word)) //and no pipe
-			exec_builtin(cmd);
-		else
-			exec_in_child(cmd);
+		set_up_redirect(cmd->redir);
+		if (cmd->cmd_list)
+		{
+			if (is_builtin(cmd->cmd_list->word)) //and no pipe
+				exec_builtin(cmd);
+			else
+				exec_in_child(cmd);
+		}
 	}
 	reset_redirect(cmd->redir);
 }

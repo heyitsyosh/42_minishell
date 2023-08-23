@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/17 03:46:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/23 22:56:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	signal_handler(int signum)
 {
 	g_ms.signum = signum;
 	if (g_ms.signum == SIGINT)
-		g_ms.status = 130;
+		g_ms.exit_status = 130;
 }
 
 void	setup_child_signal_handler(void)

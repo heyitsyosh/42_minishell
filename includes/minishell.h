@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/22 23:43:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/23 23:48:26 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_ast
 //global struct//
 typedef struct s_minishell{
 	bool					is_interactive_mode;
+	bool					heredoc_interrupted;
 	int						exit_status;
 	char					*pwd;
 	t_env					*envp_head;
@@ -96,6 +97,11 @@ extern t_minishell	g_ms;
 
 /* init_envp.c */
 void			init_envp(char **envp);
+
+/* signal.c */
+void			signal_handler(int signum);
+void			setup_child_signal_handler(void);
+void			setup_parent_signal_handler(void);
 
 /* tokenize.c */
 t_token			*tokenize(char *line);
@@ -134,33 +140,33 @@ t_ast			*set_syntax_error(t_token *tok, char **syntax_err);
 t_ast			*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs);
 bool			tok_is(t_token_type type, t_token *tok);
 
-/* exec */
+/* exec.c */
 void			execute(t_ast *ast);
 void			execute_cmd(t_ast *cmd);
 void			execute_subshell(t_ast *ast);
 
-/* exec_builtin */
+/* exec_builtin.c */
 bool			is_builtin(char *cmd);
 void			exec_builtin(t_ast *cmd);
 
-/* exec_nonbuiltin */
+/* exec_nonbuiltin.c */
 void			exec_nonbuiltin(t_token *cmd_list);
 
-/* redirect */
+/* redirect.c */
 bool			open_redir_files(t_redir *redir);
 void			set_up_redirect(t_redir *redir);
 void			reset_redirect(t_redir *redir);
 
-/* heredoc */
+/* heredoc.c */
 int				set_up_heredoc(t_redir *redir);
 
-/* make_argv */
+/* make_argv.c */
 char			**make_argv_from_list(t_token *cmd_list);
 
-/* make_envp */
+/* make_envp.c */
 char			**make_envp_from_list(void);
 
-/* builtins */
+/* builtins.c */
 int				builtin_echo(t_token *args);
 int				builtin_cd(t_token *args);
 int				builtin_pwd(t_token *args);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/07 21:51:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 00:07:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ static void	exec_execve(char *pathname, char **argv, char **envp)
 	{
 		msg_to_stderr(argv[0], ": ", strerror(errno));
 		ft_putstr_fd("\n", STDERR_FILENO);
+		g_ms.exit_status = 126;
+		if (errno == ENOENT)
+			g_ms.exit_status = 127;
 	}
 }
 
@@ -83,4 +86,5 @@ void	exec_nonbuiltin(t_token *cmd_list)
 	free_dbl_ptr(envp);
 }
 
-//investigate exit status. and error messages (no valid filepath = 127)
+//is a directory, 126
+//command not found 127

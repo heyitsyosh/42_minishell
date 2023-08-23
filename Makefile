@@ -2,6 +2,7 @@ NAME = minishell
 
 SRC_FILES = main \
 			init_envp \
+			signal/signal \
 			tokenize/tokenize\
 			tokenize/tokenize_utils \
 			expand/expand \

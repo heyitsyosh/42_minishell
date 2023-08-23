@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/22 23:35:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:32:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ bool	open_redir_files(t_redir *redir)
 		if (!open_fd(redir) || (redir->io_num > 1048575))
 		{
 			g_ms.exit_status = 1;
+			while (redir->prev)
+			{
+				if (close(redir->file_fd) == -1)
+					print_error_and_exit("close failure");
+				redir = redir->prev;
+			}
 			return (false);
 		}
 		redir = redir->next;

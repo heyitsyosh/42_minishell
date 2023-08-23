@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 00:13:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 03:10:48 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	execute_subshell(t_ast *ast)
 		g_ms.exit_status = WEXITSTATUS(wait_status);
 	}
 }
-//emulate redirection (ex. (echo hello > out) > file)
 
 void	exec_in_child(t_ast *cmd)
 {
@@ -100,3 +99,6 @@ void	execute(t_ast *ast)
 		execute(ast->right);
 	}
 }
+
+//subshell (redirect)
+//signal

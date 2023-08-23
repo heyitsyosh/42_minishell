@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/23 23:00:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 03:13:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	set_up_heredoc(t_redir *redir)
 	setup_parent_signal_handler();
 	if (g_ms.heredoc_interrupted)
 	{
-		printf("aaaa");
 		if (close(fd[0]) == -1)
 			print_error_and_exit("close failure");
 		return (-1);

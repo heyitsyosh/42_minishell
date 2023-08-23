@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 00:07:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 04:34:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@
 #include <string.h> //strerror
 #include <errno.h> //errno
 #include <sys/types.h> //pid_t
+#include <sys/stat.h> //stat, S_ISDIR
 #include <sys/wait.h> //wait
 
-static char	*get_path_str(t_env *env)
+static char	*get_path_str(void)
 {
-	if (!env)
+	t_env	*path_env;
+
+	path_env = get_env("PATH");
+	if (!path_env)
 		return (NULL);
-	return (env->str);
+	return (path_env->str);
 }
 
 static char	*get_filepath(char *to_execute)
@@ -33,7 +37,8 @@ static char	*get_filepath(char *to_execute)
 	char	*end;
 	char	*pathname;
 
-	path = get_path_str(get_env("PATH"));
+	pathname = NULL;
+	path = get_path_str();
 	while (path)
 	{
 		end = ft_strchr(path, ':');
@@ -45,7 +50,7 @@ static char	*get_filepath(char *to_execute)
 		pathname = ft_strjoin_with_free(pathname, to_execute, FREE_FIRST_PARAM);
 		if (!pathname)
 			print_error_and_exit("malloc failure");
-		if (access(pathname, F_OK) == 0) //investigate F_OK, isdir, X_OK
+		if (access(pathname, F_OK) == 0)
 			return (pathname);
 		else if (!end)
 			break ;
@@ -68,6 +73,33 @@ static void	exec_execve(char *pathname, char **argv, char **envp)
 	}
 }
 
+void	check_filepath(char *filepath, char *to_execute)
+{
+	struct stat	info;
+	t_env		*path_env;
+
+	path_env = get_env("PATH");
+	if (!path_env || *(path_env->str) == '\0')
+	{
+		msg_to_stderr(to_execute, ": ", "No such file or directory\n");
+		exit (127);
+	}
+	if (!filepath \
+		|| !ft_strcmp(to_execute, "") \
+		|| !ft_strcmp(to_execute, "..") \
+		|| access(filepath, F_OK) == -1)
+	{
+		msg_to_stderr(to_execute, ": ", "command not found\n");
+		exit (127);
+	}
+	stat(filepath, &info);
+	if (S_ISDIR(info.st_mode))
+	{
+		msg_to_stderr(to_execute, ": ", "Is a directory\n");
+		exit (126);
+	}
+}
+
 void	exec_nonbuiltin(t_token *cmd_list)
 {
 	char	*filepath;
@@ -80,11 +112,9 @@ void	exec_nonbuiltin(t_token *cmd_list)
 		filepath = get_filepath(argv[0]);
 	else
 		filepath = x_strdup(argv[0]);
+	check_filepath(filepath, argv[0]);
 	exec_execve(filepath, argv, envp);
 	free(filepath);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);
 }
-
-//is a directory, 126
-//command not found 127

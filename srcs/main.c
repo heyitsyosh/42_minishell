@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/23 23:01:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 02:20:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,16 @@ static void	minishell_loop(void)
 {
 	char	*line;
 
-	g_ms.is_interactive_mode = true;
 	while (1)
 	{
 		setup_parent_signal_handler();
 		line = readline("minishell> ");
+		if (g_ms.signum == SIGINT)
+		{
+			ft_printf("\n");
+			g_ms.signum = 0;
+			continue ;
+		}
 		if (!line)
 			break ;
 		if (*line)
@@ -53,15 +58,12 @@ static void	minishell_loop(void)
 			run_line(line);
 			free(line);
 		}
-		if (g_ms.signum == SIGINT)
-			ft_printf("\n");
 	}
 	ft_printf("exit\n");
 }
 
 static void	run_one_line(int argc, char **argv)
 {
-	g_ms.is_interactive_mode = false;
 	if (argc == 2)
 	{
 		ft_putstr_fd("bash: -c: option requires an argument\n", STDERR_FILENO);

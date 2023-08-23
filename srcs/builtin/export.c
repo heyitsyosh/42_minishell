@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:37:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 04:31:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ static void	copy_without_escaped_chars(char *no_escape_str, char *str)
 		if (*str == '\\' && ft_strchr("\"$", *(str + 1)))
 			str++;
 		*no_escape_str = *str;
-		str++;
+		no_escape_str++;
 		str++;
 	}
+	*no_escape_str = '\0';
 }
 
 static void	delete_escapes(char **no_escape_str, char *str)

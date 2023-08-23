@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/23 23:48:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 01:56:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_ast
 
 //global struct//
 typedef struct s_minishell{
-	bool					is_interactive_mode;
 	bool					heredoc_interrupted;
 	int						exit_status;
 	char					*pwd;

@@ -37,8 +37,10 @@ SRC_FILES = main \
 			builtin/pwd\
 			builtin/unset\
 
+OBJ_DIR = ./obj
+
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
-OBJS = $(SRCS:.c=.o)
+OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:=.o))
 
 INCLUDES = -I ./includes 
 # -fsanitize=address -g3
@@ -53,6 +55,10 @@ LIBS = -lreadline -L$(LIBFTPRINTFDIR) -lftprintf
 
 all: $(NAME)
 
+$(OBJ_DIR)/%.o: ./srcs/%.c
+	@mkdir -p $(dir $@) 
+	gcc $(INCLUDES) -c $< -o $@
+
 $(NAME): $(OBJS)
 	make -C $(LIBFTPRINTFDIR)
 	make -C $(GNLDIR)
@@ -61,7 +67,7 @@ $(NAME): $(OBJS)
 clean:
 	make fclean -C $(LIBFTPRINTFDIR)
 	make fclean -C $(GNLDIR)
-	$(RM) $(OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
@@ -70,5 +76,6 @@ re: fclean all
 
 readline: 
 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+	brew update && brew upgrade && brew install readline
 
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 03:10:48 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 04:44:51 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,3 @@ void	execute(t_ast *ast)
 		execute(ast->right);
 	}
 }
-
-//subshell (redirect)
-//signal

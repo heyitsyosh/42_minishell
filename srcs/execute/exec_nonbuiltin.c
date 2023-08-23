@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 04:34:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 04:44:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	exec_execve(char *pathname, char **argv, char **envp)
 	}
 }
 
-void	check_filepath(char *filepath, char *to_execute)
+static void	check_filepath(char *filepath, char *to_execute)
 {
 	struct stat	info;
 	t_env		*path_env;

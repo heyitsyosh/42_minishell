@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:06:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 00:07:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 05:39:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char	*expand_to_exit_status(size_t *index_mover)
 	char	*exit_status;
 
 	*index_mover = 2;
-
 	exit_status = ft_itoa(g_ms.exit_status);
 	if (!exit_status)
 		print_error_and_exit("itoa failure");

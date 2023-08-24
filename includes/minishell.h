@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 01:56:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:04:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdbool.h>
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
-#include <stdio.h>
+// #include <stdio.h>
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
@@ -98,7 +98,6 @@ extern t_minishell	g_ms;
 void			init_envp(char **envp);
 
 /* signal.c */
-void			signal_handler(int signum);
 void			setup_child_signal_handler(void);
 void			setup_parent_signal_handler(void);
 

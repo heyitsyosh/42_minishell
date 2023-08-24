@@ -37,7 +37,7 @@ SRC_FILES = main \
 			builtin/pwd\
 			builtin/unset\
 
-OBJ_DIR = ./obj
+OBJ_DIR = ./objs
 
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:=.o))

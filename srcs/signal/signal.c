@@ -6,19 +6,33 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 01:55:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:34:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../includes/ft_printf.h"
+#include <readline/readline.h>
+//readline, rl_on_new_line, rl_replace_line, rl_redisplay
 
 //ctrl+\ (SIGQUIT), do nothing
 //ctrl+c (SIGINT), prompt on new line
-void	signal_handler(int signum)
+static void	signal_handler(int signum)
 {
 	g_ms.signum = signum;
+}
+
+static int	handle_sigint(void)
+{
 	if (g_ms.signum == SIGINT)
-		g_ms.exit_status = 130;
+	{
+		ft_printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_ms.signum = 0;
+	}
+	return (0);
 }
 
 void	setup_child_signal_handler(void)
@@ -31,6 +45,7 @@ void	setup_child_signal_handler(void)
 void	setup_parent_signal_handler(void)
 {
 	g_ms.signum = 0;
+	rl_event_hook = handle_sigint;
 	if (signal(SIGINT, signal_handler) == SIG_ERR || \
 		signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		print_error_and_exit("signal failure");

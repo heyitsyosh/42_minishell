@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 17:17:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 04:15:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:53:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	ft_strcmp(const char *s1, const char *s2)
 	const unsigned char	*uc_s2 = (const unsigned char*)s2;
 
 	i = 0;
-	while (*(uc_s1 + i) == *(uc_s2 + i))
+	while (*(uc_s1 + i) || *(uc_s2 + i))
 	{
-		if (*(uc_s1 + i + 1) == '\0')
-			break ;
+		if (*(uc_s1 + i) != *(uc_s2 + i))
+			return (*(uc_s1 + i) - *(uc_s2 + i));
 		i++;
 	}
-	return (*(uc_s1 + i) - *(uc_s2 + i));
+	return (0);
 }

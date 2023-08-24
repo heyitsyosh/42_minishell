@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 03:13:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:01:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
-#include <readline/readline.h> //readline
+#include <readline/readline.h> //readline, rl_done
 #include <unistd.h> //write, pipe, close
 #include <stdlib.h> //free
 
@@ -24,12 +24,19 @@ static void	heredoc_signal_handler(int signum)
 	g_ms.exit_status = 1;
 }
 
+static int	handle_heredoc_sigint(void)
+{
+	if (g_ms.heredoc_interrupted)
+		rl_done = 1;
+	return (0);
+}
+
 static void	setup_heredoc_signal_handler(void)
 {
-	g_ms.heredoc_interrupted = false;
 	if (signal(SIGINT, heredoc_signal_handler) == SIG_ERR || \
 		signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		print_error_and_exit("signal failure");
+	rl_event_hook = handle_heredoc_sigint;
 }
 
 static void	readline_heredoc_loop(int fd[2], char *delimiter)
@@ -41,6 +48,8 @@ static void	readline_heredoc_loop(int fd[2], char *delimiter)
 		buf = readline("> ");
 		if (!buf || ft_strcmp(buf, delimiter) == 0 || g_ms.heredoc_interrupted)
 		{
+			// if (!buf) //check on mac?
+			// 	ft_printf("\n");
 			free(buf);
 			break ;
 		}
@@ -62,7 +71,7 @@ int	set_up_heredoc(t_redir *redir)
 	readline_heredoc_loop(fd, redir->delimiter);
 	if (close(fd[1]) == -1)
 		print_error_and_exit("close failure");
-	setup_parent_signal_handler();
+	// setup_parent_signal_handler();
 	if (g_ms.heredoc_interrupted)
 	{
 		if (close(fd[0]) == -1)

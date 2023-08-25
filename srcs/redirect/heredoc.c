@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 21:01:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:21:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static void	readline_heredoc_loop(int fd[2], char *delimiter)
 		buf = readline("> ");
 		if (!buf || ft_strcmp(buf, delimiter) == 0 || g_ms.heredoc_interrupted)
 		{
-			// if (!buf) //check on mac?
-			// 	ft_printf("\n");
 			free(buf);
 			break ;
 		}

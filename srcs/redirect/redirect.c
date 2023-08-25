@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 21:14:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:46:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <fcntl.h> //O_*
 #include <unistd.h> //open, close, dup, dup2, STDERR_FILENO
 
-static bool	open_fd(t_redir *r)
+static bool	open_fd(t_redir *r, bool process_type)
 {
 	g_ms.heredoc_interrupted = false;
 	if (r->type == RD_OUT)
@@ -27,7 +27,13 @@ static bool	open_fd(t_redir *r)
 	else if (r->type == RD_APPEND)
 		r->file_fd = open(r->filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if (r->type == RD_HEREDOC)
+	{
 		r->file_fd = set_up_heredoc(r);
+		if (process_type == IS_CHILD)
+			setup_child_signal_handler();
+		else
+			setup_parent_signal_handler();
+	}
 	if (r->file_fd == -1)
 	{
 		if (!g_ms.heredoc_interrupted)
@@ -41,13 +47,13 @@ static bool	open_fd(t_redir *r)
 }
 
 //bad file descriptor range from ulimit -n
-bool	open_redir_files(t_redir *redir)
+bool	open_redir_files(t_redir *redir, bool process_type)
 {
 	while (redir)
 	{
 		if (redir->io_num > 1048575)
 			msg_to_stderr(ft_itoa(redir->io_num), ": ", "Bad file descriptor\n");
-		if (!open_fd(redir) || (redir->io_num > 1048575))
+		if (!open_fd(redir, process_type) || (redir->io_num > 1048575))
 		{
 			g_ms.exit_status = 1;
 			while (redir->prev)

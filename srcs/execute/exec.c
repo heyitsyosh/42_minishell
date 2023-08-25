@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/25 15:59:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:42:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	execute_subshell(t_ast *ast)
 		print_error_and_exit("fork failure");
 	if (pid == 0)
 	{
-		if (!open_redir_files(ast->redir))
+		setup_child_signal_handler();
+		if (!open_redir_files(ast->redir), IS_CHILD)
 			return ;
 		set_up_redirect(ast->redir);
 		execute(ast->left);
@@ -68,7 +69,7 @@ void	exec_in_child(t_ast *cmd)
 
 void	execute_cmd(t_ast *cmd)
 {
-	if (!open_redir_files(cmd->redir))
+	if (!open_redir_files(cmd->redir), IS_PARENT)
 		return ;
 	set_up_redirect(cmd->redir);
 	if (cmd->cmd_list)

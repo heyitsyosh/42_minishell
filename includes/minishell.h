@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 21:17:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:45:56 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
+
+# define IS_PARENT 0
+# define IS_CHILD 1
 
 typedef struct s_env{
 	char			*id;
@@ -151,7 +154,7 @@ void			exec_builtin(t_ast *cmd);
 void			exec_nonbuiltin(t_token *cmd_list);
 
 /* redirect.c */
-bool			open_redir_files(t_redir *redir);
+bool			open_redir_files(t_redir *redir, bool process_type);
 void			set_up_redirect(t_redir *redir);
 void			reset_redirect(t_redir *redir);
 

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/26 15:53:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/26 17:04:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	run_line(char *line)
 	t_ast	*ast;
 
 	tok = tokenize(line);
+	if (tok)
+		add_history(line);
 	expand(tok);
 	ast = parser(tok);
 	free_tokens(tok);
@@ -48,7 +50,6 @@ static void	minishell_loop(void)
 			break ;
 		if (*line)
 		{
-			add_history(line);
 			run_line(line);
 			free(line);
 		}

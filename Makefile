@@ -42,8 +42,7 @@ OBJ_DIR = ./objs
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:=.o))
 
-INCLUDES = -I ./includes 
-# -fsanitize=address -g3
+INCLUDES = -I ./includes -fsanitize=address -g3
 
 LIBFTPRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl

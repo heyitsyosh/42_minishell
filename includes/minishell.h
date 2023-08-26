@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/26 15:53:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/26 16:59:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdbool.h>
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
-# include <stdio.h>
+// # include <stdio.h>
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
@@ -91,6 +91,7 @@ typedef struct s_minishell{
 	bool					heredoc_interrupted;
 	int						exit_status;
 	char					*pwd;
+	char					*line;
 	t_env					*envp_head;
 	volatile sig_atomic_t	signum;
 }	t_minishell;

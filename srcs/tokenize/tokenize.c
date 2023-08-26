@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/25 17:12:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/26 15:56:03 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_token	*tokenize(char *line)
 	t_token	*tok;
 	t_token	head;
 
+	head.next = NULL;
 	tok = &head;
 	while (*line)
 	{

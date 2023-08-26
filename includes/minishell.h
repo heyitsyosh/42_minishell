@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/25 17:45:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/26 15:53:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdbool.h>
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
-// # include <stdio.h>
+# include <stdio.h>
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1

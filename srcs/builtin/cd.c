@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:37:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/26 15:15:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,3 +86,5 @@ int	builtin_cd(t_token *args)
 	update_pwd(path);
 	return (EXIT_SUCCESS);
 }
+
+//cd not updating pwd appropriately (try ..)

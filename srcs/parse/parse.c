@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/25 18:22:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/26 15:57:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ t_ast	*parser(t_token *tok)
 	char	*syntax_err;
 
 	syntax_err = NULL;
-	if (!tok || is_unexpected(tok))
+	if (!tok)
+		return (NULL);
+	if (is_unexpected(tok))
 		set_syntax_error(tok, &syntax_err);
 	else
 		ast = create_ast(&tok, &syntax_err);

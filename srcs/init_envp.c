@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/22 03:18:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/29 06:26:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static void	set_shlvl(t_env *shlvl)
 	shlvl->str = ft_ltoa(original_shlvl);
 	if (!shlvl->str)
 		print_error_and_exit("ltoa failure");
+	g_ms.shlvl = ft_ltoa(original_shlvl);
 }
 
 void	init_envp(char **envp)

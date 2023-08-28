@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 20:34:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/29 02:30:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static int	handle_sigint(void)
 
 void	setup_child_signal_handler(void)
 {
+	rl_event_hook = NULL;
 	if (signal(SIGINT, SIG_DFL) == SIG_ERR || \
 		signal(SIGQUIT, SIG_DFL) == SIG_ERR)
 		print_error_and_exit("signal failure");

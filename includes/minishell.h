@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/26 16:59:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/29 06:13:48 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_minishell{
 	bool					heredoc_interrupted;
 	int						exit_status;
 	char					*pwd;
+	char					*shlvl;
 	char					*line;
 	t_env					*envp_head;
 	volatile sig_atomic_t	signum;

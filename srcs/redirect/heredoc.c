@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/29 06:28:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/31 21:11:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 #include <readline/readline.h> //readline, rl_done
-#include <unistd.h> //write, pipe, close
+#include <unistd.h> //write
 #include <stdlib.h> //free
 #include <sys/types.h>
 #include <sys/stat.h> //O_*
@@ -82,8 +82,7 @@ int	set_up_heredoc(t_redir *redir)
 	free(fd_name);
 	if (g_ms.heredoc_interrupted)
 	{
-		if (close(fd) == -1)
-			print_error_and_exit("close failure");
+		x_close(fd);
 		return (-1);
 	}
 	return (fd);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 04:44:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:45:19 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ static void	check_filepath(char *filepath, char *to_execute)
 
 void	exec_nonbuiltin(t_token *cmd_list)
 {
-	char	*filepath;
-	char	**argv;
-	char	**envp;
+	char			*filepath;
+	char			**argv;
+	char			**envp;
 
 	argv = make_argv_from_list(cmd_list);
 	envp = make_envp_from_list();
@@ -114,7 +114,7 @@ void	exec_nonbuiltin(t_token *cmd_list)
 		filepath = x_strdup(argv[0]);
 	check_filepath(filepath, argv[0]);
 	exec_execve(filepath, argv, envp);
-	free(filepath);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);
+	free(filepath);
 }

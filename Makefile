@@ -19,9 +19,14 @@ SRC_FILES = main \
 			utils/free \
 			utils/error \
 			utils/env_utils \
-			utils/x_strdup \
 			utils/debug \
+			utils/wrappers/x_close \
+			utils/wrappers/x_dup \
+			utils/wrappers/x_dup2 \
+			utils/wrappers/x_fork \
+			utils/wrappers/x_strdup \
 			execute/exec \
+			execute/pipeline \
 			execute/exec_builtin \
 			execute/exec_nonbuiltin \
 			execute/make_argv \
@@ -42,7 +47,8 @@ OBJ_DIR = ./objs
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:=.o))
 
-INCLUDES = -I ./includes -fsanitize=address -g3
+INCLUDES = -I ./includes 
+#-fsanitize=address -g3
 
 LIBFTPRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl

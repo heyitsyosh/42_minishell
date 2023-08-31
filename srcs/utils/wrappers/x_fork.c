@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   x_strdup.c                                         :+:      :+:    :+:   */
+/*   x_fork.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:44:11 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/22 23:09:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:46:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "../../../includes/minishell.h"
+#include <sys/types.h> //pid_t
+#include <unistd.h> //fork
 
-char	*x_strdup(const char *to_dup)
+pid_t	x_fork(void)
 {
-	char	*dup;
+	pid_t	pid;
 
-	dup = ft_strdup(to_dup);
-	if (!dup)
-		print_error_and_exit("strdup failure");
-	return (dup);
+	pid = fork();
+	if (pid == -1)
+		print_error_and_exit("fork failure");
+	return (pid);
 }

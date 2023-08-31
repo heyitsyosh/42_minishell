@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/29 06:13:48 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:02:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,18 @@
 # include <stdbool.h>
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
-// # include <stdio.h>
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
 
 # define IS_PARENT 0
 # define IS_CHILD 1
+
+# define NO_PIPE 0
+# define BESIDE_PIPE 1
+
+# define LEFT 0
+# define RIGHT 1
 
 typedef struct s_env{
 	char			*id;
@@ -82,6 +87,8 @@ typedef struct s_ast
 	t_ast_node_type	type;
 	t_token			*cmd_list;
 	t_redir			*redir;
+	int				pipe_status;
+	int				input_fd;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
@@ -145,8 +152,9 @@ bool			tok_is(t_token_type type, t_token *tok);
 
 /* exec.c */
 void			execute(t_ast *ast);
-void			execute_cmd(t_ast *cmd);
-void			execute_subshell(t_ast *ast);
+
+/* pipeline.c */
+int				execute_pipeline(t_ast *ast);
 
 /* exec_builtin.c */
 bool			is_builtin(char *cmd);
@@ -203,7 +211,11 @@ void			print_tokens(t_token *head);
 void			print_ast(t_ast *ast);
 void			print_redir_list(t_redir *redir);
 
-/* x_strdup.c */
+/* wrappers */
+int				x_close(int fd);
+int				x_dup(int oldfd);
+int				x_dup2(int oldfd, int newfd);
+pid_t			x_fork(void);
 char			*x_strdup(const char *to_dup);
 
 #endif

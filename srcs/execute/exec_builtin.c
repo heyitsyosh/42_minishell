@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:08:00 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/25 18:40:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:41:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	exec_builtin(t_ast *builtin)
 {
 	const t_token	*list = builtin->cmd_list;
 	const char		*cmd = list->word;
+
 
 	if (!ft_strcmp("echo", cmd))
 		g_ms.exit_status = builtin_echo(list->next);

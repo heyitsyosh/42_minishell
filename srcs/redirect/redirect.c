@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/25 17:46:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/08/31 22:02:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <errno.h> //errno
 #include <string.h> //strerror
 #include <fcntl.h> //O_*
-#include <unistd.h> //open, close, dup, dup2, STDERR_FILENO
+#include <unistd.h> //open, dup, STDERR_FILENO
 
 static bool	open_fd(t_redir *r, bool process_type)
 {
@@ -58,8 +58,7 @@ bool	open_redir_files(t_redir *redir, bool process_type)
 			g_ms.exit_status = 1;
 			while (redir->prev)
 			{
-				if (close(redir->prev->file_fd) == -1)
-					print_error_and_exit("close failure");
+				x_close(redir->prev->file_fd);
 				redir = redir->prev;
 			}
 			return (false);
@@ -75,9 +74,8 @@ void	set_up_redirect(t_redir *redir)
 		return ;
 	while (redir)
 	{
-		redir->stashed_target_fd = dup(redir->target_fd);
-		if (dup2(redir->file_fd, redir->target_fd) == -1)
-			print_error_and_exit("dup2 failure");
+		redir->stashed_target_fd = x_dup(redir->target_fd);
+		x_dup2(redir->file_fd, redir->target_fd);
 		redir = redir->next;
 	}
 }
@@ -88,11 +86,9 @@ void	reset_redirect(t_redir *redir)
 		return ;
 	while (redir)
 	{
-		if (close(redir->file_fd) == -1 \
-			|| close(redir->target_fd) == -1)
-			print_error_and_exit("close failure");
-		if (dup2(redir->stashed_target_fd, redir->target_fd) == -1)
-			print_error_and_exit("dup2 failure");
+		x_close(redir->file_fd);
+		x_close(redir->target_fd);
+		x_dup2(redir->stashed_target_fd, redir->target_fd);
 		redir = redir->prev;
 	}
 }

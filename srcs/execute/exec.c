@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/02 00:19:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/02 00:48:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	execute_pipeline(t_ast *ast)
 	int	input_fd;
 
 	stdin_dup = x_dup(STDIN_FILENO);
-	input_fd = run_left_of_pipe(ast->left, stdin_dup);
+	input_fd = run_left_of_pipe(ast, stdin_dup);
 	run_right_of_pipe(ast->right, input_fd);
 	close(stdin_dup);
 }

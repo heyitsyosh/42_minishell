@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:43:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/02 00:20:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/02 01:08:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,29 @@ int	run_right_of_pipe(t_ast *right_of_pipe, int input_fd)
 	restore_io(saved_io);
 }
 
-int	run_left_of_pipe(t_ast *left_of_pipe, int input_fd)
+int	run_left_of_pipe(t_ast *ast, int input_fd)
 {
 	int			fd[2];
 	int			saved_io[2];
+	t_ast		*left_of_pipe;
 
 	save_io(saved_io);
-	if (left_of_pipe->left && left_of_pipe->left->type == PIPE_NODE)
-		run_left_of_pipe(left_of_pipe->left, input_fd);
+	if ((ast->left)->type == PIPE)
+		run_left_of_pipe(ast->left, input_fd);
+	if (pipe(fd) == -1)
+		print_error_and_exit("pipe failure");
+	x_dup2(input_fd, STDIN_FILENO);
+	x_dup2(fd[1], STDOUT_FILENO);
+	x_dup2(fd[0], input_fd);
+	x_close(fd[0]);
+	x_close(fd[1]);
+	if ((ast->left)->type != PIPE)
+		left_of_pipe = ast->left;
 	else
-	{
-		if (pipe(fd) == -1)
-			print_error_and_exit("pipe failure");
-		x_dup2(input_fd, STDIN_FILENO);
-		x_dup2(fd[1], STDOUT_FILENO);
-		x_dup2(fd[0], input_fd);
-		x_close(fd[0]);
-		x_close(fd[1]);
-		left_of_pipe->pipe_status = BESIDE_PIPE;
-		left_of_pipe->input_fd = input_fd;
-		execute(left_of_pipe);
-	}
+		left_of_pipe = (ast->left)->right;
+	left_of_pipe->pipe_status = BESIDE_PIPE;
+	left_of_pipe->input_fd = input_fd;
+	execute(left_of_pipe);
 	restore_io(saved_io);
 	return (input_fd);
 }

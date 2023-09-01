@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/31 23:02:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/02 00:23:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void			expand(t_token *tok);
 /* parse.c */
 t_ast			*parser(t_token *tok);
 t_ast			*create_ast(t_token **tok, char **syntax_err);
-t_ast			*parse_and_or(t_token **tok, char **syntax_err);
+t_ast			*parse_pipe(t_token **tok, char **syntax_err);
 t_ast			*parse_subshell(t_token **tok, char **syntax_err);
 
 /* parse_cmd.c */
@@ -153,8 +153,9 @@ bool			tok_is(t_token_type type, t_token *tok);
 /* exec.c */
 void			execute(t_ast *ast);
 
-/* pipeline.c */
-int				execute_pipeline(t_ast *ast);
+/* exec_pipeline.c */
+int				run_left_of_pipe(t_ast *left_of_pipe, int input_fd);
+int				run_right_of_pipe(t_ast *right_of_pipe, int input_fd);
 
 /* exec_builtin.c */
 bool			is_builtin(char *cmd);
@@ -210,6 +211,7 @@ void			free_dbl_ptr(char **dbl_ptr);
 void			print_tokens(t_token *head);
 void			print_ast(t_ast *ast);
 void			print_redir_list(t_redir *redir);
+void			print_cmd_list(t_token *cmd_list);
 
 /* wrappers */
 int				x_close(int fd);

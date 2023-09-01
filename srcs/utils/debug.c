@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/31 21:11:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/02 00:22:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../includes/minishell.h"
-// #include <stdio.h> //printf, fflush
+#include "../../includes/minishell.h"
+#include <stdio.h> //printf, fflush
 
 // void	print_tokens(t_token *head)
 // {
@@ -41,7 +41,7 @@
 // 	printf("]");
 // }
 
-// static void	print_cmd_list(t_token *cmd_list)
+// void	print_cmd_list(t_token *cmd_list)
 // {
 // 	if (!cmd_list)
 // 		return ;
@@ -84,7 +84,7 @@
 // 		print_ast_2(ast);
 // 		printf(" left:%p ", ast->left);
 // 		print_ast_2(ast->left);
-// 		printf(", right:%p", ast->right);
+// 		printf("right:%p", ast->right);
 // 		print_ast_2(ast->right);
 // 		printf("\n");
 // 		print_ast(ast->left);

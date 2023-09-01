@@ -26,7 +26,7 @@ SRC_FILES = main \
 			utils/wrappers/x_fork \
 			utils/wrappers/x_strdup \
 			execute/exec \
-			execute/pipeline \
+			execute/exec_pipeline \
 			execute/exec_builtin \
 			execute/exec_nonbuiltin \
 			execute/make_argv \

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/26 15:57:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/02 00:08:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,34 @@ t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 	return (node);
 }
 
-t_ast	*parse_and_or(t_token **tok, char **syntax_err)
+t_ast	*parse_pipe(t_token **tok, char **syntax_err)
+{
+	t_ast	*node;
+	t_ast	*right_child;
+
+	node = parse_cmd(tok, syntax_err);
+	while (tok_is(PIPE, *tok) && !*syntax_err)
+	{
+		if (is_unexpected((*tok)->next))
+		{
+			if (node)
+				free_ast(node);
+			return (set_syntax_error((*tok)->next, syntax_err));
+		}
+		*tok = (*tok)->next;
+		right_child = parse_cmd(tok, syntax_err);
+		node = make_ast_node(PIPE_NODE, node, right_child);
+	}
+	return (node);
+}
+
+t_ast	*create_ast(t_token **tok, char	**syntax_err)
 {
 	t_ast			*node;
 	t_ast			*right_child;
 	t_ast_node_type	type;
 
-	node = parse_cmd(tok, syntax_err);
+	node = parse_pipe(tok, syntax_err);
 	while ((tok_is(AND, *tok) || tok_is(OR, *tok)) && !*syntax_err)
 	{
 		if ((*tok)->type == AND)
@@ -60,29 +81,8 @@ t_ast	*parse_and_or(t_token **tok, char **syntax_err)
 			return (set_syntax_error((*tok)->next, syntax_err));
 		}
 		*tok = (*tok)->next;
-		right_child = parse_cmd(tok, syntax_err);
+		right_child = parse_pipe(tok, syntax_err);
 		node = make_ast_node(type, node, right_child);
-	}
-	return (node);
-}
-
-t_ast	*create_ast(t_token **tok, char	**syntax_err)
-{
-	t_ast	*node;
-	t_ast	*right_child;
-
-	node = parse_and_or(tok, syntax_err);
-	while (tok_is(PIPE, *tok) && !*syntax_err)
-	{
-		if (is_unexpected((*tok)->next))
-		{
-			if (node)
-				free_ast(node);
-			return (set_syntax_error((*tok)->next, syntax_err));
-		}
-		*tok = (*tok)->next;
-		right_child = parse_and_or(tok, syntax_err);
-		node = make_ast_node(PIPE_NODE, node, right_child);
 	}
 	return (node);
 }

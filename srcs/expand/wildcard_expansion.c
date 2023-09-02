@@ -6,12 +6,11 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 05:49:26 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:38:43 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 03:50:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/expand.h"
 #include "../../includes/libft.h"
 #include <sys/types.h> //struct dirent
 #include <dirent.h> //opendir, readdir, close_dir, DIR

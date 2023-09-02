@@ -6,13 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/26 15:54:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 07:47:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
 #include "../../includes/minishell.h"
-#include "../../includes/expand.h"
 #include <stdlib.h> //free
 
 void	concat_non_asterisks(t_word *word, bool *has_wildcard)
@@ -58,7 +57,7 @@ void	replace_with_expanded(t_word *word, t_token *wildcard, t_token *tok)
 	}
 }
 
-void	expand(t_token *tok)
+void	expand(t_token *tok, t_data *d)
 {
 	t_token	*next;
 	t_token	*wildcard_matches;
@@ -72,7 +71,7 @@ void	expand(t_token *tok)
 		next = tok->next;
 		if (tok->type == WORD)
 		{
-			word_head = divide_word_to_list(tok->word);
+			word_head = divide_word_to_list(tok->word, d);
 			concat_non_asterisks(word_head, &has_wildcard);
 			if (has_wildcard)
 				wildcard_matches = wildcard_expansion(word_head, tok);

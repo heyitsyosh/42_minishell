@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/02 00:23:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 06:53:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,28 @@
 #include <unistd.h> //STDERR_FILENO
 #include <stdlib.h> //exit, free
 
-t_minishell	g_ms;
+volatile sig_atomic_t	signum;
 
-static void	run_line(char *line)
+static void	run_line(char *line, t_data *d)
 {
 	t_token	*tok;
 	t_ast	*ast;
 
 	tok = tokenize(line);
-	if (tok)
-		add_history(line);
-	expand(tok);
+	if (!tok)
+		return ;
+	add_history(line);
+	expand(tok, d);
 	ast = parser(tok);
 	free_tokens(tok);
 	if (ast)
-		execute(ast);
+		execute(ast, d);
 	else
-		g_ms.exit_status = 2;
+		d->exit_status = 2;
 	free_ast(ast);
 }
 
-static void	minishell_loop(void)
+static void	minishell_loop(t_data *d)
 {
 	char	*line;
 
@@ -50,14 +51,14 @@ static void	minishell_loop(void)
 			break ;
 		if (*line)
 		{
-			run_line(line);
+			run_line(line, d);
 			free(line);
 		}
 	}
 	ft_printf("exit\n");
 }
 
-static void	run_one_line(int argc, char **argv)
+static void	run_one_line(int argc, char **argv, t_data *d)
 {
 	if (argc == 2)
 	{
@@ -65,18 +66,20 @@ static void	run_one_line(int argc, char **argv)
 		exit(2);
 	}
 	if (ft_strlen(argv[2]) != 0)
-		run_line(argv[2]);
+		run_line(argv[2], d);
 }
 
 //default execution reads from stdin (interactive mode)
 //option -c executes the arguments that follow
 int	main(int argc, char **argv, char **envp)
 {
+	t_data	d;
+
 	rl_outstream = stderr;
-	init_envp(envp);
+	init_envp(envp, &d);
 	if (argc >= 2 && !ft_strcmp("-c", argv[1]))
-		run_one_line(argc, argv);
+		run_one_line(argc, argv, &d);
 	else
-		minishell_loop();
-	exit(g_ms.exit_status);
+		minishell_loop(&d);
+	exit(d.exit_status);
 }

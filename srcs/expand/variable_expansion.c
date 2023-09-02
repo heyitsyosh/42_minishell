@@ -6,16 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:06:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/30 02:14:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 07:49:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/expand.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //free
 
-static char	*get_id(char *ptr, size_t *index_mover)
+static char	*get_id(char *ptr, size_t *i_mover)
 {
 	size_t	id_len;
 	char	*id;
@@ -26,31 +25,31 @@ static char	*get_id(char *ptr, size_t *index_mover)
 	id = ft_substr(ptr, 0, id_len);
 	if (!id)
 		print_error_and_exit("substr failure");
-	*index_mover = id_len + 1;
+	*i_mover = id_len + 1;
 	return (id);
 }
 
-static char	*expand_to_exit_status(size_t *index_mover)
+static char	*expand_to_exit_status(size_t *i_mover, t_data *d)
 {
 	char	*exit_status;
 
-	*index_mover = 2;
-	exit_status = ft_itoa(g_ms.exit_status);
+	*i_mover = 2;
+	exit_status = ft_itoa(d->exit_status);
 	if (!exit_status)
 		print_error_and_exit("itoa failure");
 	return (exit_status);
 }
 
-char	*variable_expansion(char *ptr, size_t *index_mover)
+char	*variable_expansion(char *ptr, size_t *i_mover, t_data *d)
 {
 	char	*id;
 	char	*expanded_variable;
 	t_env	*matching_env;
 
 	if (*ptr == '?')
-		return (expand_to_exit_status(index_mover));
-	id = get_id(ptr, index_mover);
-	matching_env = get_env(id);
+		return (expand_to_exit_status(i_mover, d));
+	id = get_id(ptr, i_mover);
+	matching_env = get_env(id, d->envp);
 	free(id);
 	if (matching_env)
 		expanded_variable = x_strdup(matching_env->str);

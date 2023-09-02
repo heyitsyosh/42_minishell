@@ -6,13 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:27:04 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/25 17:40:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 06:43:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
 #include "../../includes/minishell.h"
-#include "../../includes/expand.h"
 #include "../../includes/libft.h"
 
 char	*get_quoted_str(char *quote, size_t *i)
@@ -32,57 +31,57 @@ char	*get_quoted_str(char *quote, size_t *i)
 	return (quoted);
 }
 
-char	*get_dquoted_str(char *dquote, size_t *i)
+char	*get_dquoted_str(char *dquote, size_t *i, t_data *d)
 {
-	size_t	index_mover;
+	size_t	i_mover;
 	char	*new_portion;
 	char	*dquoted;
 
 	dquoted = x_strdup("");
 	while (dquote[*i] && dquote[*i] != '\"')
 	{
-		index_mover = 0;
+		i_mover = 0;
 		if (dquote[*i] == '\\' && ft_strchr("\\\'\"$", dquote[*i + 1]))
 		{
-			index_mover = 2;
+			i_mover = 2;
 			new_portion = ft_substr(dquote + *i, 1, 1);
 		}
 		else if (dquote[*i] == '$')
-			new_portion = variable_expansion(dquote + *i + 1, &index_mover);
+			new_portion = variable_expansion(dquote + *i + 1, &i_mover, d);
 		else
 		{
-			index_mover = no_interpretation_len(dquote + *i, IN_DQUOTE);
-			new_portion = ft_substr(dquote + *i, 0, index_mover);
+			i_mover = no_interpretation_len(dquote + *i, IN_DQUOTE);
+			new_portion = ft_substr(dquote + *i, 0, i_mover);
 		}
-		*i += index_mover;
+		*i += i_mover;
 		dquoted = ft_strjoin_with_free(dquoted, new_portion, FREE_BOTH);
 	}
 	return (dquoted);
 }
 
-char	*get_unquoted_str(char *no_quote, size_t *i)
+char	*get_unquoted_str(char *no_quote, size_t *i, t_data *d)
 {
-	size_t	index_mover;
+	size_t	i_mover;
 	char	*new_portion;
 	char	*unquoted;
 
 	unquoted = x_strdup("");
 	while (no_quote[*i] && !ft_strchr("\'\"*", no_quote[*i]))
 	{
-		index_mover = 0;
+		i_mover = 0;
 		if (no_quote[*i] == '\\' && ft_strchr("\\\'\"$", no_quote[*i + 1]))
 		{
-			index_mover = 2;
+			i_mover = 2;
 			new_portion = ft_substr(no_quote + *i, 1, 1);
 		}
 		else if (no_quote[*i] == '$')
-			new_portion = variable_expansion(no_quote + *i + 1, &index_mover);
+			new_portion = variable_expansion(no_quote + *i + 1, &i_mover, d);
 		else
 		{
-			index_mover = no_interpretation_len(no_quote + *i, NOT_IN_DQUOTE);
-			new_portion = ft_substr(no_quote + *i, 0, index_mover);
+			i_mover = no_interpretation_len(no_quote + *i, NOT_IN_DQUOTE);
+			new_portion = ft_substr(no_quote + *i, 0, i_mover);
 		}
-		*i += index_mover;
+		*i += i_mover;
 		unquoted = ft_strjoin_with_free(unquoted, new_portion, FREE_BOTH);
 	}
 	return (unquoted);

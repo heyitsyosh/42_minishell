@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/31 21:11:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 07:55:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,19 @@
 #include <sys/stat.h> //O_*
 #include <fcntl.h> //open
 
-static void	heredoc_signal_handler(int signum)
-{
-	(void)signum;
-	g_ms.heredoc_interrupted = true;
-	g_ms.exit_status = 1;
-}
+extern volatile sig_atomic_t	signum;
 
 static int	handle_heredoc_sigint(void)
 {
-	if (g_ms.heredoc_interrupted)
+	if (signum == SIGINT)
 		rl_done = 1;
 	return (0);
 }
 
 static void	setup_heredoc_signal_handler(void)
 {
-	if (signal(SIGINT, heredoc_signal_handler) == SIG_ERR || \
+	signum = 0;
+	if (signal(SIGINT, signal_handler) == SIG_ERR || \
 		signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		print_error_and_exit("signal failure");
 	rl_event_hook = handle_heredoc_sigint;
@@ -49,7 +45,7 @@ static void	readline_heredoc_loop(int fd, char *delimiter)
 	while (1)
 	{
 		buf = readline("> ");
-		if (!buf || ft_strcmp(buf, delimiter) == 0 || g_ms.heredoc_interrupted)
+		if (!buf || ft_strcmp(buf, delimiter) == 0 || signum == SIGINT)
 		{
 			free(buf);
 			break ;
@@ -62,26 +58,32 @@ static void	readline_heredoc_loop(int fd, char *delimiter)
 	}
 }
 
-int	set_up_heredoc(t_redir *redir)
+void	delete_tmp_file(int fd, char *fd_name)
 {
-	int		fd;
-	char	*fd_name;
-
-	fd_name = ft_strjoin_with_free("./objs/", g_ms.shlvl, FREE_NONE);
-	fd = open(fd_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd == -1)
-		print_error_and_exit("open failure");
-	setup_heredoc_signal_handler();
-	readline_heredoc_loop(fd, redir->delimiter);
 	close(fd);
-	fd = open(fd_name, O_RDONLY);
+	fd = open(fd_name, O_RDONLY); //why did i do this i cant remember im sleepy :(
 	if (fd == -1)
 		print_error_and_exit("open failure");
 	if (unlink(fd_name) == -1)
 		print_error_and_exit("unlink failure");
 	free(fd_name);
-	if (g_ms.heredoc_interrupted)
+}
+
+int	set_up_heredoc(t_redir *redir, t_data *d)
+{
+	int		fd;
+	char	*fd_name;
+
+	fd_name = ft_strjoin_with_free("./objs/", d->shlvl, FREE_NONE); //better way to generate random name?
+	fd = open(fd_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+		print_error_and_exit("open failure");
+	setup_heredoc_signal_handler();
+	readline_heredoc_loop(fd, redir->delimiter);
+	delete_tmp_file(fd, fd_name);
+	if (signum == SIGINT)
 	{
+		d->exit_status = 1;
 		x_close(fd);
 		return (-1);
 	}

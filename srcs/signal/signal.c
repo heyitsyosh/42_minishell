@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/29 02:30:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 07:51:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,24 @@
 #include <readline/readline.h>
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 
+extern volatile sig_atomic_t	signum;
+
 //ctrl+\ (SIGQUIT), do nothing
 //ctrl+c (SIGINT), prompt on new line
-static void	signal_handler(int signum)
+void	signal_handler(int signal)
 {
-	g_ms.signum = signum;
+	signum = signal;
 }
 
 static int	handle_sigint(void)
 {
-	if (g_ms.signum == SIGINT)
+	if (signum == SIGINT)
 	{
 		ft_printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_ms.signum = 0;
+		signum = 0;
 	}
 	return (0);
 }
@@ -45,7 +47,7 @@ void	setup_child_signal_handler(void)
 
 void	setup_parent_signal_handler(void)
 {
-	g_ms.signum = 0;
+	signum = 0;
 	rl_event_hook = handle_sigint;
 	if (signal(SIGINT, signal_handler) == SIG_ERR || \
 		signal(SIGQUIT, SIG_IGN) == SIG_ERR)

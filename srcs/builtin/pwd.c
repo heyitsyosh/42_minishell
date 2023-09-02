@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 12:19:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 04:02:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <unistd.h> //STDERR_FILENO
 #include <stdlib.h> //EXIT_SUCCESS
 
-int	builtin_pwd(t_token *args)
+int	builtin_pwd(t_token *args, t_data *d)
 {
 	(void)args;
-	ft_putendl_fd(g_ms.pwd, STDOUT_FILENO);
+	ft_putendl_fd(d->pwd, STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }

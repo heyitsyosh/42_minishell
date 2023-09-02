@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/31 15:45:19 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 07:55:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,26 @@
 #include <sys/stat.h> //stat, S_ISDIR
 #include <sys/wait.h> //wait
 
-static char	*get_path_str(void)
+#include <stdio.h>
+
+static char	*get_path_str(t_env *envp)
 {
 	t_env	*path_env;
 
-	path_env = get_env("PATH");
+	path_env = get_env("PATH", envp);
 	if (!path_env)
 		return (NULL);
 	return (path_env->str);
 }
 
-static char	*get_filepath(char *to_execute)
+static char	*get_filepath(char *to_execute, t_env *envp)
 {
 	char	*path;
 	char	*end;
 	char	*pathname;
 
 	pathname = NULL;
-	path = get_path_str();
+	path = get_path_str(envp);
 	while (path)
 	{
 		end = ft_strchr(path, ':');
@@ -60,25 +62,25 @@ static char	*get_filepath(char *to_execute)
 	return (pathname);
 }
 
-static void	exec_execve(char *pathname, char **argv, char **envp)
+static void	exec_execve(char *pathname, char **argv, char **envp, t_data *d)
 {
 	execve(pathname, argv, envp);
 	if (errno)
 	{
 		msg_to_stderr(argv[0], ": ", strerror(errno));
 		ft_putstr_fd("\n", STDERR_FILENO);
-		g_ms.exit_status = 126;
+		d->exit_status = 126;
 		if (errno == ENOENT)
-			g_ms.exit_status = 127;
+			d->exit_status = 127;
 	}
 }
 
-static void	check_filepath(char *filepath, char *to_execute)
+static void	check_filepath(char *filepath, char *to_execute, t_env *envp)
 {
 	struct stat	info;
 	t_env		*path_env;
 
-	path_env = get_env("PATH");
+	path_env = get_env("PATH", envp);
 	if (!path_env || *(path_env->str) == '\0')
 	{
 		msg_to_stderr(to_execute, ": ", "No such file or directory\n");
@@ -100,20 +102,20 @@ static void	check_filepath(char *filepath, char *to_execute)
 	}
 }
 
-void	exec_nonbuiltin(t_token *cmd_list)
+void	exec_nonbuiltin(t_token *cmd_list, t_data *d)
 {
 	char			*filepath;
 	char			**argv;
 	char			**envp;
 
 	argv = make_argv_from_list(cmd_list);
-	envp = make_envp_from_list();
+	envp = make_envp_from_list(d);
 	if (!ft_strchr(argv[0], '/'))
-		filepath = get_filepath(argv[0]);
+		filepath = get_filepath(argv[0], d->envp);
 	else
 		filepath = x_strdup(argv[0]);
-	check_filepath(filepath, argv[0]);
-	exec_execve(filepath, argv, envp);
+	check_filepath(filepath, argv[0], d->envp);
+	exec_execve(filepath, argv, envp, d);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);
 	free(filepath);

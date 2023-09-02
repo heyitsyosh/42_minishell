@@ -6,16 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:25:30 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/03 19:44:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 03:50:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/expand.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //malloc, free
 
-t_word	*make_sub_word_node(char *sub_word, t_sub_word_type type)
+t_word	*make_sub_word(char *sub_word, t_sub_word_type type)
 {
 	t_word	*new_node;
 

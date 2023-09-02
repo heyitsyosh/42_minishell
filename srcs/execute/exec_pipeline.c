@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:43:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/02 01:08:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 07:20:01 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	node_is_operator(t_ast *ast)
 	return (false);
 }
 
-int	run_right_of_pipe(t_ast *right_of_pipe, int input_fd)
+int	run_right_of_pipe(t_ast *right_of_pipe, int input_fd, t_data *d)
 {
 	int			fd[2];
 	int			saved_io[2];
@@ -45,11 +45,11 @@ int	run_right_of_pipe(t_ast *right_of_pipe, int input_fd)
 	x_dup2(input_fd, STDIN_FILENO);
 	right_of_pipe->pipe_status = BESIDE_PIPE;
 	right_of_pipe->input_fd = input_fd;
-	execute(right_of_pipe);
+	execute(right_of_pipe, d);
 	restore_io(saved_io);
 }
 
-int	run_left_of_pipe(t_ast *ast, int input_fd)
+int	run_left_of_pipe(t_ast *ast, int input_fd, t_data *d)
 {
 	int			fd[2];
 	int			saved_io[2];
@@ -57,7 +57,7 @@ int	run_left_of_pipe(t_ast *ast, int input_fd)
 
 	save_io(saved_io);
 	if ((ast->left)->type == PIPE)
-		run_left_of_pipe(ast->left, input_fd);
+		run_left_of_pipe(ast->left, input_fd, d);
 	if (pipe(fd) == -1)
 		print_error_and_exit("pipe failure");
 	x_dup2(input_fd, STDIN_FILENO);
@@ -71,7 +71,7 @@ int	run_left_of_pipe(t_ast *ast, int input_fd)
 		left_of_pipe = (ast->left)->right;
 	left_of_pipe->pipe_status = BESIDE_PIPE;
 	left_of_pipe->input_fd = input_fd;
-	execute(left_of_pipe);
+	execute(left_of_pipe, d);
 	restore_io(saved_io);
 	return (input_fd);
 }

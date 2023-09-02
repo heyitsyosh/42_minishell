@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:08:00 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/01 22:17:51 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 04:10:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@ bool	is_builtin(char *cmd)
 	return (false);
 }
 
-void	exec_builtin(t_ast *builtin)
+void	exec_builtin(t_ast *builtin, t_data *d)
 {
 	const t_token	*list = builtin->cmd_list;
 	const char		*cmd = list->word;
 
 	if (!ft_strcmp("echo", cmd))
-		g_ms.exit_status = builtin_echo(list->next);
+		d->exit_status = builtin_echo(list->next, d);
 	if (!ft_strcmp("cd", cmd))
-		g_ms.exit_status = builtin_cd(list->next);
+		d->exit_status = builtin_cd(list->next, d);
 	if (!ft_strcmp("pwd", cmd))
-		g_ms.exit_status = builtin_pwd(list->next);
+		d->exit_status = builtin_pwd(list->next, d);
 	if (!ft_strcmp("export", cmd))
-		g_ms.exit_status = builtin_export(list->next);
+		d->exit_status = builtin_export(list->next, d);
 	if (!ft_strcmp("unset", cmd))
-		g_ms.exit_status = builtin_unset(list->next);
+		d->exit_status = builtin_unset(list->next, d);
 	if (!ft_strcmp("env", cmd))
-		g_ms.exit_status = builtin_env(list->next);
+		d->exit_status = builtin_env(list->next, d);
 	if (!ft_strcmp("exit", cmd))
-		g_ms.exit_status = builtin_exit(list->next);
+		d->exit_status = builtin_exit(list->next, d);
 }

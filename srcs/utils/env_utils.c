@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/07/07 22:09:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 04:04:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 #include "../../includes/libft.h"
 #include <stdlib.h> //malloc, free, exit
 
-t_env	*get_env(char *id)
+t_env	*get_env(char *id, t_env *env)
 {
-	t_env	*env;
-
-	env = g_ms.envp_head;
 	if (!id || !env)
 		return (NULL);
 	while (env)
@@ -29,6 +26,16 @@ t_env	*get_env(char *id)
 		env = env->next;
 	}
 	return (env);
+}
+
+void	add_new_env(t_env *tmp, t_data *d)
+{
+	if (!d->envp)
+	{
+		d->envp = tmp;
+		return ;
+	}
+	env_add_back(d->envp, tmp);
 }
 
 void	env_add_back(t_env *envp, t_env *env_to_add)

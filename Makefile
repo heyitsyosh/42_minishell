@@ -38,7 +38,6 @@ SRC_FILES = main \
 			builtin/env\
 			builtin/exit\
 			builtin/export\
-			builtin/export_ii\
 			builtin/pwd\
 			builtin/unset\
 

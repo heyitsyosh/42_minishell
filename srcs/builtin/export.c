@@ -6,22 +6,22 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 04:31:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 07:52:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //malloc, free, exit, EXIT_SUCCESS, EXIT_FAILURE
 
-static void	add_new_env(t_env *tmp)
+static void	export_no_args(t_env *envp)
 {
-	if (!g_ms.envp_head)
+	while (envp)
 	{
-		g_ms.envp_head = tmp;
-		return ;
+		ft_printf("declare -x %s=\"%s\"\n", envp->id, envp->str);
+		envp = envp->next;
 	}
-	env_add_back(g_ms.envp_head, tmp);
 }
 
 static void	copy_without_escaped_chars(char *no_escape_str, char *str)
@@ -59,29 +59,29 @@ static void	delete_escapes(char **no_escape_str, char *str)
 	free(str);
 }
 
-static void	export_env(t_env *tmp)
+static void	export_env(t_env *tmp, t_data *d)
 {
 	t_env	*matching_id;
 
 	delete_escapes(&tmp->str, x_strdup(tmp->str));
-	matching_id = get_env(tmp->id);
+	matching_id = get_env(tmp->id, d->envp);
 	if (matching_id)
 	{
 		replace_env_str(matching_id, x_strdup(tmp->str));
 		free_envs(tmp);
 	}
 	else
-		add_new_env(tmp);
+		add_new_env(tmp, d);
 }
 
-int	builtin_export(t_token *args)
+int	builtin_export(t_token *args, t_data *d)
 {
 	int		status;
 	t_env	*tmp;
 
 	status = EXIT_SUCCESS;
 	if (!args)
-		export_no_args();
+		export_no_args(d->envp);
 	while (args)
 	{
 		if (ft_strchr(args->word, '='))
@@ -96,7 +96,7 @@ int	builtin_export(t_token *args)
 				free_envs(tmp);
 				continue ;
 			}
-			export_env(tmp);
+			export_env(tmp, d);
 		}
 		args = args->next;
 	}

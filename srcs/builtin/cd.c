@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/26 15:15:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 03:59:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 #include <stdlib.h> //free
 #include <unistd.h> //chdir
 
-static char	*get_path(t_token *args)
+static char	*get_path(t_token *args, t_env *envp)
 {
 	char	*path;
 	t_env	*home;
 
-	home = get_env("HOME");
+	home = get_env("HOME", envp);
 	if (!home)
 	{
 		ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
@@ -37,31 +37,31 @@ static char	*get_path(t_token *args)
 	return (path);
 }
 
-static void	update_oldpwd(void)
+static void	update_oldpwd(t_data *d)
 {
 	t_env	*oldpwd;
 	char	*to_be_oldpwd;
 
-	oldpwd = get_env("OLDPWD");
+	oldpwd = get_env("OLDPWD", d->envp);
 	if (!oldpwd)
 		oldpwd = make_env_node("OLDPWD=");
-	to_be_oldpwd = x_strdup(g_ms.pwd);
+	to_be_oldpwd = x_strdup(d->pwd);
 	replace_env_str(oldpwd, to_be_oldpwd);
 }
 
-static void	update_pwd(char *to_be_pwd)
+static void	update_pwd(char *to_be_pwd, t_data *d)
 {
 	t_env	*pwd;
 
-	pwd = get_env("PWD");
+	pwd = get_env("PWD", d->envp);
 	if (!pwd)
 		pwd = make_env_node("PWD=");
 	replace_env_str(pwd, x_strdup(to_be_pwd));
-	free(g_ms.pwd);
-	g_ms.pwd = to_be_pwd;
+	free(d->pwd);
+	d->pwd = to_be_pwd;
 }
 
-int	builtin_cd(t_token *args)
+int	builtin_cd(t_token *args, t_data *d)
 {
 	char	*path;
 
@@ -72,7 +72,7 @@ int	builtin_cd(t_token *args)
 	}
 	if (!args || !ft_strcmp(args->word, "~") \
 		|| !ft_strncmp(args->word, "~/", 2))
-		path = get_path(args);
+		path = get_path(args, d->envp);
 	else
 		path = x_strdup(args->word);
 	if (chdir(path) == -1)
@@ -82,8 +82,8 @@ int	builtin_cd(t_token *args)
 		free(path);
 		return (EXIT_FAILURE);
 	}
-	update_oldpwd();
-	update_pwd(path);
+	update_oldpwd(d);
+	update_pwd(path, d);
 	return (EXIT_SUCCESS);
 }
 

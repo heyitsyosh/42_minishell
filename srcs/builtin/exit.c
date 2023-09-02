@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/26 17:03:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 04:00:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static bool	str_is_numeric(char *str)
 	return (true);
 }
 
-int	builtin_exit(t_token *args)
+int	builtin_exit(t_token *args, t_data *d)
 {
 	int	status;
 
 	if (!args)
-		exit(g_ms.exit_status);
+		exit(d->exit_status);
 	errno = 0;
 	status = ft_atoll(args->word);
 	if (!str_is_numeric(args->word) || errno == ERANGE)

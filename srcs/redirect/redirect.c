@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:42:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 04:43:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ void	set_up_redirect(t_redir *redir)
 
 void	reset_redirect(t_redir *redir)
 {
+	if (!redir)
+		return ;
+	while (redir->next)
+		redir = redir->next;
 	while (redir)
 	{
 		x_close(redir->file_fd);

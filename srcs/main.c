@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 06:53:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 04:38:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <unistd.h> //STDERR_FILENO
 #include <stdlib.h> //exit, free
 
-volatile sig_atomic_t	signum;
+volatile sig_atomic_t	g_signum;
 
 static void	run_line(char *line, t_data *d)
 {

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:51:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:55:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int				run_right_of_pipe(t_ast *right_of_pipe, \
 
 /* exec_builtin.c */
 bool			is_builtin(char *cmd);
-void			exec_builtin(t_ast *cmd, t_data *d);
+void			exec_builtin(t_token *cmd_list, t_data *d);
 
 /* exec_nonbuiltin.c */
 void			exec_nonbuiltin(t_token *cmd_list, t_data *d);

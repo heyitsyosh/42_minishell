@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:48:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:55:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	exec_in_child(t_ast *cmd, t_data *d)
 		if (cmd->pipe_status == BESIDE_PIPE)
 			close(cmd->input_fd);
 		if (is_builtin(cmd->cmd_list->word))
-			exec_builtin(cmd, d);
+			exec_builtin(cmd->cmd_list, d);
 		else
 			exec_nonbuiltin(cmd->cmd_list, d);
 		exit(d->exit_status);
@@ -71,7 +71,7 @@ static void	execute_cmd(t_ast *cmd, t_data *d)
 	if (cmd->cmd_list)
 	{
 		if (is_builtin(cmd->cmd_list->word) && cmd->pipe_status == NO_PIPE)
-			exec_builtin(cmd, d);
+			exec_builtin(cmd->cmd_list, d);
 		else
 			exec_in_child(cmd, d);
 	}

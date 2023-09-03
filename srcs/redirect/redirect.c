@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 04:43:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 04:50:08 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <string.h> //strerror
 #include <fcntl.h> //O_*
 #include <unistd.h> //open, dup, STDERR_FILENO
+
+extern volatile sig_atomic_t	g_signum;
 
 static bool	open_fd(t_redir *r, bool process_type, t_data *d)
 {
@@ -28,6 +30,7 @@ static bool	open_fd(t_redir *r, bool process_type, t_data *d)
 	else if (r->type == RD_HEREDOC)
 	{
 		r->file_fd = set_up_heredoc(r, d);
+		g_signum = 0;
 		if (process_type == IS_CHILD)
 			setup_child_signal_handler();
 		else

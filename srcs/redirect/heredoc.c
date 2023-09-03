@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 04:28:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 04:48:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ extern volatile sig_atomic_t	g_signum;
 static int	handle_heredoc_sigint(void)
 {
 	if (g_signum == SIGINT)
-	{
-		g_signum = 0;
 		rl_done = 1;
-	}
 	return (0);
 }
 

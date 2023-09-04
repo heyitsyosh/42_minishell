@@ -24,8 +24,6 @@ $(NAME): $(OBJS)
 	cp ../libft/libft.a $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
-bonus: all
-
 clean:
 	make clean -C $(LIBFTDIR)
 	$(RM) $(OBJS)

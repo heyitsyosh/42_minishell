@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:55:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 22:28:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
+#include "../../includes/ft_printf.h"
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 #include <unistd.h> //access, fork, execve, X_OK
@@ -67,8 +68,7 @@ static void	exec_execve(char *pathname, char **argv, char **envp, t_data *d)
 	execve(pathname, argv, envp);
 	if (errno)
 	{
-		msg_to_stderr(argv[0], ": ", strerror(errno));
-		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "%s: %s\n", argv[0], strerror(errno));
 		d->exit_status = 126;
 		if (errno == ENOENT)
 			d->exit_status = 127;
@@ -83,7 +83,7 @@ static void	check_filepath(char *filepath, char *to_execute, t_env *envp)
 	path_env = get_env("PATH", envp);
 	if (!path_env || *(path_env->str) == '\0')
 	{
-		msg_to_stderr(to_execute, ": ", "No such file or directory\n");
+		ft_dprintf(STDERR_FILENO, "%s: No such file or directory\n", to_execute);
 		exit (127);
 	}
 	if (!filepath \
@@ -91,13 +91,13 @@ static void	check_filepath(char *filepath, char *to_execute, t_env *envp)
 		|| !ft_strcmp(to_execute, "..") \
 		|| access(filepath, F_OK) == -1)
 	{
-		msg_to_stderr(to_execute, ": ", "command not found\n");
+		ft_dprintf(STDERR_FILENO, "%s: command not found\n", to_execute);
 		exit (127);
 	}
 	stat(filepath, &info);
 	if (S_ISDIR(info.st_mode))
 	{
-		msg_to_stderr(to_execute, ": ", "Is a directory\n");
+		ft_dprintf(STDERR_FILENO, "%s: Is a directory\n", to_execute);
 		exit (126);
 	}
 }

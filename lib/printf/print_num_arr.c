@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:37:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:39:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 21:58:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	put_space_padding(int call, int flags, int not_space, t_printf *info)
 		not_space += info->precision;
 	if ((call == 1 && !info->dash) || call == 2)
 		while (info->width-- > not_space + flags)
-			pad_count += write(1, &info->padding, 1);
+			pad_count += write(info->fd, &info->padding, 1);
 	return (pad_count);
 }
 
@@ -37,10 +37,10 @@ static int	put_zero_padding(int flags, int num_len, t_printf *info)
 	pad_count = 0;
 	if (info->precision > -1)
 		while (info->precision-- > 0)
-			pad_count += write(1, &"0", 1);
+			pad_count += write(info->fd, &"0", 1);
 	else if (info->padding == '0')
 		while (info->width-- > num_len + flags)
-			pad_count += write(1, &info->padding, 1);
+			pad_count += write(info->fd, &info->padding, 1);
 	return (pad_count);
 }
 
@@ -54,16 +54,16 @@ static int	put_flag(char flag, int call, t_printf *info)
 	{
 		if (flag == '#')
 		{
-			flag_count += write(1, &"0", 1);
+			flag_count += write(info->fd, &"0", 1);
 			if (info->fmt == 'p')
-				flag_count += write(1, &"x", 1);
+				flag_count += write(info->fd, &"x", 1);
 			else
-				flag_count += write(1, &info->fmt, 1);
+				flag_count += write(info->fd, &info->fmt, 1);
 			info->sharp = false;
 		}
 		else
 		{
-			flag_count += write(1, &info->sign, 1);
+			flag_count += write(info->fd, &info->sign, 1);
 			info->sign = '\0';
 		}
 	}
@@ -97,7 +97,7 @@ int	put_num(char *num, int num_len, int printed, t_printf *info)
 		printed_flags = put_flag('#', 1, info);
 	if (info->dash == true && info->precision == -1 && *num)
 	{
-		printed += print_str(num, num_len);
+		printed += print_str(info->fd, num, num_len);
 		*num = '\0';
 	}
 	printed += put_space_padding(1, printed_flags, num_len, info);
@@ -107,7 +107,7 @@ int	put_num(char *num, int num_len, int printed, t_printf *info)
 		printed_flags += put_flag('#', 2, info);
 	printed += put_zero_padding(printed_flags, num_len, info);
 	if (*num)
-		printed += print_str(num, num_len);
+		printed += print_str(info->fd, num, num_len);
 	printed += put_space_padding(2, printed_flags, printed, info);
 	return (printed + printed_flags);
 }

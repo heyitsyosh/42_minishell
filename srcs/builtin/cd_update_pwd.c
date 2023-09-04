@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   cd_update_pwd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/10 21:45:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 22:24:57 by myoshika         ###   ########.fr       */
+/*   Created: 2023/09/04 20:42:50 by myoshika          #+#    #+#             */
+/*   Updated: 2023/09/04 21:33:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
-#include <unistd.h> //STDERR_FILENO
-#include <stdlib.h> //exit
 
-void	print_error_and_exit(char *error_message)
+static void	make_pwd_path()
 {
-	ft_dprintf(STDERR_FILENO, "minishell: %s\n", error_message);
-	exit(1);
+	
 }
 
-void	print_syntax_error(char *unexpected_token)
+void	update_pwd(char *path, t_token *dir, t_data *d)
 {
-	ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
-	ft_putstr_fd(unexpected_token, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
+	t_env	*pwd;
+	t_char	*to_be_pwd;
+
+	pwd = get_env("PWD", d->envp);
+	if (!pwd)
+		pwd = make_env_node("PWD=");
+	if (!expand_to_home(dir))
+		make_pwd_path(to_be_pwd, dir);
+	replace_env_str(pwd, x_strdup(to_be_pwd));
+	free(d->pwd);
+	d->pwd = to_be_pwd;
 }

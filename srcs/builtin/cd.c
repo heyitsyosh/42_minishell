@@ -6,16 +6,26 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 03:59:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 22:25:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
 #include <string.h> //strerror
 #include <errno.h> //errno
 #include <stdlib.h> //free
 #include <unistd.h> //chdir
+
+bool	expand_to_home(t_token *dir)
+{
+	if (!dir)
+		return (true);
+	if (!ft_strcmp(dir->word, "~") || !ft_strncmp(dir->word, "~/", 2))
+		return (true);
+	return (false);
+}
 
 static char	*get_path(t_token *args, t_env *envp)
 {
@@ -49,42 +59,24 @@ static void	update_oldpwd(t_data *d)
 	replace_env_str(oldpwd, to_be_oldpwd);
 }
 
-static void	update_pwd(char *to_be_pwd, t_data *d)
-{
-	t_env	*pwd;
-
-	pwd = get_env("PWD", d->envp);
-	if (!pwd)
-		pwd = make_env_node("PWD=");
-	replace_env_str(pwd, x_strdup(to_be_pwd));
-	free(d->pwd);
-	d->pwd = to_be_pwd;
-}
-
 int	builtin_cd(t_token *args, t_data *d)
 {
 	char	*path;
 
 	if (args && args->next)
-	{
-		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
-	if (!args || !ft_strcmp(args->word, "~") \
-		|| !ft_strncmp(args->word, "~/", 2))
+		print_error_and_exit("cd: too many arguments\n");
+	if (expand_to_home(args))
 		path = get_path(args, d->envp);
 	else
 		path = x_strdup(args->word);
 	if (chdir(path) == -1)
 	{
-		msg_to_stderr("cd: ", path, ": ");
-		msg_to_stderr(strerror(errno), "\n", NULL);
+		ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", path, strerror(errno));
 		free(path);
 		return (EXIT_FAILURE);
 	}
 	update_oldpwd(d);
-	update_pwd(path, d);
+	// update_pwd(path, args, d);
+	free(path);
 	return (EXIT_SUCCESS);
 }
-
-//cd not updating pwd appropriately (try ..)

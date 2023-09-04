@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:41:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 04:50:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 22:24:48 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
 #include <errno.h> //errno
 #include <string.h> //strerror
@@ -40,8 +41,7 @@ static bool	open_fd(t_redir *r, bool process_type, t_data *d)
 	}
 	if (r->file_fd == -1)
 	{
-		msg_to_stderr(r->filename, ": ", strerror(errno));
-		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "%s: %s\n", r->filename, strerror(errno));
 		return (false);
 	}
 	return (true);
@@ -53,7 +53,8 @@ bool	open_redir_files(t_redir *redir, bool process_type, t_data *d)
 	while (redir)
 	{
 		if (redir->io_num > 1048575)
-			msg_to_stderr(ft_itoa(redir->io_num), ": ", "Bad file descriptor\n");
+			ft_dprintf(STDERR_FILENO, \
+			"%d: %s\n", redir->io_num, "Bad file descriptor");
 		if (!open_fd(redir, process_type, d) || (redir->io_num > 1048575))
 		{
 			d->exit_status = 1;

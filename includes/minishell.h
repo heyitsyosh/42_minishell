@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 04:33:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 22:20:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <stdbool.h>
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
-
-#include <stdio.h> //printf
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
@@ -30,6 +28,7 @@
 
 # define LEFT 0
 # define RIGHT 1
+
 
 typedef enum e_token_type
 {
@@ -233,7 +232,6 @@ t_env			*make_env_node(char	*envp);
 /* error.c */
 void			print_error_and_exit(char *error_message);
 void			print_syntax_error(char *unexpected_token);
-void			msg_to_stderr(char *first, char *second, char *third);
 
 /* free.c */
 void			free_tokens(t_token *tok);

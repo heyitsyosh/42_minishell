@@ -6,13 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:43:22 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 22:26:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //free, EXIT_SUCCESS, EXIT_FAILURE
+#include <unistd.h> //STDERR_FILENO
 
 bool	is_valid_id(char *id)
 {
@@ -53,8 +55,8 @@ int	builtin_unset(t_token *args, t_data *d)
 		if (!(is_valid_id(args->word)))
 		{
 			if (status != EXIT_FAILURE)
-				msg_to_stderr("export: ", args->word, \
-					": not a valid identifier\n");
+				ft_dprintf(STDERR_FILENO, \
+					"export: %s: not a valid identifier\n", args->word);
 			status = EXIT_FAILURE;
 		}
 		else if (matching_id)

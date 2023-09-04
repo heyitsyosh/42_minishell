@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:46:50 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:53:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 22:27:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_printf
 {
 	size_t	i;
+	int		fd;
 	char	fmt;	
 	int		precision;
 	int		width;
@@ -31,6 +32,7 @@ typedef struct s_printf
 }	t_printf;
 
 int		ft_printf(const char *input, ...);
+int		ft_dprintf(int fd, const char *input, ...);
 
 size_t	get_info(const char *after_pct, t_printf *info);
 
@@ -43,5 +45,5 @@ int		put_num(char *num, int num_len, int printed, t_printf *info);
 int		no_conversion(const char *input, t_printf *info);
 
 char	*ft_ulltoa(unsigned long long ull, int base, t_printf *info);
-int		print_str(const char *input, size_t len);
+int		print_str(int fd, const char *input, size_t len);
 #endif

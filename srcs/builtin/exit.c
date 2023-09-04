@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 04:00:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 22:20:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //exit, EXIT_SUCCESS, EXIT_FAILURE
 #include <unistd.h> //STDERR_FILENO
@@ -39,12 +40,13 @@ int	builtin_exit(t_token *args, t_data *d)
 	status = ft_atoll(args->word);
 	if (!str_is_numeric(args->word) || errno == ERANGE)
 	{
-		msg_to_stderr("exit: ", args->word, ": numeric argument required\n");
+		ft_dprintf(STDERR_FILENO, \
+			"exit: %s: numeric argument required\n", args->word);
 		exit(2);
 	}
 	else if (args->next)
 	{
-		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "exit: too many arguments\n");
 		return (EXIT_FAILURE);
 	}
 	exit(status);

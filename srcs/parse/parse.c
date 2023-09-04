@@ -6,14 +6,16 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/02 00:08:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/04 22:25:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
+#include "../../includes/ft_printf.h"
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //free
+#include <unistd.h> //STDERR_FILENO
 
 t_ast	*parse_subshell(t_token **tok, char **syntax_err)
 {
@@ -103,7 +105,8 @@ t_ast	*parser(t_token *tok)
 		set_syntax_error(tok, &syntax_err);
 	if (syntax_err)
 	{
-		msg_to_stderr("syntax error near unexpected token `", syntax_err, "'\n");
+		ft_dprintf(STDERR_FILENO, \
+			"syntax error near unexpected token `%s'\n", syntax_err);
 		free(syntax_err);
 		free_ast(ast);
 		return (NULL);

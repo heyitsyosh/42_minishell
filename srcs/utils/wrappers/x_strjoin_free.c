@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_update_pwd.c                                    :+:      :+:    :+:   */
+/*   x_strjoin.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 20:42:50 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 21:33:42 by myoshika         ###   ########.fr       */
+/*   Created: 2023/07/03 19:44:11 by myoshika          #+#    #+#             */
+/*   Updated: 2023/09/05 03:32:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "../../../includes/get_next_line.h"
+#include "../../../includes/minishell.h"
 
-static void	make_pwd_path()
+char	*x_strjoin_free(char *s1, char *s2, int to_free)
 {
-	
-}
+	char	*joined;
 
-void	update_pwd(char *path, t_token *dir, t_data *d)
-{
-	t_env	*pwd;
-	t_char	*to_be_pwd;
-
-	pwd = get_env("PWD", d->envp);
-	if (!pwd)
-		pwd = make_env_node("PWD=");
-	if (!expand_to_home(dir))
-		make_pwd_path(to_be_pwd, dir);
-	replace_env_str(pwd, x_strdup(to_be_pwd));
-	free(d->pwd);
-	d->pwd = to_be_pwd;
+	joined = strjoin_free(s1, s2, to_free);
+	if (!joined)
+		print_error_and_exit("strjoin failure");
+	return (joined);
 }

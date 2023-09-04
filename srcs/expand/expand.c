@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:47:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 03:36:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	concat_non_asterisks(t_word *word, bool *has_wildcard)
 	{
 		if (word->type != WILDCARD && (word->next)->type != WILDCARD)
 		{
-			word->sub_word = ft_strjoin_with_free(word->sub_word, \
+			word->sub_word = x_strjoin_free(word->sub_word, \
 				(word->next)->sub_word, FREE_BOTH);
 			tmp = word->next->next;
 			free(word->next);

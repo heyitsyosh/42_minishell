@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:15 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:19:13 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 03:22:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@
 # define FREE_SECOND_PARAM 2
 # define FREE_BOTH 3
 
-char	*ft_strjoin_with_free(char *s1, char *s2, int to_free);
+# define FREE_FIRST 1
+# define FREE_SECOND 2
+
+char	*strjoin_free(char *s1, char *s2, int to_free);
 
 char	*get_next_line(int fd);
 

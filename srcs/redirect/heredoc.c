@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 04:48:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 03:36:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ static void	readline_heredoc_loop(int fd[2], char *delimiter)
 			free(buf);
 			break ;
 		}
-		buf = ft_strjoin_with_free(buf, "\n", FREE_FIRST_PARAM);
-		if (!buf)
-			print_error_and_exit("strjoin failure");
+		buf = x_strjoin_free(buf, "\n", FREE_FIRST);
 		write(fd[1], buf, ft_strlen(buf));
 		free(buf);
 	}

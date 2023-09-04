@@ -1,45 +1,47 @@
 NAME = minishell
 
-SRC_FILES = main \
-			init_envp \
-			signal/signal \
+SRC_FILES = main\
+			init_envp\
+			signal/signal\
 			tokenize/tokenize\
-			tokenize/tokenize_utils \
-			expand/expand \
-			expand/word_to_list \
-			expand/word_to_list_ii \
-			expand/word_to_list_utils \
-			expand/variable_expansion \
-			expand/wildcard_expansion \
-			parse/parse \
-			parse/parse_cmd \
-			parse/parse_redir \
-			parse/parse_redir_utils \
-			parse/parse_utils \
-			utils/free \
-			utils/error \
-			utils/env_utils \
-			utils/debug \
-			utils/wrappers/x_close \
-			utils/wrappers/x_dup \
-			utils/wrappers/x_dup2 \
-			utils/wrappers/x_fork \
-			utils/wrappers/x_strdup \
-			execute/exec \
-			execute/exec_pipeline \
-			execute/exec_builtin \
-			execute/exec_nonbuiltin \
-			execute/make_argv \
-			execute/make_envp \
-			redirect/redirect \
-			redirect/heredoc \
+			tokenize/tokenize_utils\
+			expand/expand\
+			expand/word_to_list\
+			expand/word_to_list_ii\
+			expand/word_to_list_utils\
+			expand/variable_expansion\
+			expand/wildcard_expansion\
+			parse/parse\
+			parse/parse_cmd\
+			parse/parse_redir\
+			parse/parse_redir_utils\
+			parse/parse_utils\
+			utils/free\
+			utils/error\
+			utils/env_utils\
+			utils/debug\
+			utils/wrappers/x_close\
+			utils/wrappers/x_dup\
+			utils/wrappers/x_dup2\
+			utils/wrappers/x_fork\
+			utils/wrappers/x_strdup\
+			utils/wrappers/x_strjoin_free\
+			execute/exec\
+			execute/exec_pipeline\
+			execute/exec_builtin\
+			execute/exec_nonbuiltin\
+			execute/make_argv\
+			execute/make_envp\
+			redirect/redirect\
+			redirect/heredoc\
 			builtin/cd\
+			builtin/cd_ii\
 			builtin/echo\
 			builtin/env\
 			builtin/exit\
 			builtin/export\
 			builtin/pwd\
-			builtin/unset\
+			builtin/unset
 
 OBJ_DIR = ./objs
 

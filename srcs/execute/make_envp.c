@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 22:09:23 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:45:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 03:36:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ static char	*join_envp_line(t_env *envp)
 	char	*joined;
 
 	joined = x_strdup("");
-	joined = ft_strjoin_with_free(joined, envp->id, FREE_FIRST_PARAM);
-	joined = ft_strjoin_with_free(joined, "=", FREE_FIRST_PARAM);
-	joined = ft_strjoin_with_free(joined, envp->str, FREE_FIRST_PARAM);
-	if (!joined)
-		print_error_and_exit("strjoin failure");
+	joined = x_strjoin_free(joined, envp->id, FREE_FIRST);
+	joined = x_strjoin_free(joined, "=", FREE_FIRST);
+	joined = x_strjoin_free(joined, envp->str, FREE_FIRST);
 	return (joined);
 }
 

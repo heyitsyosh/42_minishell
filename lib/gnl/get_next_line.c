@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:32:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 03:14:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*read_till_nl_or_eof(int fd, char *buf, char **saved)
 	if (line)
 		*line = '\0';
 	if (line && saved && *saved && (*saved)[0] != '\0')
-		line = ft_strjoin_with_free(*saved, line, FREE_SECOND_PARAM);
+		line = strjoin_free(*saved, line, FREE_SECOND_PARAM);
 	read_status = 1;
 	while (line && !ft_strchr(line, '\n') && read_status > 0)
 	{
@@ -33,7 +33,7 @@ static char	*read_till_nl_or_eof(int fd, char *buf, char **saved)
 		else
 		{
 			buf[read_status] = '\0';
-			line = ft_strjoin_with_free(line, buf, FREE_FIRST_PARAM);
+			line = strjoin_free(line, buf, FREE_FIRST_PARAM);
 		}
 	}
 	ft_safe_free(saved);
@@ -58,7 +58,7 @@ char	*get_next_line(int fd)
 		ptr_to_nl = ft_strchr(line, '\n');
 	if (ptr_to_nl)
 	{
-		saved[fd] = ft_strjoin_with_free(ptr_to_nl + 1, "", FREE_NONE);
+		saved[fd] = strjoin_free(ptr_to_nl + 1, "", FREE_NONE);
 		line[ptr_to_nl - line + 1] = '\0';
 	}
 	else if (line && line[0] == '\0')

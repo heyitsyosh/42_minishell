@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:13 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:31:50 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 03:14:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_strlcpy_no_ret(char *dst, char *src, size_t dstsize)
 		*(dst + i) = '\0';
 }
 
-char	*ft_strjoin_with_free(char *s1, char *s2, int to_free)
+char	*strjoin_free(char *s1, char *s2, int to_free)
 {
 	char	*joined;
 	size_t	s1_len;

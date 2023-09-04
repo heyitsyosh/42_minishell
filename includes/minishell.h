@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 22:20:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 03:54:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@
 
 # define NO_PIPE 0
 # define BESIDE_PIPE 1
-
-# define LEFT 0
-# define RIGHT 1
-
 
 typedef enum e_token_type
 {
@@ -221,6 +217,7 @@ int				builtin_env(t_token *args, t_data *d);
 int				builtin_exit(t_token *args, t_data *d);
 
 bool			is_valid_id(char *id);
+void			update_pwd(char *chdir_path, t_data *d);
 
 /* env_utils.c */
 t_env			*get_env(char *var, t_env *envp);
@@ -251,5 +248,6 @@ int				x_dup(int oldfd);
 int				x_dup2(int oldfd, int newfd);
 pid_t			x_fork(void);
 char			*x_strdup(const char *to_dup);
+char			*x_strjoin_free(char *s1, char *s2, int to_free);
 
 #endif

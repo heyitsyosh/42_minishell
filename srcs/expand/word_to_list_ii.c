@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:27:04 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 06:43:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 03:36:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_dquoted_str(char *dquote, size_t *i, t_data *d)
 			new_portion = ft_substr(dquote + *i, 0, i_mover);
 		}
 		*i += i_mover;
-		dquoted = ft_strjoin_with_free(dquoted, new_portion, FREE_BOTH);
+		dquoted = x_strjoin_free(dquoted, new_portion, FREE_BOTH);
 	}
 	return (dquoted);
 }
@@ -82,7 +82,7 @@ char	*get_unquoted_str(char *no_quote, size_t *i, t_data *d)
 			new_portion = ft_substr(no_quote + *i, 0, i_mover);
 		}
 		*i += i_mover;
-		unquoted = ft_strjoin_with_free(unquoted, new_portion, FREE_BOTH);
+		unquoted = x_strjoin_free(unquoted, new_portion, FREE_BOTH);
 	}
 	return (unquoted);
 }

@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:03:44 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 19:55:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:37:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
-#include <stdlib.h> //free
 #include <unistd.h> //STDIN_FILENO, STDERR_FILENO
+#include <stdlib.h> //free
 
 static void	set_io_num(t_token **tok, t_redir *redir)
 {

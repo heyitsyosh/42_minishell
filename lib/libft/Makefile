@@ -43,9 +43,8 @@ SRCS_ = ft_isalpha\
 		ft_strtol\
 		ft_isspace\
 		ft_atoll\
-		ft_strstr
-
-BONUS_ = ft_lstnew\
+		ft_strstr\
+		ft_lstnew\
 		ft_lstadd_front\
 		ft_lstsize\
 		ft_lstlast\
@@ -56,14 +55,7 @@ BONUS_ = ft_lstnew\
 		ft_lstmap
 		
 SRCS = $(addsuffix .c, $(SRCS_))
-BONUS = $(addsuffix .c, $(BONUS_))
-
 OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(BONUS:.c=.o)
-
-ifeq ($(MAKECMDGOALS),bonus)
-OBJS += $(BONUS_OBJS)
-endif
 
 CFLAGS = -Wall -Wextra -Werror
 CC = gcc
@@ -75,8 +67,6 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-bonus: all
-	
 clean:
 	$(RM) -f $(OBJS) $(BONUS_OBJS)
 

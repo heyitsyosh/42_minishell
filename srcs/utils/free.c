@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:07:51 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:47:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:27:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	free_envs(t_env *env)
 	while (env)
 	{
 		node_to_free = env;
+		env = env->next;
 		free(env->id);
 		free(env->str);
-		env = env->next;
 		free(node_to_free);
 	}
 }
@@ -49,9 +49,9 @@ static void	free_redir(t_redir *redir)
 	while (redir)
 	{
 		redir_to_free = redir;
+		redir = redir->next;
 		free(redir->delimiter);
 		free(redir->filename);
-		redir = redir->next;
 		free(redir_to_free);
 	}
 }

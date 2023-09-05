@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 16:29:51 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:37:01 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
-#include <stdlib.h> //malloc, free
+#include <stdlib.h> //malloc
 
 bool	is_redir(t_token *tok)
 {
@@ -44,20 +44,19 @@ t_ast	*set_syntax_error(t_token *tok, char **syntax_err)
 
 t_ast	*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs)
 {
-	t_ast	*root;
+	t_ast	*new;
 
-	root = (t_ast *)malloc(sizeof(t_ast));
-	if (!root)
+	new = (t_ast *)malloc(sizeof(t_ast));
+	if (!new)
 		print_error_and_exit("malloc failure");
-	root->cmd_list = NULL;
-	root->redir = NULL;
-	root->type = type;
-	root->pipe_status = NO_PIPE;
-	root->input_fd = -1;
-	root->pid = 0;
-	root->left = lhs;
-	root->right = rhs;
-	return (root);
+	new->cmd_list = NULL;
+	new->redir = NULL;
+	new->type = type;
+	new->pipe_status = NO_PIPE;
+	new->input_fd = -1;
+	new->left = lhs;
+	new->right = rhs;
+	return (new);
 }
 
 bool	tok_is(t_token_type type, t_token *tok)

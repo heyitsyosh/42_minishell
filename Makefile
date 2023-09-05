@@ -30,9 +30,11 @@ SRC_FILES = main\
 			execute/exec_pipeline\
 			execute/exec_builtin\
 			execute/exec_nonbuiltin\
-			execute/exec_wait\
-			execute/make_argv\
-			execute/make_envp\
+			execute/utils/io_pipe_utils\
+			execute/utils/pid_list_utils\
+			execute/utils/wait\
+			execute/utils/make_argv\
+			execute/utils/make_envp\
 			redirect/redirect\
 			redirect/heredoc\
 			builtin/cd\

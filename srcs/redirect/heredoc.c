@@ -6,15 +6,16 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:36:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:36:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/get_next_line.h"
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
-#include <readline/readline.h> //readline, rl_done
-#include <unistd.h> //write, pipe, close
+#include <readline/readline.h> //readline, rl_done, rl_event_hook
+#include <signal.h> //signal, SIGINT, SIGQUIT, SIG_INT, SIG_ERR
+#include <unistd.h> //write, pipe
 #include <stdlib.h> //free
 
 extern volatile sig_atomic_t	g_signum;

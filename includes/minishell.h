@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 19:02:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:21:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdbool.h>
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
+# include <sys/types.h> //pid_t
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
@@ -25,8 +26,7 @@
 
 # define NO_PIPE 0
 # define BESIDE_PIPE 1
-
-# define NO_PID 0
+# define LAST_PIPE 2
 
 typedef enum e_token_type
 {
@@ -81,7 +81,6 @@ typedef struct s_ast
 	t_redir			*redir;
 	int				pipe_status;
 	int				input_fd;
-	pid_t			pid;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
@@ -108,6 +107,12 @@ typedef struct s_env{
 	struct s_env	*next;
 	struct s_env	*prev;
 }	t_env;
+
+typedef struct s_pids{
+	pid_t			pid;
+	bool			is_last_pipe;
+	struct s_pids	*next;
+}	t_pids;
 
 typedef struct s_data{
 	int						exit_status;
@@ -183,18 +188,8 @@ bool			tok_is(t_token_type type, t_token *tok);
 
 /* exec.c */
 void			execute(t_ast *ast, t_data *d);
-void			execute_pipeline(t_ast *ast, t_data *d);
-pid_t			execute_cmd(t_ast *cmd, t_data *d);
-pid_t			execute_subshell(t_ast *subshell, t_data *d);
-
-/* exec_pipeline.c */
-int				run_left_of_pipe(t_ast *left_of_pipe, int input_fd, t_data *d);
-int				run_right_of_pipe(t_ast *right_of_pipe, \
-				int input_fd, t_data *d);
-
-/* exec_wait.c */
-void			wait_for_last_child(pid_t last_pid, t_data *d);
-void			wait_for_no_pipe(t_ast *ast_node, pid_t pid, t_data *d);
+void			execute_cmd(t_ast *cmd, t_pids **pid_list, t_data *d);
+void			execute_subshell(t_ast *ast, t_pids **pid_list, t_data *d);
 
 /* exec_builtin.c */
 bool			is_builtin(char *cmd);
@@ -202,6 +197,22 @@ void			exec_builtin(t_token *cmd_list, t_data *d);
 
 /* exec_nonbuiltin.c */
 void			exec_nonbuiltin(t_token *cmd_list, t_data *d);
+
+/* exec_pipeline.c */
+void			execute_pipeline(t_ast *ast, t_data *d);
+void			free_pid_list(t_pids *pid_list);
+
+/* pid_list_utils.c */
+void			add_pid(pid_t pid, t_pids **pid_list, int pipe_status);
+
+/* io_pipe_utils.c */
+void			save_io(int saved_io[2]);
+void			set_pipe(int input_fd, int fd[2]);
+void			restore_io(int saved_io[2]);
+
+/* wait.c */
+void			wait_one_child(pid_t pid, t_data *d);
+void			wait_all_children(t_pids *pid_list, t_data *d);
 
 /* redirect.c */
 bool			open_redir_files(t_redir *redir, bool process_type, t_data *d);

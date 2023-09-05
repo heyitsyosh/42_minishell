@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:55:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/22 23:43:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:37:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stdlib.h> //malloc, free
+#include <stdlib.h> //malloc
 
 t_redir	*make_redir_struct(void)
 {

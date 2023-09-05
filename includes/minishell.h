@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:54:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:02:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define NO_PIPE 0
 # define BESIDE_PIPE 1
+
+# define NO_PID 0
 
 typedef enum e_token_type
 {
@@ -79,6 +81,7 @@ typedef struct s_ast
 	t_redir			*redir;
 	int				pipe_status;
 	int				input_fd;
+	pid_t			pid;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
@@ -180,11 +183,18 @@ bool			tok_is(t_token_type type, t_token *tok);
 
 /* exec.c */
 void			execute(t_ast *ast, t_data *d);
+void			execute_pipeline(t_ast *ast, t_data *d);
+pid_t			execute_cmd(t_ast *cmd, t_data *d);
+pid_t			execute_subshell(t_ast *subshell, t_data *d);
 
 /* exec_pipeline.c */
 int				run_left_of_pipe(t_ast *left_of_pipe, int input_fd, t_data *d);
 int				run_right_of_pipe(t_ast *right_of_pipe, \
 				int input_fd, t_data *d);
+
+/* exec_wait.c */
+void			wait_for_last_child(pid_t last_pid, t_data *d);
+void			wait_for_no_pipe(t_ast *ast_node, pid_t pid, t_data *d);
 
 /* exec_builtin.c */
 bool			is_builtin(char *cmd);

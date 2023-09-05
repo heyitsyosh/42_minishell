@@ -30,6 +30,7 @@ SRC_FILES = main\
 			execute/exec_pipeline\
 			execute/exec_builtin\
 			execute/exec_nonbuiltin\
+			execute/exec_wait\
 			execute/make_argv\
 			execute/make_envp\
 			redirect/redirect\

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 04:38:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:03:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,35 +17,30 @@
 #include <sys/types.h> //pid_t
 #include <sys/wait.h> //wait
 
-static void	execute_subshell(t_ast *ast, t_data *d)
+pid_t	execute_subshell(t_ast *subshell, t_data *d)
 {
 	pid_t	pid;
-	int		wait_status;
 
 	pid = x_fork();
 	if (pid == 0)
 	{
 		setup_child_signal_handler();
-		if (!open_redir_files(ast->redir, IS_CHILD, d))
-			return ;
-		set_up_redirect(ast->redir);
-		if (ast->pipe_status == BESIDE_PIPE)
-			close(ast->input_fd);
-		execute(ast->left, d);
-		reset_redirect(ast->redir);
+		if (!open_redir_files(subshell->redir, IS_CHILD, d))
+			exit(d->exit_status);
+		set_up_redirect(subshell->redir);
+		if (subshell->pipe_status == BESIDE_PIPE)
+			close(subshell->input_fd);
+		execute(subshell->left, d);
+		reset_redirect(subshell->redir);
 		exit(d->exit_status);
 	}
-	else
-	{
-		wait(&wait_status);
-		d->exit_status = WEXITSTATUS(wait_status);
-	}
+	wait_for_no_pipe(subshell, pid, d);
+	return (pid);
 }
 
-static void	exec_in_child(t_ast *cmd, t_data *d)
+static pid_t	exec_in_child(t_ast *cmd, t_data *d)
 {
 	pid_t	pid;
-	int		wait_status;
 
 	pid = x_fork();
 	if (pid == 0)
@@ -59,34 +54,41 @@ static void	exec_in_child(t_ast *cmd, t_data *d)
 			exec_nonbuiltin(cmd->cmd_list, d);
 		exit(d->exit_status);
 	}
-	wait(&wait_status);
-	d->exit_status = WEXITSTATUS(wait_status);
+	wait_for_no_pipe(cmd, pid, d);
+	return (pid);
 }
 
-static void	execute_cmd(t_ast *cmd, t_data *d)
+pid_t	execute_cmd(t_ast *cmd, t_data *d)
 {
+	pid_t	pid;
+
+	pid = NO_PID;
 	if (!open_redir_files(cmd->redir, IS_PARENT, d))
-		return ;
+		return (pid);
 	set_up_redirect(cmd->redir);
 	if (cmd->cmd_list)
 	{
+		d->exit_status = EXIT_SUCCESS;
 		if (is_builtin(cmd->cmd_list->word) && cmd->pipe_status == NO_PIPE)
 			exec_builtin(cmd->cmd_list, d);
 		else
-			exec_in_child(cmd, d);
+			pid = exec_in_child(cmd, d);
 	}
 	reset_redirect(cmd->redir);
+	return (pid);
 }
 
-static void	execute_pipeline(t_ast *ast, t_data *d)
+void	execute_pipeline(t_ast *ast, t_data *d)
 {
-	int	stdin_dup;
-	int	input_fd;
+	int		stdin_dup;
+	int		input_fd;
+	pid_t	last_pid;
 
 	stdin_dup = x_dup(STDIN_FILENO);
 	input_fd = run_left_of_pipe(ast, stdin_dup, d);
-	run_right_of_pipe(ast->right, input_fd, d);
+	last_pid = run_right_of_pipe(ast->right, input_fd, d);
 	close(stdin_dup);
+	wait_for_last_child(last_pid, d);
 }
 
 void	execute(t_ast *ast, t_data *d)

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:36:19 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:01:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 #include <sys/types.h> //pid_t
 #include <sys/stat.h> //stat, S_ISDIR
 #include <sys/wait.h> //wait
-
-#include <stdio.h>
 
 static char	*get_path_str(t_env *envp)
 {

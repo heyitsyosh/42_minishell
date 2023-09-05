@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:39:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 22:49:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 02:32:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/ft_printf.h"
-#include "../../../includes/minishell.h"
-#include "../../../includes/libft.h"
+#include "../../includes/ft_printf.h"
+#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 #include <sys/types.h> // W*
 #include <sys/wait.h> //waitpid
 #include <unistd.h> //STDERR_FILENO
@@ -38,16 +38,16 @@ void	wait_one_child(pid_t pid, t_data *d)
 	set_exit_status(wait_status, d);
 }
 
-void	wait_all_children(t_pids *pids, t_data *d)
+void	wait_all_children(t_pipeline *pipeline, t_data *d)
 {
 	int		wait_status;
 	pid_t	wait_result;
 
-	while (pids)
+	while (pipeline)
 	{
-		if (waitpid(pids->pid, &wait_status, 0) == -1)
+		if (waitpid(pipeline->pipe_elem->pid, &wait_status, 0) == -1)
 			print_error_and_exit("waitpid failure");
-		pids = pids->next;
+		pipeline = pipeline->next;
 	}
 	set_exit_status(wait_status, d);
 }

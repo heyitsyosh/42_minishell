@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 22:37:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 02:31:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_ast	*make_ast_node(t_ast_node_type type, t_ast *lhs, t_ast *rhs)
 	new->type = type;
 	new->pipe_status = NO_PIPE;
 	new->input_fd = -1;
+	new->pid = 0;
 	new->left = lhs;
 	new->right = rhs;
 	return (new);

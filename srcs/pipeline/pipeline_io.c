@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   io_pipe_utils.c                                    :+:      :+:    :+:   */
+/*   pipeline_io.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:45:41 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 21:50:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 04:10:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 #include <unistd.h> //pipe, STIN_FILENO, STDOUT_FILENO
 
 void	save_io(int saved_io[2])

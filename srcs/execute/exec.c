@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 22:47:43 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 03:38:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/libft.h"
 #include <stdlib.h> //exit, EXIT_SUCCESS;
 
-void	execute_subshell(t_ast *ast, t_pids **pid_list, t_data *d)
+void	execute_subshell(t_ast *subshell, t_data *d)
 {
 	pid_t	pid;
 
@@ -22,22 +22,22 @@ void	execute_subshell(t_ast *ast, t_pids **pid_list, t_data *d)
 	if (pid == 0)
 	{
 		setup_child_signal_handler();
-		if (!open_redir_files(ast->redir, IS_CHILD, d))
+		if (!open_redir_files(subshell->redir, IS_CHILD, d))
 			exit(d->exit_status);
-		set_up_redirect(ast->redir);
-		if (ast->pipe_status == BESIDE_PIPE || ast->pipe_status == LAST_PIPE)
-			close(ast->input_fd);
-		execute(ast->left, d);
-		reset_redirect(ast->redir);
+		set_up_redirect(subshell->redir);
+		if (subshell->pipe_status == BESIDE_PIPE)
+			x_close(subshell->input_fd);
+		execute(subshell->left, d);
+		reset_redirect(subshell->redir);
 		exit(d->exit_status);
 	}
-	if (ast->pipe_status == NO_PIPE)
+	if (subshell->pipe_status == NO_PIPE)
 		wait_one_child(pid, d);
 	else
-		add_pid(pid, pid_list, ast->pipe_status);
+		subshell->pid = pid;
 }
 
-static void	exec_in_child(t_ast *cmd, t_pids **pid_list, t_data *d)
+static void	exec_in_child(t_ast *cmd, t_data *d)
 {
 	pid_t	pid;
 
@@ -45,8 +45,8 @@ static void	exec_in_child(t_ast *cmd, t_pids **pid_list, t_data *d)
 	if (pid == 0)
 	{
 		setup_child_signal_handler();
-		if (cmd->pipe_status == BESIDE_PIPE || cmd->pipe_status == LAST_PIPE)
-			close(cmd->input_fd);
+		if (cmd->pipe_status == BESIDE_PIPE)
+			x_close(cmd->input_fd);
 		if (is_builtin(cmd->cmd_list->word))
 			exec_builtin(cmd->cmd_list, d);
 		else
@@ -56,10 +56,10 @@ static void	exec_in_child(t_ast *cmd, t_pids **pid_list, t_data *d)
 	if (cmd->pipe_status == NO_PIPE)
 		wait_one_child(pid, d);
 	else
-		add_pid(pid, pid_list, cmd->pipe_status);
+		cmd->pid = pid;
 }
 
-void	execute_cmd(t_ast *cmd, t_pids **pid_list, t_data *d)
+void	execute_cmd(t_ast *cmd, t_data *d)
 {
 	if (!open_redir_files(cmd->redir, IS_PARENT, d))
 		return ;
@@ -70,7 +70,7 @@ void	execute_cmd(t_ast *cmd, t_pids **pid_list, t_data *d)
 		if (is_builtin(cmd->cmd_list->word) && cmd->pipe_status == NO_PIPE)
 			exec_builtin(cmd->cmd_list, d);
 		else
-			exec_in_child(cmd, pid_list, d);
+			exec_in_child(cmd, d);
 	}
 	reset_redirect(cmd->redir);
 }
@@ -80,9 +80,9 @@ void	execute(t_ast *ast, t_data *d)
 	if (!ast)
 		return ;
 	else if (ast->type == CMD_NODE)
-		execute_cmd(ast, NULL, d);
+		execute_cmd(ast, d);
 	else if (ast->type == SUBSHELL_NODE)
-		execute_subshell(ast, NULL, d);
+		execute_subshell(ast, d);
 	else if (ast->type == PIPE_NODE)
 		execute_pipeline(ast, d);
 	else if (ast->type == AND_NODE || ast->type == OR_NODE)

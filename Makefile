@@ -27,16 +27,16 @@ SRC_FILES = main\
 			utils/wrappers/x_strdup\
 			utils/wrappers/x_strjoin_free\
 			execute/exec\
-			execute/exec_pipeline\
 			execute/exec_builtin\
 			execute/exec_nonbuiltin\
-			execute/utils/io_pipe_utils\
-			execute/utils/pid_list_utils\
-			execute/utils/wait\
-			execute/utils/make_argv\
-			execute/utils/make_envp\
+			execute/make_argv\
+			execute/make_envp\
+			execute/wait\
 			redirect/redirect\
 			redirect/heredoc\
+			pipeline/exec_pipeline\
+			pipeline/pipeline_io\
+			pipeline/pipeline_list\
 			builtin/cd\
 			builtin/cd_ii\
 			builtin/echo\
@@ -51,8 +51,7 @@ OBJ_DIR = ./objs
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:=.o))
 
-INCLUDES = -I ./includes 
-#-fsanitize=address -g3
+INCLUDES = -I ./includes -fsanitize=address -g3
 
 LIBFTPRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl

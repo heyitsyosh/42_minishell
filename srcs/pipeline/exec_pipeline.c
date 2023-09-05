@@ -6,65 +6,69 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:43:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 22:01:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 04:13:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <unistd.h> //close, STDIN_FILENO
 
-static void	execute_pipeline_elem(t_ast *ast, t_pids **pid_list, t_data *d)
+static void	execute_pipeline_elem(t_pipeline *pipeline, t_data *d)
 {
-	if (ast->type == SUBSHELL_NODE)
-		execute_subshell(ast, pid_list, d);
-	else if (ast->type == CMD_NODE)
-		execute_cmd(ast, pid_list, d);
+	if (pipeline->pipe_elem->type == SUBSHELL_NODE)
+		execute_subshell(pipeline->pipe_elem, d);
+	else if (pipeline->pipe_elem->type == CMD_NODE)
+		execute_cmd(pipeline->pipe_elem, d);
 }
 
-static int	run_left_of_pipe( \
-	t_ast *left_node, int input_fd, t_pids **pid_list, t_data *d)
+static int	run_pipes(int input_fd, t_pipeline *pipeline, t_data *d)
 {
 	int			fd[2];
 	int			saved_io[2];
 
 	save_io(saved_io);
-	if (left_node->type == PIPE)
-		run_left_of_pipe(left_node->left, input_fd, pid_list, d);
 	set_pipe(input_fd, fd);
-	if (left_node->type == PIPE)
-		left_node = left_node->right;
-	left_node->pipe_status = BESIDE_PIPE;
-	left_node->input_fd = input_fd;
-	execute_pipeline_elem(left_node, pid_list, d);
+	pipeline->pipe_elem->input_fd = input_fd;
+	execute_pipeline_elem(pipeline, d);
 	restore_io(saved_io);
 	return (input_fd);
 }
 
-static int	run_right_of_pipe( \
-	t_ast *right_node, int input_fd, t_pids **pid_list, t_data *d)
+static int	run_last_pipe(int input_fd, t_pipeline *pipeline, t_data *d)
 {
 	int			fd[2];
 	int			saved_io[2];
 
 	save_io(saved_io);
 	x_dup2(input_fd, STDIN_FILENO);
-	right_node->pipe_status = LAST_PIPE;
-	right_node->input_fd = input_fd;
-	execute_pipeline_elem(right_node, pid_list, d);
+	pipeline->pipe_elem->input_fd = input_fd;
+	execute_pipeline_elem(pipeline, d);
 	restore_io(saved_io);
+}
+
+static bool	is_last_pipeline(t_pipeline *pipeline)
+{
+	return (pipeline->next == NULL);
 }
 
 void	execute_pipeline(t_ast *ast, t_data *d)
 {
-	int		stdin_dup;
-	int		input_fd;
-	t_pids	*pid_list;
+	int			stdin_dup;
+	int			input_fd;
+	t_pipeline	*pipeline;
+	t_pipeline	*pipeline_head;
 
-	pid_list = NULL;
+	pipeline = NULL;
+	flatten_ast(ast, &pipeline);
+	pipeline_head = pipeline;
 	stdin_dup = x_dup(STDIN_FILENO);
-	input_fd = run_left_of_pipe(ast->left, stdin_dup, &pid_list, d);
-	run_right_of_pipe(ast->right, input_fd, &pid_list, d);
+	while (!is_last_pipeline(pipeline))
+	{
+		input_fd = run_pipes(stdin_dup, pipeline, d);
+		pipeline = pipeline->next;
+	}
+	run_last_pipe(input_fd, pipeline, d);
 	close(stdin_dup);
-	wait_all_children(pid_list->next, d);
-	free_pid_list(pid_list);
+	wait_all_children(pipeline, d);
+	free_pipeline_list(pipeline_head);
 }

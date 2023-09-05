@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:47:28 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 21:50:51 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 00:36:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/libft.h"
+#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 #include <stdlib.h> //malloc
 
 static size_t	get_malloc_size(t_token *cmd_list)

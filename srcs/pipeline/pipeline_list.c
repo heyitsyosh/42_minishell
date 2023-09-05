@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 00:37:37 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 03:58:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 04:51:37 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 void	free_pipeline_list(t_pipeline *pipeline)
 {
-	t_pipeline *pipeline_to_free;
+	t_pipeline	*pipeline_to_free;
 
 	while (pipeline)
 	{
 		pipeline_to_free = pipeline;
 		pipeline = pipeline->next;
-		free(pipeline_to_free);	
+		free(pipeline_to_free);
 	}
 }
 

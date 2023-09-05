@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:43:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 04:13:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 04:55:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ void	execute_pipeline(t_ast *ast, t_data *d)
 	flatten_ast(ast, &pipeline);
 	pipeline_head = pipeline;
 	stdin_dup = x_dup(STDIN_FILENO);
+	input_fd = stdin_dup;
 	while (!is_last_pipeline(pipeline))
 	{
-		input_fd = run_pipes(stdin_dup, pipeline, d);
+		input_fd = run_pipes(input_fd, pipeline, d);
 		pipeline = pipeline->next;
 	}
 	run_last_pipe(input_fd, pipeline, d);

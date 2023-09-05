@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 22:48:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 04:39:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "../../includes/ft_printf.h"
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
+#include <sys/stat.h> //stat, struct stat, S_ISDIR
 #include <unistd.h> //access, execve, F_OK, STDERR_FILENO
 #include <stdlib.h> //free, exit
 #include <string.h> //strerror
 #include <errno.h> //errno, ENOENT
-#include <sys/stat.h> //stat, struct stat, S_ISDIR
 
 static char	*get_path_str(t_env *envp)
 {

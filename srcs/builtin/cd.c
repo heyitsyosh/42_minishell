@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:36:16 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:55:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 static void	update_oldpwd(t_data *d)
 {
 	t_env	*oldpwd;
-	char	*oldpwd_after_cd;
+	char	*new_oldpwd;
 
+	new_oldpwd = x_strdup(d->pwd);
 	oldpwd = get_env("OLDPWD", d->envp);
 	if (!oldpwd)
-		return ;
-	oldpwd_after_cd = x_strdup(d->pwd);
-	replace_env_str(oldpwd, oldpwd_after_cd);
+		oldpwd = make_env_node("PWD=");
+	replace_env_str(oldpwd, new_oldpwd);
 }
 
 static char	*get_path(t_token *args, t_env *envp)

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:42:50 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 15:02:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:28:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ void	update_pwd(char *chdir_path, t_data *d)
 	d->pwd = newpwd;
 	pwd = get_env("PWD", d->envp);
 	if (!pwd)
+	{
 		pwd = make_env_node("PWD=");
+		env_add_back(d->envp, pwd);
+	}
 	replace_env_str(pwd, x_strdup(newpwd));
 }

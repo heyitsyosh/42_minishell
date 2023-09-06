@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 14:55:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:33:54 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ static void	update_oldpwd(t_data *d)
 	new_oldpwd = x_strdup(d->pwd);
 	oldpwd = get_env("OLDPWD", d->envp);
 	if (!oldpwd)
-		oldpwd = make_env_node("PWD=");
+	{
+		oldpwd = make_env_node("OLDPWD=");
+		env_add_back(d->envp, oldpwd);
+	}
 	replace_env_str(oldpwd, new_oldpwd);
 }
 
@@ -64,7 +67,7 @@ int	builtin_cd(t_token *args, t_data *d)
 	char	*path;
 
 	if (args && args->next)
-		print_error_and_exit("cd: too many arguments\n");
+		print_error_and_exit("cd: too many arguments");
 	path = get_chdir_path(args, d);
 	if (chdir(path) == -1)
 	{

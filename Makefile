@@ -16,6 +16,17 @@ SRC_FILES = main\
 			parse/parse_redir\
 			parse/parse_redir_utils\
 			parse/parse_utils\
+			execute/exec\
+			execute/exec_builtin\
+			execute/exec_nonbuiltin\
+			execute/make_argv\
+			execute/make_envp\
+			pipeline/exec_pipeline\
+			pipeline/pipeline_io\
+			pipeline/pipeline_list\
+			pipeline/wait\
+			redirect/redirect\
+			redirect/heredoc\
 			utils/free\
 			utils/error\
 			utils/env_utils\
@@ -26,17 +37,6 @@ SRC_FILES = main\
 			utils/wrappers/x_fork\
 			utils/wrappers/x_strdup\
 			utils/wrappers/x_strjoin_free\
-			execute/exec\
-			execute/exec_builtin\
-			execute/exec_nonbuiltin\
-			execute/make_argv\
-			execute/make_envp\
-			execute/wait\
-			redirect/redirect\
-			redirect/heredoc\
-			pipeline/exec_pipeline\
-			pipeline/pipeline_io\
-			pipeline/pipeline_list\
 			builtin/cd\
 			builtin/cd_ii\
 			builtin/echo\

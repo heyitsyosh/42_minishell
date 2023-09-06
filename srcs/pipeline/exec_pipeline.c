@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:43:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 04:55:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 22:36:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	run_pipes(int input_fd, t_pipeline *pipeline, t_data *d)
 	return (input_fd);
 }
 
-static int	run_last_pipe(int input_fd, t_pipeline *pipeline, t_data *d)
+static void	run_last_pipe(int input_fd, t_pipeline *pipeline, t_data *d)
 {
 	int			fd[2];
 	int			saved_io[2];
@@ -70,6 +70,6 @@ void	execute_pipeline(t_ast *ast, t_data *d)
 	}
 	run_last_pipe(input_fd, pipeline, d);
 	close(stdin_dup);
-	wait_all_children(pipeline, d);
+	wait_all_children(pipeline_head, d);
 	free_pipeline_list(pipeline_head);
 }

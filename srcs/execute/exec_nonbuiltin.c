@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 04:39:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:15:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@
 #include <string.h> //strerror
 #include <errno.h> //errno, ENOENT
 
-static char	*get_path_str(t_env *envp)
+static char	*get_path_str(char *to_execute, t_env *envp)
 {
 	t_env	*path_env;
 
 	path_env = get_env("PATH", envp);
-	if (!path_env)
-		return (NULL);
+	if (!path_env || *(path_env->str) == '\0')
+	{
+		ft_dprintf(STDERR_FILENO, "%s: No such file or directory\n", to_execute);
+		exit (127);
+	}
 	return (path_env->str);
 }
 
@@ -37,7 +40,7 @@ static char	*get_filepath(char *to_execute, t_env *envp)
 	char	*pathname;
 
 	pathname = NULL;
-	path = get_path_str(envp);
+	path = get_path_str(to_execute, envp);
 	while (path)
 	{
 		end = ft_strchr(path, ':');
@@ -74,14 +77,7 @@ static void	exec_execve(char *pathname, char **argv, char **envp, t_data *d)
 static void	check_filepath(char *filepath, char *to_execute, t_env *envp)
 {
 	struct stat	info;
-	t_env		*path_env;
 
-	path_env = get_env("PATH", envp);
-	if (!path_env || *(path_env->str) == '\0')
-	{
-		ft_dprintf(STDERR_FILENO, "%s: No such file or directory\n", to_execute);
-		exit (127);
-	}
 	if (!filepath \
 		|| !ft_strcmp(to_execute, "") \
 		|| !ft_strcmp(to_execute, "..") \

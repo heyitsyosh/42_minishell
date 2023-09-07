@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 22:20:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:14:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	builtin_exit(t_token *args, t_data *d)
 {
 	int	status;
 
+	ft_dprintf(STDERR_FILENO, "exit\n");
 	if (!args)
 		exit(d->exit_status);
 	errno = 0;

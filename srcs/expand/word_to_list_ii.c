@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:27:04 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:36:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:35:06 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*get_unquoted_str(char *no_quote, size_t *i, t_data *d)
 			new_portion = variable_expansion(no_quote + *i + 1, &i_mover, d);
 		else
 		{
-			i_mover = no_interpretation_len(no_quote + *i, NOT_IN_DQUOTE);
+			i_mover = no_interpretation_len(no_quote + *i, NO_QUOTE);
 			new_portion = ft_substr(no_quote + *i, 0, i_mover);
 		}
 		*i += i_mover;

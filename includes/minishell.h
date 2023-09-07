@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 21:32:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:33:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/types.h> //pid_t
 # include <stdio.h> //FILE, stderr
 
-# define NOT_IN_DQUOTE 0
+# define NO_QUOTE 0
 # define IN_DQUOTE 1
 
 # define IS_PARENT 0

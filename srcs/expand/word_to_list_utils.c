@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:25:30 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 03:50:59 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:34:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ size_t	no_interpretation_len(char *ptr, int status)
 	len = 0;
 	while (!ft_strchr("\\\"$", *ptr))
 	{
-		if (status == NOT_IN_DQUOTE && (*ptr == '\'' || *ptr == '*'))
+		if (status == NO_QUOTE && (*ptr == '\'' || *ptr == '*'))
 			break ;
 		ptr++;
 		len++;

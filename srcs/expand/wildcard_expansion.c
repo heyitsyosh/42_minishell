@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 05:49:26 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 16:52:43 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:49:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ t_token	*make_match_list(DIR *current_dir, t_word *word)
 		entry = readdir(current_dir);
 		if (!entry)
 			break ;
-		if (matches_pattern(entry->d_name, word))
+		if (matches_pattern(entry->d_name, word) && \
+			ft_strcmp(entry->d_name, ".") && ft_strcmp(entry->d_name, ".."))
 		{
 			match->next = make_token(x_strdup(entry->d_name), WORD);
 			match = match->next;

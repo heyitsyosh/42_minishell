@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 20:33:43 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:58:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,15 @@ static void	check_filepath(char *filepath, char *to_execute)
 		|| !ft_strcmp(to_execute, "..") \
 		|| access(filepath, F_OK) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "%s: command not found\n", to_execute);
+		ft_putstr_fd(\
+				ft_strjoin(to_execute, ": command not found\n"), STDERR_FILENO);
 		exit (127);
 	}
 	stat(filepath, &info);
 	if (S_ISDIR(info.st_mode))
 	{
-		ft_dprintf(STDERR_FILENO, "%s: Is a directory\n", to_execute);
+		ft_putstr_fd(\
+				ft_strjoin(to_execute, ": Is a directory\n"), STDERR_FILENO);
 		exit (126);
 	}
 }

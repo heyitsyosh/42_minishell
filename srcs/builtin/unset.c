@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 22:26:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:07:26 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,3 @@ int	builtin_unset(t_token *args, t_data *d)
 	}
 	return (status);
 }
-
-//is wrong pls fix mariaaaa

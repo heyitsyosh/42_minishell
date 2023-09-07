@@ -6,11 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 20:27:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:03:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/ft_printf.h"
 #include "../includes/libft.h"
 #include <readline/readline.h> //readline
 #include <readline/history.h> //add_history
@@ -55,6 +56,7 @@ static void	minishell_loop(t_data *d)
 			free(line);
 		}
 	}
+	ft_printf("\n");
 }
 
 static void	run_one_line(int argc, char **argv, t_data *d)
@@ -76,6 +78,7 @@ int	main(int argc, char **argv, char **envp)
 
 	rl_outstream = stderr;
 	init_envp(envp, &d);
+	d.exit_status = 0;
 	if (argc >= 2 && !ft_strcmp("-c", argv[1]))
 		run_one_line(argc, argv, &d);
 	else

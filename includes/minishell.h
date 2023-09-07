@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 16:58:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:54:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
 # include <sys/types.h> //pid_t
-// #include <stdio.h> //FILE, stderr
+# include <stdio.h> //FILE, stderr
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1

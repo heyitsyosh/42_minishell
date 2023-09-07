@@ -6,12 +6,11 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 19:03:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:54:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "../../includes/minishell.h"
-// #include <stdio.h> //printf, fflush
 
 // void	print_tokens(t_token *head)
 // {

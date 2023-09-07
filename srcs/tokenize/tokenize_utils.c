@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 00:55:19 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 17:00:45 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:35:03 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,19 @@ bool	is_blank(char c)
 	return (c == ' ' || c == '\t');
 }
 
-bool	is_operator(char c)
+bool	is_operator(char *operator)
 {
-	return (c && ft_strchr("|&()<>", c));
+	if (!ft_strncmp(operator, "&&", 2) \
+		|| !ft_strncmp(operator, "||", 2) \
+		|| !ft_strncmp(operator, "<<", 2) \
+		|| !ft_strncmp(operator, ">>", 2) \
+		|| !ft_strncmp(operator, "<", 1) \
+		|| !ft_strncmp(operator, ">", 1) \
+		|| !ft_strncmp(operator, "|", 1) \
+		|| !ft_strncmp(operator, "(", 1) \
+		|| !ft_strncmp(operator, ")", 1))
+		return (true);
+	return (false);
 }
 
 bool	is_io_number(char *line)

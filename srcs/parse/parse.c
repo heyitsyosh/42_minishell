@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 22:25:22 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:51:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_ast	*parser(t_token *tok)
 	t_ast	*ast;
 	char	*syntax_err;
 
+	ast = NULL;
 	syntax_err = NULL;
 	if (!tok)
 		return (NULL);

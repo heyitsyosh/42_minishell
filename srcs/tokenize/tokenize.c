@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/26 15:56:03 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:32:56 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_token	*word(char *line)
 
 	word_len = 0;
 	while (line[word_len] && \
-		!is_blank(line[word_len]) && !is_operator(line[word_len]))
+		!is_blank(line[word_len]) && !is_operator(line + word_len))
 	{
 		if (line[word_len] == '\'' || line[word_len] == '\"')
 			word_len += count_till_closing_quote(&line[word_len]);
@@ -90,7 +90,7 @@ t_token	*tokenize(char *line)
 	{
 		while (is_blank(*line))
 			line++;
-		if (is_operator(*line))
+		if (is_operator(line))
 			tok->next = operator(line);
 		else if (is_io_number(line))
 			tok->next = io_number(line);

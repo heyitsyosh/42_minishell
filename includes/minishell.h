@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 19:37:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:32:11 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ t_token			*tokenize(char *line);
 
 /* tokenize_utils.c */
 bool			is_blank(char c);
-bool			is_operator(char c);
+bool			is_operator(char *operator);
 bool			is_io_number(char *line);
 t_token_type	get_operator_type(char *operator);
 t_token			*make_token(char *word, t_token_type type);

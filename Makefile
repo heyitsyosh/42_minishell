@@ -56,10 +56,18 @@ GNL = ./lib/gnl/get_next_line.a
 LIBFTPRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl
 
-LIBS = -lreadline -L$(shell brew --prefix readline)/lib -L$(LIBFTPRINTFDIR) -lftprintf
+ifeq ($(shell uname -s),Darwin)
+	READLINE_LIB = -L$(shell brew --prefix readline)/lib
+	READLINE_INCLUDE = -I$(shell brew --prefix readline)/include
+else
+	READLINE_LIB =
+	READLINE_INCLUDE =
+endif
+
 CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I ./includes -I$(shell brew --prefix readline)/include
 #-fsanitize=address -g3
+LIBS = -lreadline $(READLINE_LIB) -L$(LIBFTPRINTFDIR) -lftprintf
+INCLUDES = -I ./includes $(READLINE_INCLUDE)
 
 all: $(NAME)
 

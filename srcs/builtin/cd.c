@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 17:18:43 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:01:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,6 @@ int	builtin_cd(t_token *args, t_data *d)
 	if (args && args->next)
 		print_error_and_exit("cd: too many arguments");
 	path = get_chdir_path(args, d);
-	newpwd = make_pwd_path(path, d->pwd);
-	if (!ft_strcmp(newpwd, d->pwd))
-	{
-		free(path);
-		free(newpwd);
-		return (EXIT_SUCCESS);
-	}
 	if (chdir(path) == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", path, strerror(errno));
@@ -99,6 +92,7 @@ int	builtin_cd(t_token *args, t_data *d)
 		return (EXIT_FAILURE);
 	}
 	update_oldpwd(d);
+	newpwd = make_pwd_path(path, d->pwd);
 	update_pwd(newpwd, d);
 	free(path);
 	return (EXIT_SUCCESS);

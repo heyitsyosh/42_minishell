@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 18:01:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:05:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,10 @@ int	builtin_cd(t_token *args, t_data *d)
 	if (args && args->next)
 		print_error_and_exit("cd: too many arguments");
 	path = get_chdir_path(args, d);
-	if (chdir(path) == -1)
+	if (!path || chdir(path) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", path, strerror(errno));
+		if (path)
+			ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", path, strerror(errno));
 		free(path);
 		return (EXIT_FAILURE);
 	}

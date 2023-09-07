@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 04:38:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:37:50 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	run_line(char *line, t_data *d)
 	expand(tok, d);
 	ast = parser(tok);
 	free_tokens(tok);
+	d->fork_failed = 0;
 	if (ast)
 		execute(ast, d);
 	else

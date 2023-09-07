@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 22:34:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:36:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	execute_subshell(t_ast *subshell, t_data *d)
 {
 	pid_t	pid;
 
-	pid = x_fork();
+	if (d->fork_failed)
+		return ;
+	pid = x_fork(d);
 	if (pid == 0)
 	{
 		setup_child_signal_handler();
@@ -41,7 +43,9 @@ static void	exec_in_child(t_ast *cmd, t_data *d)
 {
 	pid_t	pid;
 
-	pid = x_fork();
+	if (d->fork_failed)
+		return ;
+	pid = x_fork(d);
 	if (pid == 0)
 	{
 		setup_child_signal_handler();

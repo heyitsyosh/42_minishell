@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 17:54:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:37:06 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct s_data{
 	int						exit_status;
 	char					*pwd;
 	char					*shlvl;
+	bool					fork_failed;
 	t_env					*envp;
 }	t_data;
 
@@ -267,7 +268,7 @@ void			print_cmd_list(t_token *cmd_list);
 int				x_close(int fd);
 int				x_dup(int oldfd);
 int				x_dup2(int oldfd, int newfd);
-pid_t			x_fork(void);
+pid_t			x_fork(t_data *d);
 char			*x_strdup(const char *to_dup);
 char			*x_strjoin_free(char *s1, char *s2, int to_free);
 

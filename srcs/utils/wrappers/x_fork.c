@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:44:11 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 19:37:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:42:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ pid_t	x_fork(t_data *d)
 			d->exit_status = 1;
 			d->fork_failed = 1;
 			ft_dprintf(STDERR_FILENO, \
-				"minishell: fork: Resource temporarily unavailable\n");
+				"fork: Resource temporarily unavailable\n");
 		}
 		else
 			print_error_and_exit("fork failure");

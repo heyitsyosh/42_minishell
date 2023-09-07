@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:29:05 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:22:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:53:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static size_t	malloc_size(const char *s, char c)
 static int	check_malloc(char **split, int i)
 {
 	if (!*(split + i))
-	{	
+	{
 		while (i >= 0)
 		{
 			free(*(split + i));

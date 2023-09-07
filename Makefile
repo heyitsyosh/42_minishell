@@ -70,6 +70,10 @@ CFLAGS = -Wall -Wextra -Werror
 LIBS = -L$(LIBFTPRINTFDIR) $(READLINE_LIB)  -lftprintf -lreadline
 INCLUDES = -I ./includes $(READLINE_INCLUDE)
 
+# Get brew and readline:
+# 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+#	brew update && brew upgrade && brew install readline
+
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: ./srcs/%.c
@@ -91,7 +95,4 @@ fclean: clean
 
 re: fclean all
 
-readline:
-	brew update && brew upgrade && brew install readline
-
-.PHONY: all clean fclean re readline
+.PHONY: all clean fclean re

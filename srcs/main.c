@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 22:03:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 00:27:50 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ static void	minishell_loop(t_data *d)
 	{
 		setup_parent_signal_handler();
 		line = readline("minishell> ");
+		if (g_signum == SIGINT)
+		{
+			d->exit_status = 130;
+			g_signum = 0;
+		}
 		if (!line)
 			break ;
 		if (*line)

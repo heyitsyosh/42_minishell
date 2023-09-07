@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 20:30:51 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 00:27:06 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	handle_sigint(void)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_signum = 0;
+		// g_signum = 0;
 	}
 	return (0);
 }
@@ -49,7 +49,7 @@ void	setup_child_signal_handler(void)
 void	setup_parent_signal_handler(void)
 {
 	g_signum = 0;
-	rl_event_hook = handle_sigint;
+	rl_signal_event_hook = handle_sigint;
 	if (signal(SIGINT, signal_handler) == SIG_ERR || \
 		signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		print_error_and_exit("signal failure");

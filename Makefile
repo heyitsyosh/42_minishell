@@ -51,22 +51,21 @@ OBJ_DIR = ./objs
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:=.o))
 
-INCLUDES = -I ./includes 
-#-fsanitize=address -g3
-
+FT_LIBFTPRINTF = ./lib/printf/libftprintf.a
+GNL = ./lib/gnl/get_next_line.a 
 LIBFTPRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl
 
-FT_LIBFTPRINTF = ./lib/printf/libftprintf.a
-GNL = ./lib/gnl/get_next_line.a 
-
-LIBS = -lreadline -L$(LIBFTPRINTFDIR) -lftprintf
+LIBS = -lreadline -L$(shell brew --prefix readline)/lib -L$(LIBFTPRINTFDIR) -lftprintf
+CFLAGS = -Wall -Wextra -Werror
+INCLUDES = -I ./includes -I$(shell brew --prefix readline)/include
+#-fsanitize=address -g3
 
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: ./srcs/%.c
 	@mkdir -p $(dir $@) 
-	gcc $(INCLUDES) -c $< -o $@
+	gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
 	make -C $(LIBFTPRINTFDIR)

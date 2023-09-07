@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:36:25 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:54:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	expand(t_token *tok, t_data *d)
 			word_head = divide_word_to_list(tok->word, d);
 			concat_non_asterisks(word_head, &has_wildcard);
 			if (has_wildcard)
-				wildcard_matches = wildcard_expansion(word_head, tok);
+				wildcard_matches = wildcard_expansion(word_head);
 			replace_with_expanded(word_head, wildcard_matches, tok);
 			free_sub_word_list(word_head);
 		}

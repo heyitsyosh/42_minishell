@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 23:15:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:58:50 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	exec_execve(char *pathname, char **argv, char **envp, t_data *d)
 	}
 }
 
-static void	check_filepath(char *filepath, char *to_execute, t_env *envp)
+static void	check_filepath(char *filepath, char *to_execute)
 {
 	struct stat	info;
 
@@ -106,7 +106,7 @@ void	exec_nonbuiltin(t_token *cmd_list, t_data *d)
 		filepath = get_filepath(argv[0], d->envp);
 	else
 		filepath = x_strdup(argv[0]);
-	check_filepath(filepath, argv[0], d->envp);
+	check_filepath(filepath, argv[0]);
 	exec_execve(filepath, argv, envp, d);
 	free_dbl_ptr(argv);
 	free_dbl_ptr(envp);

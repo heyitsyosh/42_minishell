@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:42:50 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 23:28:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:18:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static char	*resolve_relative_path(char **split_path, char *newpwd)
 			newpwd = x_strjoin_free(newpwd, "/", FREE_FIRST);
 			newpwd = x_strjoin_free(newpwd, *split_path, FREE_FIRST);
 		}
-		*split_path++;
+		split_path++;
 	}
 	return (newpwd);
 }
 
-static char	*make_pwd_path(char *chdir_path, char *pwd)
+char	*make_pwd_path(char *chdir_path, char *pwd)
 {
 	char	**split_path;
 	char	*newpwd;
@@ -62,27 +62,10 @@ static char	*make_pwd_path(char *chdir_path, char *pwd)
 		newpwd = x_strdup(pwd);
 	newpwd = resolve_relative_path(split_path, newpwd);
 	free_dbl_ptr(split_path);
-	return (newpwd);
-}
-
-void	update_pwd(char *chdir_path, t_data *d)
-{
-	t_env	*pwd;
-	char	*newpwd;
-
-	newpwd = make_pwd_path(chdir_path, d->pwd);
 	if (*newpwd == '\0')
 	{
 		free(newpwd);
 		newpwd = x_strdup("/");
 	}
-	free(d->pwd);
-	d->pwd = newpwd;
-	pwd = get_env("PWD", d->envp);
-	if (!pwd)
-	{
-		pwd = make_env_node("PWD=");
-		env_add_back(d->envp, pwd);
-	}
-	replace_env_str(pwd, x_strdup(newpwd));
+	return (newpwd);
 }

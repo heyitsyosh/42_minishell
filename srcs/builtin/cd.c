@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 23:33:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:18:43 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,21 @@
 #include <errno.h> //errno
 #include <stdlib.h> //free
 #include <unistd.h> //chdir
+
+static void	update_pwd(char *newpwd, t_data *d)
+{
+	t_env	*pwd;
+
+	free(d->pwd);
+	d->pwd = newpwd;
+	pwd = get_env("PWD", d->envp);
+	if (!pwd)
+	{
+		pwd = make_env_node("PWD=");
+		env_add_back(d->envp, pwd);
+	}
+	replace_env_str(pwd, x_strdup(newpwd));
+}
 
 static void	update_oldpwd(t_data *d)
 {
@@ -34,7 +49,7 @@ static void	update_oldpwd(t_data *d)
 	replace_env_str(oldpwd, new_oldpwd);
 }
 
-static char	*get_path(t_token *args, t_env *envp)
+static char	*expand_home(t_token *args, t_env *envp)
 {
 	char	*path;
 	t_env	*home;
@@ -57,7 +72,7 @@ char	*get_chdir_path(t_token *args, t_data *d)
 {
 	if (!args || \
 		!ft_strcmp(args->word, "~") || !ft_strncmp(args->word, "~/", 2))
-		return (get_path(args, d->envp));
+		return (expand_home(args, d->envp));
 	else
 		return (x_strdup(args->word));
 }
@@ -65,10 +80,18 @@ char	*get_chdir_path(t_token *args, t_data *d)
 int	builtin_cd(t_token *args, t_data *d)
 {
 	char	*path;
+	char	*newpwd;
 
 	if (args && args->next)
 		print_error_and_exit("cd: too many arguments");
 	path = get_chdir_path(args, d);
+	newpwd = make_pwd_path(path, d->pwd);
+	if (!ft_strcmp(newpwd, d->pwd))
+	{
+		free(path);
+		free(newpwd);
+		return (EXIT_SUCCESS);
+	}
 	if (chdir(path) == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", path, strerror(errno));
@@ -76,7 +99,7 @@ int	builtin_cd(t_token *args, t_data *d)
 		return (EXIT_FAILURE);
 	}
 	update_oldpwd(d);
-	update_pwd(path, d);
+	update_pwd(newpwd, d);
 	free(path);
 	return (EXIT_SUCCESS);
 }

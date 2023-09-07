@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 00:55:19 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/24 20:17:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:00:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_token_type	get_operator_type(char *operator)
 		return (CLOSE_PARENTHESIS);
 	else if (!ft_strcmp(operator, "|"))
 		return (PIPE);
+	return (0);
 }
 
 t_token	*make_token(char *word, t_token_type type)

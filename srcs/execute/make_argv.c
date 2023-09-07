@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:47:28 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 00:36:45 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:50:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	tok_list_to_dbl_ptr(char **argv, t_token *cmd_list)
 char	**make_argv_from_list(t_token *cmd_list)
 {
 	char	**argv;
-	size_t	malloc_size;
 
 	argv = (char **)malloc((get_malloc_size(cmd_list) + 1) * sizeof(char *));
 	if (!argv)

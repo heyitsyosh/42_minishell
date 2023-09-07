@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 22:38:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:58:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stddef.h> //size_t
 # include <signal.h> //sig_atomic_t
 # include <sys/types.h> //pid_t
+// #include <stdio.h> //FILE, stderr
 
 # define NOT_IN_DQUOTE 0
 # define IN_DQUOTE 1
@@ -153,7 +154,7 @@ char			*get_unquoted_str(char *no_quote, size_t *i, t_data *d);
 char			*variable_expansion(char *ptr, size_t *i_mover, t_data *d);
 
 /* wildcard_expansion.c */
-t_token			*wildcard_expansion(t_word *word, t_token *next);
+t_token			*wildcard_expansion(t_word *word);
 
 /* word_to_list_util.c */
 t_word			*make_sub_word(char *sub_word, t_sub_word_type type);
@@ -237,7 +238,7 @@ int				builtin_env(t_token *args, t_data *d);
 int				builtin_exit(t_token *args, t_data *d);
 
 bool			is_valid_id(char *id);
-void			update_pwd(char *chdir_path, t_data *d);
+char			*make_pwd_path(char *chdir_path, char *pwd);
 
 /* env_utils.c */
 t_env			*get_env(char *var, t_env *envp);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:43:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 22:36:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:52:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	run_pipes(int input_fd, t_pipeline *pipeline, t_data *d)
 
 static void	run_last_pipe(int input_fd, t_pipeline *pipeline, t_data *d)
 {
-	int			fd[2];
 	int			saved_io[2];
 
 	save_io(saved_io);

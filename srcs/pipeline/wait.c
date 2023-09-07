@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:39:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 22:29:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:08:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	wait_one_child(pid_t pid, t_data *d)
 void	wait_all_children(t_pipeline *pipeline, t_data *d)
 {
 	int		wait_status;
-	pid_t	wait_result;
 
 	while (pipeline)
 	{

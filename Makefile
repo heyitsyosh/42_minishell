@@ -55,6 +55,7 @@ FT_LIBFTPRINTF = ./lib/printf/libftprintf.a
 GNL = ./lib/gnl/get_next_line.a 
 LIBFTPRINTFDIR = ./lib/printf
 GNLDIR = ./lib/gnl
+READLINE_LIB = -lreadline 
 
 ifeq ($(shell uname -s),Darwin)
 	READLINE_LIB = -L$(shell brew --prefix readline)/lib
@@ -66,7 +67,7 @@ endif
 
 CFLAGS = -Wall -Wextra -Werror
 #-fsanitize=address -g3
-LIBS = -lreadline $(READLINE_LIB) -L$(LIBFTPRINTFDIR) -lftprintf
+LIBS = -L$(LIBFTPRINTFDIR) $(READLINE_LIB)  -lftprintf -lreadline
 INCLUDES = -I ./includes $(READLINE_INCLUDE)
 
 all: $(NAME)
@@ -90,8 +91,7 @@ fclean: clean
 
 re: fclean all
 
-readline: 
-	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+readline:
 	brew update && brew upgrade && brew install readline
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re readline

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 15:38:58 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:12:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 bool	is_valid_id(char *id)
 {
-	if ((!ft_isalpha(*id) && *id != '_'))
+	if ((!ft_isalpha(*id) || *id == '_'))
 		return (false);
 	while (*id && *id != '=')
 	{

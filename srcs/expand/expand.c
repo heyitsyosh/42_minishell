@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 22:39:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:51:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ void	expand(t_token *tok, t_data *d)
 	t_word	*word_head;
 	bool	has_wildcard;
 
-	wildcard_matches = NULL;
 	while (tok)
 	{
 		next = tok->next;
 		if (tok->type == WORD)
 		{
 			has_wildcard = false;
+			wildcard_matches = NULL;
 			word_head = divide_word_to_list(tok->word, d);
 			concat_non_asterisks(word_head, &has_wildcard);
 			if (has_wildcard)

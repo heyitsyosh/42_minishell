@@ -6,22 +6,22 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 17:54:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:52:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-// void	print_tokens(t_token *head)
-// {
-// 	while (head->next)
-// 	{
-// 		printf("[%s]->", head->word);
-// 		head = head->next;
-// 	}
-// 	if (head)
-// 		printf("[%s]\n", head->word);
-// }
+void	print_tokens(t_token *head)
+{
+	while (head->next)
+	{
+		printf("[%s]->", head->word);
+		head = head->next;
+	}
+	if (head)
+		printf("[%s]\n", head->word);
+}
 
 // void	print_redir_list(t_redir *redir)
 // {

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 22:30:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:38:01 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,25 @@ void	add_new_env(t_env *tmp, t_data *d)
 		d->envp = tmp;
 		return ;
 	}
-	env_add_back(d->envp, tmp);
+	env_add_back(d, tmp);
 }
 
-void	env_add_back(t_env *envp, t_env *env_to_add)
+void	env_add_back(t_data *d, t_env *env_to_add)
 {
-	if (envp == env_to_add || !envp || !env_to_add)
+	t_env	*envp;
+
+	envp = d->envp;
+	if (!env_to_add || envp == env_to_add)
 		return ;
-	while (envp->next)
-		envp = envp->next;
-	envp->next = env_to_add;
-	env_to_add->prev = envp;
+	if (!d->envp)
+		d->envp = env_to_add;
+	else
+	{
+		while (envp->next)
+			envp = envp->next;
+		envp->next = env_to_add;
+		env_to_add->prev = envp;
+	}
 }
 
 void	replace_env_str(t_env *env, char *new_str)

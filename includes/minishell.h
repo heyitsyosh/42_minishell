@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 15:56:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:35:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ char			*make_pwd_path(char *chdir_path, char *pwd);
 /* env_utils.c */
 t_env			*get_env(char *var, t_env *envp);
 void			add_new_env(t_env *tmp, t_data *d);
-void			env_add_back(t_env *envp, t_env *new_node);
+void			env_add_back(t_data *d, t_env *new_node);
 void			replace_env_str(t_env *env, char *new_str);
 t_env			*make_env_node(char	*envp);
 

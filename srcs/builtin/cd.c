@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 15:42:40 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:35:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	update_pwd(char *newpwd, t_data *d)
 	if (!pwd)
 	{
 		pwd = make_env_node("PWD=");
-		env_add_back(d->envp, pwd);
+		env_add_back(d, pwd);
 	}
 	replace_env_str(pwd, x_strdup(newpwd));
 }
@@ -44,7 +44,7 @@ static void	update_oldpwd(t_data *d)
 	if (!oldpwd)
 	{
 		oldpwd = make_env_node("OLDPWD=");
-		env_add_back(d->envp, oldpwd);
+		env_add_back(d, oldpwd);
 	}
 	replace_env_str(oldpwd, new_oldpwd);
 }

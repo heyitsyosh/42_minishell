@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 00:27:50 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:33:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	run_one_line(int argc, char **argv, t_data *d)
 {
 	if (argc == 2)
 	{
-		ft_putstr_fd("bash: -c: option requires an argument\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "bash: -c: option requires an argument\n");
 		exit(2);
 	}
 	if (ft_strlen(argv[2]) != 0)

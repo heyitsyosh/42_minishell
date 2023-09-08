@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 21:58:45 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:38:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../includes/minishell.h"
 #include "../../includes/libft.h"
 #include <sys/stat.h> //stat, struct stat, S_ISDIR
-#include <unistd.h> //access, execve, F_OK, STDERR_FILENO
+#include <unistd.h> //access, execve, F_OK
 #include <stdlib.h> //free, exit
 #include <string.h> //strerror
 #include <errno.h> //errno, ENOENT
@@ -27,7 +27,7 @@ static char	*get_path_str(char *to_execute, t_env *envp)
 	path_env = get_env("PATH", envp);
 	if (!path_env || *(path_env->str) == '\0')
 	{
-		ft_dprintf(STDERR_FILENO, "%s: No such file or directory\n", to_execute);
+		err_msg(to_execute, ": No such file or directory", NULL);
 		exit (127);
 	}
 	return (path_env->str);
@@ -67,7 +67,7 @@ static void	exec_execve(char *pathname, char **argv, char **envp, t_data *d)
 	execve(pathname, argv, envp);
 	if (errno)
 	{
-		ft_dprintf(STDERR_FILENO, "%s: %s\n", argv[0], strerror(errno));
+		err_msg(argv[0], ": ", strerror(errno));
 		d->exit_status = 126;
 		if (errno == ENOENT)
 			d->exit_status = 127;
@@ -83,15 +83,13 @@ static void	check_filepath(char *filepath, char *to_execute)
 		|| !ft_strcmp(to_execute, "..") \
 		|| access(filepath, F_OK) == -1)
 	{
-		ft_putstr_fd(\
-				ft_strjoin(to_execute, ": command not found\n"), STDERR_FILENO);
+		err_msg(to_execute, ": command not found", NULL);
 		exit (127);
 	}
 	stat(filepath, &info);
 	if (S_ISDIR(info.st_mode))
 	{
-		ft_putstr_fd(\
-				ft_strjoin(to_execute, ": Is a directory\n"), STDERR_FILENO);
+		err_msg(to_execute, ": Is a directory", NULL);
 		exit (126);
 	}
 }

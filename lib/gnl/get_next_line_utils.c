@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:13 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:14:58 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:55:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	ft_strlcpy_no_ret(char *dst, char *src, size_t dstsize)
 	size_t	i;
 
 	i = 0;
+	if (!dst || !src)
+		return ;
 	while (i + 1 < dstsize && *(src + i))
 	{
 		*(dst + i) = *(src + i);
@@ -33,10 +35,14 @@ char	*strjoin_free(char *s1, char *s2, int to_free)
 	size_t	s1_len;
 	size_t	s2_len;
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
+	if (s1 == NULL)
+		s1_len = 0;
+	else
+		s1_len = ft_strlen(s1);
+	if (s2 == NULL)
+		s2_len = 0;
+	else
+		s2_len = ft_strlen(s2);
 	joined = (char *)malloc(s1_len + s2_len + 1);
 	if (joined != NULL)
 	{

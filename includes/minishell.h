@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 22:33:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:56:01 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ t_env			*make_env_node(char	*envp);
 /* error.c */
 void			print_error_and_exit(char *error_message);
 void			print_syntax_error(char *unexpected_token);
+void			err_msg(char *s1, char *s2, char *s3);
 
 /* free.c */
 void			free_tokens(t_token *tok);

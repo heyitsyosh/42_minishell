@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 22:26:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:38:11 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //malloc, free, exit, EXIT_SUCCESS, EXIT_FAILURE
-#include <unistd.h> //STDERR_FILENO
 
 static void	export_no_args(t_env *envp)
 {
@@ -91,10 +90,10 @@ int	builtin_export(t_token *args, t_data *d)
 			if (!is_valid_id(tmp->id))
 			{
 				if (status != EXIT_FAILURE)
-					ft_dprintf(STDERR_FILENO, \
-					"export: %s: not a valid identifier\n", args->word);
+					err_msg("export: ", args->word, ": not a valid identifier");
 				status = EXIT_FAILURE;
 				free_envs(tmp);
+				args = args->next;
 				continue ;
 			}
 			export_env(tmp, d);

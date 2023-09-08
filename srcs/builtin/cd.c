@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:02 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 20:50:59 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:42:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*expand_home(t_token *args, t_env *envp)
 	}
 	path = x_strdup(home->str);
 	if (args)
-		path = x_strjoin_free(path, args->word + 1, FREE_FIRST_PARAM);
+		path = x_strjoin_free(path, args->word + 1, FREE_FIRST);
 	if (!path)
 		print_error_and_exit("strjoin failure");
 	return (path);
@@ -84,7 +84,7 @@ int	builtin_cd(t_token *args, t_data *d)
 
 	if (args && args->next)
 	{
-		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "cd: too many arguments\n");
 		return (EXIT_FAILURE);
 	}
 	path = get_chdir_path(args, d);

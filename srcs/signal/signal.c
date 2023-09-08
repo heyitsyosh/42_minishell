@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 00:27:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:31:33 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	handle_sigint(void)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		// g_signum = 0;
 	}
 	return (0);
 }

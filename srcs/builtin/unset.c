@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 22:07:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:38:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../../includes/ft_printf.h"
 #include "../../includes/libft.h"
 #include <stdlib.h> //free, EXIT_SUCCESS, EXIT_FAILURE
-#include <unistd.h> //STDERR_FILENO
 
 bool	is_valid_id(char *id)
 {
@@ -55,8 +54,7 @@ int	builtin_unset(t_token *args, t_data *d)
 		if (!(is_valid_id(args->word)))
 		{
 			if (status != EXIT_FAILURE)
-				ft_dprintf(STDERR_FILENO, \
-					"export: %s: not a valid identifier\n", args->word);
+				err_msg("unset:", args->word, ": not a valid identifier");
 			status = EXIT_FAILURE;
 		}
 		else if (matching_id)

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 22:14:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:29:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	builtin_exit(t_token *args, t_data *d)
 	status = ft_atoll(args->word);
 	if (!str_is_numeric(args->word) || errno == ERANGE)
 	{
-		ft_dprintf(STDERR_FILENO, \
-			"exit: %s: numeric argument required\n", args->word);
+		err_msg("exit: ", args->word, ": numeric argument required");
 		exit(2);
 	}
 	else if (args->next)

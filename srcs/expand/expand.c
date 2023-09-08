@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 17:51:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/08 20:14:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,20 @@ void	concat_non_asterisks(t_word *word, bool *has_wildcard)
 
 void	replace_with_expanded(t_word *word, t_token *wildcard, t_token *tok)
 {
-	t_token	*next;
+	t_token	*tok_next;
+	t_token	*wildcard_head;
 
 	if (wildcard)
 	{
-		next = tok->next;
+		tok_next = tok->next;
 		free(tok->word);
 		tok->word = wildcard->word;
 		tok->next = wildcard->next;
+		wildcard_head = wildcard;
 		while (wildcard->next != NULL)
 			wildcard = wildcard->next;
-		wildcard->next = next;
+		wildcard->next = tok_next;
+		free(wildcard_head);
 	}
 	else
 	{

@@ -66,7 +66,8 @@ else
 endif
 
 CFLAGS = -Wall -Wextra -Werror
-LIBS = -L$(LIBFTPRINTFDIR) $(READLINE_LIB) -lftprintf -lreadline -fsanitize=address -g3
+LIBS = -L$(LIBFTPRINTFDIR) $(READLINE_LIB) -lftprintf -lreadline 
+#-fsanitize=address -g3
 INCLUDES = -I ./includes $(READLINE_INCLUDE)
 
 # Get brew and readline:

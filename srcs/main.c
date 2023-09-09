@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 20:15:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/09 14:56:51 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	run_line(char *line, t_data *d)
 	free_ast(ast);
 }
 
-static void	minishell_loop(t_data *d)
+static void	run_repl(t_data *d)
 {
 	char	*line;
 
@@ -60,6 +60,8 @@ static void	minishell_loop(t_data *d)
 			run_line(line, d);
 			free(line);
 		}
+		else if (line)
+			free(line);
 	}
 	ft_printf("\n");
 }
@@ -87,6 +89,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc >= 2 && !ft_strcmp("-c", argv[1]))
 		run_one_line(argc, argv, &d);
 	else
-		minishell_loop(&d);
+		run_repl(&d);
 	exit(d.exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:59 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 07:52:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/09 14:51:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	builtin_echo(t_token *args, t_data *d)
 	if (args && !ft_strcmp(args->word, "-n"))
 	{
 		new_line = false;
-		args = args->next;
+		while (args && !ft_strcmp(args->word, "-n"))
+			args = args->next;
 	}
 	while (args)
 	{

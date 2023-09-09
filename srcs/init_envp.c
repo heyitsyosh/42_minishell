@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 16:37:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:15:22 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 #include <unistd.h> //getcwd
 #include <errno.h> //errno, ERANGE
 
-static t_env	*make_envp_list(char **envp, t_data *d)
+static t_env	*make_envp_list(char **envp)
 {
 	size_t	i;
 	t_env	*new_env;
 	t_env	*envp_head;
+	t_env	*envp_tail;
 
 	i = 0;
 	envp_head = NULL;
@@ -28,8 +29,12 @@ static t_env	*make_envp_list(char **envp, t_data *d)
 	{
 		new_env = make_env_node(envp[i]);
 		if (i == 0)
+		{
 			envp_head = new_env;
-		env_add_back(d, new_env);
+			envp_tail = new_env;
+		}
+		env_add_back(envp_tail, new_env);
+		envp_tail = new_env;
 		i++;
 	}
 	return (envp_head);
@@ -47,7 +52,10 @@ static void	set_pwd(t_env *pwd, t_data *d)
 	if (!pwd)
 	{
 		pwd = make_env_node("PWD=");
-		env_add_back(d, pwd);
+		if (d->envp)
+			env_add_back(d->envp, pwd);
+		else
+			d->envp = pwd;
 		free(pwd->str);
 		pwd->str = x_strdup(current_dir);
 	}
@@ -62,7 +70,7 @@ static void	set_shlvl(t_env *shlvl, t_data *d)
 	if (!shlvl)
 	{
 		shlvl = make_env_node("SHLVL=0");
-		env_add_back(d, shlvl);
+		env_add_back(d->envp, shlvl);
 	}
 	original_shlvl = ft_strtol(shlvl->str, &check, 10);
 	if (*check || errno == ERANGE)
@@ -77,7 +85,7 @@ static void	set_shlvl(t_env *shlvl, t_data *d)
 
 void	init_envp(char **envp, t_data *d)
 {
-	d->envp = make_envp_list(envp, d);
+	d->envp = make_envp_list(envp);
 	set_pwd(get_env("PWD", d->envp), d);
 	set_shlvl(get_env("SHLVL", d->envp), d);
 }

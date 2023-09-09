@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:23:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/09 22:45:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/10 01:38:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,9 @@ char			*variable_expansion(char *ptr, size_t *i_mover, t_data *d);
 
 /* wildcard_expansion.c */
 t_token			*wildcard_expansion(t_word *word);
+
+/* wildcard_expansion_utils.c */
+bool			matches_pattern(char *d_name, t_word *word);
 
 /* word_to_list_util.c */
 t_word			*make_sub_word(char *sub_word, t_sub_word_type type);

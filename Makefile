@@ -11,6 +11,7 @@ SRC_FILES = main\
 			expand/word_to_list_utils\
 			expand/variable_expansion\
 			expand/wildcard_expansion\
+			expand/wildcard_expansion_utils\
 			parse/parse\
 			parse/parse_cmd\
 			parse/parse_redir\

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 21:59:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/09 15:15:22 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:56:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ static void	set_pwd(t_env *pwd, t_data *d)
 	if (!pwd)
 	{
 		pwd = make_env_node("PWD=");
-		if (d->envp)
-			env_add_back(d->envp, pwd);
-		else
-			d->envp = pwd;
+		add_new_env(pwd, d);
 		free(pwd->str);
 		pwd->str = x_strdup(current_dir);
 	}
@@ -70,7 +67,7 @@ static void	set_shlvl(t_env *shlvl, t_data *d)
 	if (!shlvl)
 	{
 		shlvl = make_env_node("SHLVL=0");
-		env_add_back(d->envp, shlvl);
+		add_new_env(shlvl, d);
 	}
 	original_shlvl = ft_strtol(shlvl->str, &check, 10);
 	if (*check || errno == ERANGE)

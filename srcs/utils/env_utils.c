@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/09 15:11:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:58:26 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ t_env	*get_env(char *id, t_env *env)
 	return (env);
 }
 
-void	add_new_env(t_env *tmp, t_data *d)
+void	add_new_env(t_env *env, t_data *d)
 {
 	if (!d->envp)
 	{
-		d->envp = tmp;
+		d->envp = env;
 		return ;
 	}
-	env_add_back(d->envp, tmp);
+	env_add_back(d->envp, env);
 }
 
 void	env_add_back(t_env *envp, t_env *env_to_add)

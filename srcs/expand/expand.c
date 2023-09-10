@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/10 01:37:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/11 04:08:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,27 @@ void	concat_non_asterisks(t_word *word, bool *has_wildcard)
 	}
 }
 
-void	replace_with_expanded(\
+static void	insert_wildcards_to_list(\
 		t_token *wildcard, t_token *current, t_token *saved_next)
 {
 	t_token	*wildcard_head;
 	t_token	*wildcard_tail;
 
-	if (wildcard)
-	{
-		wildcard_head = wildcard;
-		wildcard_tail = wildcard;
-		while (wildcard_tail->next)
-			wildcard_tail = wildcard_tail->next;
-		wildcard_tail->next = saved_next;
-		free(current->word);
-		current->word = wildcard->word;
-		current->next = wildcard->next;
-		free(wildcard_head);
-	}
+	wildcard_head = wildcard;
+	wildcard_tail = wildcard;
+	while (wildcard_tail->next)
+		wildcard_tail = wildcard_tail->next;
+	wildcard_tail->next = saved_next;
+	free(current->word);
+	current->word = wildcard->word;
+	current->next = wildcard->next;
+	free(wildcard_head);
+}
+
+static void	replace_with_expanded(t_word *word, t_token *current)
+{
+	free(current->word);
+	current->word = x_strdup(word->sub_word);
 }
 
 void	expand(t_token *tok, t_data *d)
@@ -71,12 +74,15 @@ void	expand(t_token *tok, t_data *d)
 		if (tok->type == WORD)
 		{
 			has_wildcard = false;
-			wildcard_matches = NULL;
 			word_head = divide_word_to_list(tok->word, d);
 			concat_non_asterisks(word_head, &has_wildcard);
 			if (has_wildcard)
+			{
 				wildcard_matches = wildcard_expansion(word_head);
-			replace_with_expanded(wildcard_matches, tok, saved_next);
+				insert_wildcards_to_list(wildcard_matches, tok, saved_next);
+			}
+			else
+				replace_with_expanded(word_head, tok);
 			free_sub_word_list(word_head);
 		}
 		tok = saved_next;

@@ -51,6 +51,7 @@ OBJ_DIR = ./objs
 
 SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:=.o))
+DEPS = $(OBJS:.o=.d)
 
 FT_LIBFTPRINTF = ./lib/printf/libftprintf.a
 GNL = ./lib/gnl/get_next_line.a 
@@ -75,6 +76,7 @@ INCLUDES = -I ./includes $(READLINE_INCLUDE)
 #	brew update && brew upgrade && brew install readline
 
 all: $(NAME)
+bonus: all
 
 $(OBJ_DIR)/%.o: ./srcs/%.c
 	@mkdir -p $(dir $@) 
@@ -94,5 +96,7 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+-include $(DEPS)
 
 .PHONY: all clean fclean re

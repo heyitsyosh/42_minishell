@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 16:12:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:05:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	delete_env(t_env *to_delete)
 		prev_env->next = next_env;
 	if (next_env)
 		next_env->prev = prev_env;
+	free(to_delete->id);
+	free(to_delete->str);
 	free(to_delete);
 }
 

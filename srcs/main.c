@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/09 14:56:51 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:03:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,8 @@ static void	run_repl(t_data *d)
 		if (!line)
 			break ;
 		if (*line)
-		{
 			run_line(line, d);
-			free(line);
-		}
-		else if (line)
-			free(line);
+		free(line);
 	}
 	ft_printf("\n");
 }

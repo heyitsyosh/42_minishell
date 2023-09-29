@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:20:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:25:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:34:16 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,14 @@
 
 static long	make_l(const char *str, size_t i, int sign, long num)
 {
-	long	min;
-
-	min = LONG_MIN;
 	while (*(str + i) && (*(str + i) >= '0' && *(str + i) <= '9'))
 	{
-		if (sign == 1 && ((num > LONG_MAX / 10)
-				|| (num == LONG_MAX / 10 && *(str + i) - '0' > LONG_MAX % 10)))
+		if (sign == 1 && num > LONG_MAX - (*(str + i) - '0'))
 		{
 			errno = ERANGE;
 			return (LONG_MAX);
 		}
-		else if (sign == -1 && ((num < min / 10)
-				|| (num == min / 10 && *(str + i) - '0' > min % 10 * -1)))
+		else if (sign == -1 && num < LONG_MIN + (*(str + i) - '0'))
 		{
 			errno = ERANGE;
 			return (LONG_MIN);

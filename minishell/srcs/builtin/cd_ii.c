@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:42:50 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 17:18:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:19:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "get_next_line.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h> //free
 
 static void	delete_last_elem(char **path)

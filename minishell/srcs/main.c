@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:26:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/12 21:03:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:09:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/ft_printf.h"
-#include "../includes/libft.h"
+#include "minishell.h"
+#include "ft_printf.h"
+#include "libft.h"
 #include <readline/readline.h> //readline
 #include <readline/history.h> //add_history
 #include <unistd.h> //STDERR_FILENO

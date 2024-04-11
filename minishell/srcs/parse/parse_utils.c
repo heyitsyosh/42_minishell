@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:57:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 02:31:09 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:17:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h> //malloc
 
 bool	is_redir(t_token *tok)

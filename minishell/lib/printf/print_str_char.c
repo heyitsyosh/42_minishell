@@ -6,14 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:21:29 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 21:58:09 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:42:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
 #include <limits.h> //INT_MAX
-#include <unistd.h> //write
 #include <stdlib.h> //free
+#include <unistd.h> //write
+#include "libft.h"
+#include "ft_printf.h"
 
 int	print_str(int fd, const char *input, size_t len)
 {

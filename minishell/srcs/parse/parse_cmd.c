@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:35:57 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/23 15:38:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:01 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 
 static void	add_cmd_element(t_token **tok, t_ast *node)
 {

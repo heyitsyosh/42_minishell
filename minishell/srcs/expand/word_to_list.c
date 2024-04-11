@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:11:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 22:35:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "get_next_line.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h> //free
 
 static t_word	*quote(char **quote_ptr)

@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:29:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:27:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/07 02:54:18 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
 #include <limits.h> //INT_MAX
 #include <unistd.h> //write
+#include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:55:16 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:28:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:08:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
 #include <limits.h> //LONG_MAX, LONG_MIN
 #include <stdbool.h> //bool
 #include <errno.h> //errno, EINVAL, ERANGE
+#include "libft.h"
 
 typedef struct s_strtol
 {

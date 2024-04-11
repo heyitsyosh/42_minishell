@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:39:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 17:08:22 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:14:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "ft_printf.h"
+#include "minishell.h"
+#include "libft.h"
 #include <sys/types.h> // W*
 #include <sys/wait.h> //waitpid
 #include <unistd.h> //STDERR_FILENO

@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:08:00 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/03 21:55:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 
 bool	is_builtin(char *cmd)
 {

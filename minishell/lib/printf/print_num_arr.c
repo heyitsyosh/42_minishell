@@ -6,12 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:37:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 21:58:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:42:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
 #include <unistd.h> //write
+#include "libft.h"
+#include "ft_printf.h"
 
 int	put_space_padding(int call, int flags, int not_space, t_printf *info)
 {
@@ -29,7 +30,6 @@ int	put_space_padding(int call, int flags, int not_space, t_printf *info)
 			pad_count += write(info->fd, &info->padding, 1);
 	return (pad_count);
 }
-
 static int	put_zero_padding(int flags, int num_len, t_printf *info)
 {
 	int	pad_count;

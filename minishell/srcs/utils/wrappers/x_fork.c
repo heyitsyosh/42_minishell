@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:44:11 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 19:42:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:16:19 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/ft_printf.h"
-#include "../../../includes/minishell.h"
+#include "ft_printf.h"
+#include "minishell.h"
 #include <unistd.h> //fork
 #include <errno.h> //errno
 

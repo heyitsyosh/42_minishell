@@ -6,11 +6,11 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:45:41 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 04:10:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:14:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 #include <unistd.h> //pipe, STIN_FILENO, STDOUT_FILENO
 
 void	save_io(int saved_io[2])

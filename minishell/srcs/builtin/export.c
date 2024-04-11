@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:31:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/09 22:58:17 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:19:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/ft_printf.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "ft_printf.h"
+#include "libft.h"
 #include <stdlib.h> //malloc, free, exit, EXIT_SUCCESS, EXIT_FAILURE
 
 static void	export_no_args(t_env *envp)

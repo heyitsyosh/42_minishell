@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:28:47 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:21:18 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/07 02:55:54 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
 #include <stdlib.h> //malloc
+#include "libft.h"
 
 t_list	*ft_lstnew(void *content)
 {

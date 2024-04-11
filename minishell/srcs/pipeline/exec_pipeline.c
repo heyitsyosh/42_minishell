@@ -6,11 +6,11 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:43:22 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 16:52:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:14:50 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 #include <unistd.h> //close, STDIN_FILENO
 
 static void	execute_pipeline_elem(t_pipeline *pipeline, t_data *d)

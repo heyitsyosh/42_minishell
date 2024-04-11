@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:44:52 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 20:48:41 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h> //exit, EXIT_SUCCESS;
 
 void	execute_subshell(t_ast *subshell, t_data *d)

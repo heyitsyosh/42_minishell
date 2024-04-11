@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 21:32:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:15:56 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 
 t_token	*operator(char *line)
 {

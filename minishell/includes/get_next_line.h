@@ -6,16 +6,17 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:15 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:22:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:45:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include "./libft.h"
-
 # ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# elif BUFFER_SIZE < 1
+#  undef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
 

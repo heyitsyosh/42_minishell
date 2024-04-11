@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 20:15:53 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 15:31:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:17:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../includes/ft_printf.h"
+#include "minishell.h"
+#include "ft_printf.h"
 #include <readline/readline.h>
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 #include <signal.h> //signal, SIGINT, SIGQUIT, SIG_IGN, SIG_DFL, SIG_ERR

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:29:25 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/13 05:06:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:11:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 
+size_t		ft_strnlen(const char *s, size_t maxlen);
+int			ft_max(int a, int b);
+int			ft_min(int a, int b);
+void		ft_safe_free(char **pointer);
+int			ft_strcmp(const char *s1, const char *s2);
+char		*ft_ltoa(long n);
+long		ft_strtol(const char *nptr, char **endptr, int base);
+int			ft_isspace(int c);
+long long	ft_atoll(const char *str);
+char		*ft_strstr(const char *haystack, const char *needle);
+
 typedef struct s_list
 {
 	void			*content;
@@ -67,16 +78,5 @@ void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-
-size_t		ft_strnlen(const char *s, size_t maxlen);
-int			ft_max(int a, int b);
-int			ft_min(int a, int b);
-void		ft_safe_free(char **pointer);
-int			ft_strcmp(const char *s1, const char *s2);
-char		*ft_ltoa(long n);
-long		ft_strtol(const char *nptr, char **endptr, int base);
-int			ft_isspace(int c);
-long long	ft_atoll(const char *str);
-char		*ft_strstr(const char *haystack, const char *needle);
 
 #endif

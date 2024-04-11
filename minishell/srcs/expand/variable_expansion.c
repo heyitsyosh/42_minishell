@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 06:06:36 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/11 03:58:48 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:26 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h> //free
 
 static char	*get_id(char *ptr, size_t *i_mover)

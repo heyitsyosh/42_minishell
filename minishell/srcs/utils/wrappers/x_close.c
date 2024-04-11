@@ -6,11 +6,11 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:19:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 18:27:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:16:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "minishell.h"
 #include <unistd.h> //close
 
 int	x_close(int fd)

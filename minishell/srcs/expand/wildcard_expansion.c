@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 05:49:26 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/10 01:37:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "get_next_line.h"
+#include "minishell.h"
+#include "libft.h"
 #include <sys/types.h> //struct dirent
 #include <dirent.h> //opendir, readdir, close_dir, DIR
 

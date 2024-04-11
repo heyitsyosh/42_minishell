@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 22:09:23 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 00:36:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "get_next_line.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h> //malloc
 
 static size_t	count_envs(t_env *envp)

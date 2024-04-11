@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 20:30:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 22:36:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:15:10 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "get_next_line.h"
+#include "minishell.h"
+#include "libft.h"
 #include <readline/readline.h> //readline, rl_done, rl_event_hook
 #include <signal.h> //signal, SIGINT, SIGQUIT, SIG_INT, SIG_ERR
 #include <unistd.h> //write, pipe

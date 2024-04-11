@@ -6,13 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:49:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 15:42:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:45:51 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
 #include <stdlib.h> //malloc
 #include <unistd.h> //read
+#include "get_next_line.h"
+#include "libft.h"
 
 static char	*read_till_nl_or_eof(int fd, char *buf, char **saved)
 {

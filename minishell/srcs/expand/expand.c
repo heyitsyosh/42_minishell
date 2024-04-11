@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:24:32 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/11 04:08:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
-#include "../../includes/minishell.h"
+#include "get_next_line.h"
+#include "minishell.h"
 #include <stdlib.h> //free
 
 void	concat_non_asterisks(t_word *word, bool *has_wildcard)

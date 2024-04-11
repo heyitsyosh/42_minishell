@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 00:55:19 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 22:13:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:15:51 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 #include <limits.h> //INT_MAX
 #include <stdlib.h> //malloc
 

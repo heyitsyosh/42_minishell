@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   x_strjoin.c                                        :+:      :+:    :+:   */
+/*   x_strjoin_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:44:11 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/05 03:32:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:17:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/get_next_line.h"
-#include "../../../includes/minishell.h"
+#include "get_next_line.h"
+#include "minishell.h"
 
 char	*x_strjoin_free(char *s1, char *s2, int to_free)
 {

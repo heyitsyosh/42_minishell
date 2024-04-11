@@ -6,11 +6,11 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 00:37:37 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/06 22:37:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:14:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 #include <stdlib.h> //malloc, free
 
 void	free_pipeline_list(t_pipeline *pipeline)

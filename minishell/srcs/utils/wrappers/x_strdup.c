@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:44:11 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/30 02:19:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:17:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 
 char	*x_strdup(const char *to_dup)
 {

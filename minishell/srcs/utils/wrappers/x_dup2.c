@@ -6,11 +6,11 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 02:19:35 by myoshika          #+#    #+#             */
-/*   Updated: 2023/08/30 02:23:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:16:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "minishell.h"
 #include <unistd.h> //dup2
 
 int	x_dup2(int oldfd, int newfd)

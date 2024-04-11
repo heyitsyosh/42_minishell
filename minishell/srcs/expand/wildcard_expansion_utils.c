@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 01:36:43 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/10 01:49:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "libft.h"
 
 static char	*find_matching_substr( \
 		char *d_name, char *sub_word, bool active_wildcard)

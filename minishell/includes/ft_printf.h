@@ -6,14 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:46:50 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 22:27:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:46:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "./libft.h"
 # include <stdbool.h> //bool
 # include <stddef.h> //size_t
 # include <stdarg.h> //va_start, va_end, va_arg, va_list
@@ -46,4 +45,5 @@ int		no_conversion(const char *input, t_printf *info);
 
 char	*ft_ulltoa(unsigned long long ull, int base, t_printf *info);
 int		print_str(int fd, const char *input, size_t len);
+
 #endif

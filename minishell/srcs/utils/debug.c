@@ -6,11 +6,11 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 01:58:27 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 20:15:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:17:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../includes/minishell.h"
+// #include "minishell.h"
 
 // void	print_tokens(t_token *head)
 // {

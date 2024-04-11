@@ -6,14 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 07:21:17 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/04 22:27:18 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:52:38 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
-#include <stdlib.h> //malloc, free
 #include <limits.h> //INT_MAX
+#include <stdlib.h> //malloc, free
 #include <unistd.h> //STDOUT_FILENO
+#include "libft.h"
+#include "ft_printf.h"
 
 size_t	conversion(const char *specifiers, t_printf *info, va_list *args)
 {

@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 04:49:33 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/07 21:51:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:17:50 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
-#include "../../includes/ft_printf.h"
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "get_next_line.h"
+#include "ft_printf.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h> //free
 #include <unistd.h> //STDERR_FILENO
 

@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 23:29:14 by myoshika          #+#    #+#             */
-/*   Updated: 2023/06/11 19:23:13 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/07 02:52:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
 #include <stdlib.h> //malloc
+#include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

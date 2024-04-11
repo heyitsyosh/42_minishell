@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:53:59 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/09 14:51:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:19:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/ft_printf.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "ft_printf.h"
+#include "libft.h"
 #include <stdlib.h> //EXIT_SUCCESS
 
 int	builtin_echo(t_token *args, t_data *d)

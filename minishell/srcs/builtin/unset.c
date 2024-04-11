@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 22:54:08 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/12 21:05:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:19:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/ft_printf.h"
-#include "../../includes/libft.h"
+#include "minishell.h"
+#include "ft_printf.h"
+#include "libft.h"
 #include <stdlib.h> //free, EXIT_SUCCESS, EXIT_FAILURE
 
 bool	is_valid_id(char *id)

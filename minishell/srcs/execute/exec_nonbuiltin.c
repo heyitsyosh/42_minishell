@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 05:11:38 by myoshika          #+#    #+#             */
-/*   Updated: 2023/09/08 15:38:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:18:51 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
-#include "../../includes/ft_printf.h"
-#include "../../includes/minishell.h"
-#include "../../includes/libft.h"
+#include "get_next_line.h"
+#include "ft_printf.h"
+#include "minishell.h"
+#include "libft.h"
 #include <sys/stat.h> //stat, struct stat, S_ISDIR
 #include <unistd.h> //access, execve, F_OK
 #include <stdlib.h> //free, exit

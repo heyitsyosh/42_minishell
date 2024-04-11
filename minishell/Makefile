@@ -47,17 +47,16 @@ SRC_FILES = main\
 			builtin/pwd\
 			builtin/unset
 
-OBJ_DIR = ./objs
+OBJS_DIR = ./objs/
+GNL_DIR = ./lib/gnl/
+LIBFTPRINTF_DIR = ./lib/printf/
 
-SRCS = $(foreach src,$(SRC_FILES),./srcs/$(src).c)
-OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:=.o))
+OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
 DEPS = $(OBJS:.o=.d)
 
-FT_LIBFTPRINTF = ./lib/printf/libftprintf.a
-GNL = ./lib/gnl/get_next_line.a 
-LIBFTPRINTFDIR = ./lib/printf
-GNLDIR = ./lib/gnl
-READLINE_LIB = -lreadline 
+READLINE_LIB = -lreadline
+GNL = ./lib/gnl/get_next_line.a
+LIBFTPRINTF = ./lib/printf/libftprintf.a
 
 ifeq ($(shell uname -s),Darwin)
 	READLINE_LIB = -L$(shell brew --prefix readline)/lib
@@ -68,30 +67,39 @@ else
 endif
 
 CFLAGS = -Wall -Wextra -Werror
-LIBS = -L$(LIBFTPRINTFDIR) $(READLINE_LIB) -lftprintf -lreadline 
+LIBS = -L$(LIBFTPRINTF_DIR) $(READLINE_LIB) -lftprintf -lreadline
 #-fsanitize=address -g3
 INCLUDES = -I ./includes $(READLINE_INCLUDE)
+
+GREEN = \033[0;32m
+NC = \033[0m
 
 # Get brew and readline:
 # 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
 #	brew update && brew upgrade && brew install readline
 
-all: $(NAME)
-bonus: all
+#--------------------------------------------------------------------------#
 
-$(OBJ_DIR)/%.o: ./srcs/%.c
-	@mkdir -p $(dir $@) 
-	gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
+all: $(NAME)
+
+$(OBJS_DIR)%.o: ./srcs/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
-	make -C $(LIBFTPRINTFDIR)
-	make -C $(GNLDIR)
-	gcc $(INCLUDES) $(OBJS) -o $@ $(LIBS) $(FT_LIBFTPRINTF) $(GNL)
+	@printf "$(GREEN)Entering printf directory...$(NC)\n"
+	@make --no-print-directory -C $(LIBFTPRINTF_DIR)
+	@printf "$(GREEN)Entering get_next_line directory...$(NC)\n"
+	@make --no-print-directory -C $(GNL_DIR)
+	@printf "$(GREEN)Entering root directory...$(NC)\n"
+	$(CC) $(INCLUDES) $(OBJS) -o $@ $(LIBS) $(LIBFTPRINTF) $(GNL)
 
 clean:
-	make fclean -C $(LIBFTPRINTFDIR)
-	make fclean -C $(GNLDIR)
-	rm -rf $(OBJ_DIR)
+	@make fclean --no-print-directory -C $(LIBFTPRINTF_DIR)
+	@printf "$(GREEN)Entering get_next_line directory...$(NC)\n"
+	@make fclean --no-print-directory -C $(GNL_DIR)
+	@printf "$(GREEN)Entering root directory...$(NC)\n"
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	$(RM) $(NAME)

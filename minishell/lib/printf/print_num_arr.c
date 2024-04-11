@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:37:03 by myoshika          #+#    #+#             */
-/*   Updated: 2024/04/12 05:42:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:55:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	put_space_padding(int call, int flags, int not_space, t_printf *info)
 			pad_count += write(info->fd, &info->padding, 1);
 	return (pad_count);
 }
+
 static int	put_zero_padding(int flags, int num_len, t_printf *info)
 {
 	int	pad_count;
